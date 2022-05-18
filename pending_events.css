@@ -1,0 +1,10 @@
+body{
+  background: #A4D7ED; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #A4D7ED, #DEC5E3); /*Safari 5.1-6*/
+  background: -o-linear-gradient(right, #A4D7ED, #DEC5E3); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(right, #A4D7ED, #DEC5E3); /*Fx 3.6-15*/
+  background: linear-gradient(to right, #A4D7ED, #DEC5E3); /*Standard*/
+  
+  color: #324376;
+  /* font-family: 'Comfortaa', cursive; */
+}

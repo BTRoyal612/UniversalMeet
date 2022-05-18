@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./admin.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d20e5bcc.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+  <title>Admin</title>
+</head>
+
+<body>
+  <div class="admin-button-ctn">
+    <button class="admin-button submit">Events</button>
+    <button class="admin-button submit">Users</button>
+    <button class="admin-button submit">Create Admin</button>
+  </div>
+  <div class="table-header">
+    <h1>Users</h1>
+  </div>
+  <table id="example" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>UserID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Social Media</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>a12800</td>
+        <td>Edinburgh</td>
+        <td>a@gmail.com</td>
+        <td>Facebook/Email</td>
+        <td>123445</td>
+      </tr>
+      <tr>
+        <td>a12801</td>
+        <td>Tokyo</td>
+        <td>b@gmail.com</td>
+        <td>Facebook/Email</td>
+        <td>qiuwos</td>
+      </tr>
+      <tr>
+        <td>a12802</td>
+        <td>San Francisco</td>
+        <td>c@gmail.com</td>
+        <td>Facebook/Email</td>
+        <td>123445</td>
+      </tr>
+      <tr>
+        <td>a12803</td>
+        <td>Saigon</td>
+        <td>d@gmail.com</td>
+        <td>Facebook/Email</td>
+        <td>kwkssd</td>
+      </tr>
+    <tfoot>
+      <tr>
+        <th>UserID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Social Media</th>
+        <th>Password</th>
+      </tr>
+    </tfoot>
+
+  </table>
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable();
+    });
+  </script>
+</body>
+
+
+</html>
