@@ -29,42 +29,21 @@ router.post('/username', function(req, res, next) {
 /* GET user, update password. */
 router.post('/updatePassword', function(req, res, next) {
   // Connect to the database
-  var id;
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT user_id FROM User WHERE username = ? AND password = ?";
-    connection.query(query, [req.body.username, req.body.currentPass], function(err, rows, fields) {
+    var query = "UPDATE User SET password = ? WHERE user_id = (SELECT user_id FROM User WHERE username = ? AND password = ?)";
+    connection.query(query, [req.body.newPass, req.body.username, req.body.currentPass], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
         return;
       }
-      console.log(rows[0].user_id);
+      res.json(rows); //send response
     });
   });
-
-  console.log(id);
-
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "UPDATE User SET password = ? WHERE user_id = ?";
-    connection.query(query, [req.body.newPass, id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      console.log(rows);
-    });
-  });
-
-  res.json(id); //send response
 })
 
 module.exports = router;
