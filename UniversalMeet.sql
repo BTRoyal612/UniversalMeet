@@ -88,16 +88,16 @@ USE universal_meet;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO User VALUES (1, 'tester00', 'tester00@gmail.com', 'tester00pass'),
-(2, 'tester01', 'tester01@gmail.com', 'tester01pass'),
-(3, 'tester02', 'tester02@gmail.com', 'tester02pass'),
-(4, 'tester03', 'tester03@gmail.com', 'tester03pass'),
-(5, 'tester04', 'tester04@gmail.com', 'tester04pass'),
-(6, 'tester05', 'tester05@gmail.com', 'tester05pass'),
-(7, 'tester06', 'tester06@gmail.com', 'tester06pass'),
-(8, 'tester07', 'tester07@gmail.com', 'tester07pass'),
-(9, 'tester08', 'tester08@gmail.com', 'tester08pass'),
-(10, 'tester09', 'tester09@gmail.com', 'tester09pass');
+INSERT INTO User VALUES (1, 'tester00', 'tester00@gmail.com', 'tester00pass', false),
+(2, 'tester01', 'tester01@gmail.com', 'tester01pass', false),
+(3, 'tester02', 'tester02@gmail.com', 'tester02pass', false),
+(4, 'tester03', 'tester03@gmail.com', 'tester03pass', false),
+(5, 'tester04', 'tester04@gmail.com', 'tester04pass', false),
+(6, 'tester05', 'tester05@gmail.com', 'tester05pass', false),
+(7, 'tester06', 'tester06@gmail.com', 'tester06pass', false),
+(8, 'tester07', 'tester07@gmail.com', 'tester07pass', false),
+(9, 'tester08', 'tester08@gmail.com', 'tester08pass', false),
+(10, 'tester09', 'tester09@gmail.com', 'tester09pass', true);
 COMMIT;
 
 --
@@ -117,11 +117,11 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO Event_pending VALUES (3, 2),
-(3, 10),
-(4, 6),
-(4, 8),
-(4, 4);
+INSERT INTO Event_pending VALUES (3, 2, true),
+(3, 5, true),
+(4, 6, true),
+(4, 8, true),
+(4, 4, true);
 COMMIT;
 
 --
@@ -129,9 +129,9 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO Event_chosent_time VALUES (1, 4, 6, '18:30:00'),
-(1, 4, 8, '17:15:00'),
-(1, 4, 4, '19:00:00');
+INSERT INTO Event_chosen_time VALUES (1, 4, 6, '18:30:00'),
+(2, 4, 8, '17:15:00'),
+(3, 4, 4, '19:00:00');
 COMMIT;
 
 --
@@ -139,14 +139,14 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO Email_preference VALUES (1),
-(2),
-(3),
-(4),
+INSERT INTO Email_preference VALUES (1, false, false, false, false),
+(2, false, false, false, false),
+(3, false, false, true, false),
+(4, false, false, false, false),
 (5, true, false, false, true),
-(6),
+(6, false, false, false, false),
 (7, true, true, true, true),
-(8),
-(9),
-(10),
+(8, false, false, false, false),
+(9), false, true, false, false,
+(10, false, false, false, false);
 COMMIT;
