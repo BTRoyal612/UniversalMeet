@@ -147,6 +147,6 @@ INSERT INTO Email_preference VALUES (1, false, false, false, false),
 (6, false, false, false, false),
 (7, true, true, true, true),
 (8, false, false, false, false),
-(9), false, true, false, false,
+(9, false, true, false, false),
 (10, false, false, false, false);
 COMMIT;
