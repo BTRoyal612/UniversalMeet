@@ -66,4 +66,24 @@ router.post('/addEvent', function(req, res, next) {
   });
 })
 
+/* POST update email preference. */
+router.post('/updateEmailPreference', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "UPDATE Email_preference SET  user_respond = ?";
+    connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
+})
+
 module.exports = router;
