@@ -30,6 +30,7 @@ router.post('/username', function(req, res, next) {
 router.post('/updatePassword', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
+
     if (err) {
       res.sendStatus(500);
       return;
@@ -39,11 +40,11 @@ router.post('/updatePassword', function(req, res, next) {
     connection.query(query, [req.body.username, req.body.currentPass], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log("select id");
+
         res.sendStatus(500);
         return;
       }
-
+      console.log("check");
       var query = "UPDATE User SET password = ? WHERE user_id = ?";
       connection.query(query, [req.body.newPass, rows.user_id], function(err, rows, fields) {
         connection.release(); // release connection
