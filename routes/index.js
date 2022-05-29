@@ -42,7 +42,7 @@ router.post('/updatePassword', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      id = rows;
+      id = rows[0].user_id;
     });
   });
 
@@ -54,7 +54,7 @@ router.post('/updatePassword', function(req, res, next) {
       return;
     }
     var query = "UPDATE User SET password = ? WHERE user_id = ?";
-    connection.query(query, [req.body.newPass, id[0].user_id], function(err, rows, fields) {
+    connection.query(query, [req.body.newPass, id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
