@@ -44,7 +44,7 @@ router.get('/updatePassword', function(req, res, next) {
       }
 
 
-      var query = "UPDATE User SET password = ? WHERE username = ? AND password = ?";
+      var query = "UPDATE User SET password = ? WHERE user = ? AND password = ?";
       connection.query(query, [req.body.currentPass, req.body.username, req.body.newpassword], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
