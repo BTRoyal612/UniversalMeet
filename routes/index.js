@@ -39,6 +39,7 @@ router.post('/updatePassword', function(req, res, next) {
     connection.query(query, [req.body.username, req.body.currentPass], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
+        console.log("select id");
         res.sendStatus(500);
         return;
       }
