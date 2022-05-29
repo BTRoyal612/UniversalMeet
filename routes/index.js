@@ -6,6 +6,26 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* POST add admin. */
+router.post('/addAdmin', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "INSERT INTO User (username, password, isAdmin) VALUES (?, ?, true)";
+    connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
+    });
+  });
+})
+
 /* POST get user list. */
 router.post('/getUserList', function(req, res, next) {
   // Connect to the database
@@ -55,7 +75,7 @@ router.post('/addUser', function(req, res, next) {
       return;
     }
     var query = "INSERT INTO User (username, password) VALUES (?, ?)";
-    connection.query(query, [req.body.username, req.body.password, req.body.username, req.body.password], function(err, rows, fields) {
+    connection.query(query, [req.body.username, req.body.passwordd], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
