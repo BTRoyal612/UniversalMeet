@@ -7,15 +7,15 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET user. */
-router.get('/getUser', function(req, res, next) {
+router.get('/username', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT first_name, last_name FROM actor";
-    connection.query(query, function(err, rows, fields) {
+    var query = "SELECT user_id FROM User WHERE username = ? AND password = ?";
+    connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
     connection.release(); // release connection
     if (err) {
       res.sendStatus(500);
@@ -25,5 +25,7 @@ router.get('/getUser', function(req, res, next) {
     });
   });
 })
+
+
 
 module.exports = router;
