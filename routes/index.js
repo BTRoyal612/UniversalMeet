@@ -26,7 +26,7 @@ router.get('/username', function(req, res, next) {
   });
 })
 
-/* GET user. */
+/* GET user, update password. */
 router.get('/updatePassword', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
