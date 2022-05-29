@@ -6,8 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-/* POST login. */
-router.post('/login', function(req, res, next) {
+/* POST get user. */
+router.post('/getUser', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
@@ -26,8 +26,8 @@ router.post('/login', function(req, res, next) {
   });
 })
 
-/* POST signup. */
-router.post('/signup', function(req, res, next) {
+/* POST add user. */
+router.post('/addUser', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
