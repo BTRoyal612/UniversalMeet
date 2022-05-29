@@ -41,28 +41,27 @@ router.post('/addUser', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); //send response
+      res.send(); //send response
     });
   });
 })
 
-/* GET user, update password. */
-router.post('/updatePassword', function(req, res, next) {
+/* POST add event. */
+router.post('/addEvent', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
-      console.log("check");
       res.sendStatus(500);
       return;
     }
-    var query = "UPDATE User SET password = ? WHERE user_id = (SELECT user_id FROM User WHERE username = ? AND password = ?)";
-    connection.query(query, [req.body.newPass, req.body.username, req.body.currentPass], function(err, rows, fields) {
+    var query = "INSERT INTO Event (creator_id, event_name, duration, time_zone, hold_location, due_date, note, share_link, isOnline) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    connection.query(query, [req.body.creator_id, req.body.event_name, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link,  req.body.isOnline], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); //send response
+      res.send(); //send response
     });
   });
 })
