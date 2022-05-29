@@ -34,8 +34,8 @@ CREATE TABLE Event(
     isFinalised BOOLEAN NOT NULL DEFAULT false,
     isOnline BOOLEAN NOT NULL,
 
-    PRIMARY KEY (event_id),
-    CONSTRAINT fk_user_id FOREIGN KEY (creator_id) REFERENCES User (user_id)
+    PRIMARY KEY (event_id)
+    -- CONSTRAINT fk_user_id FOREIGN KEY (creator_id) REFERENCES User (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE Event_pending(
@@ -43,9 +43,9 @@ CREATE TABLE Event_pending(
     user_id INT NOT NULL,
     isPending BOOLEAN NOT NULL DEFAULT true,
 
-    PRIMARY KEY (event_id, user_id), -- this combination must be unique
-    CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES Event (event_id),
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id)
+    PRIMARY KEY (event_id, user_id) -- this combination must be unique
+    -- CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES Event (event_id),
+    -- CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE Event_chosen_time(
@@ -55,9 +55,9 @@ CREATE TABLE Event_chosen_time(
     chosen_time TIME NOT NULL, -- TIME only includes hh:mm:ss
 
     PRIMARY KEY (chosen_time_id),
-    CONSTRAINT chosen_time_not_unique UNIQUE (event_id, user_id, chosen_time), -- this combination must be unique
-    CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES Event (event_id),
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id)
+    CONSTRAINT chosen_time_not_unique UNIQUE (event_id, user_id, chosen_time) -- this combination must be unique
+    -- CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES Event (event_id),
+    -- CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -66,9 +66,9 @@ CREATE TABLE Email_preference(
     user_respond BOOLEAN NOT NULL DEFAULT false,
     avail_confirm BOOLEAN NOT NULL DEFAULT false,
     event_finalize BOOLEAN NOT NULL DEFAULT false,
-    event_cancel BOOLEAN NOT NULL DEFAULT false,
+    event_cancel BOOLEAN NOT NULL DEFAULT false
 
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id) -- ON DELETE RESTRICT ON UPDATE CASCADE,
+    -- CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id) -- ON DELETE RESTRICT ON UPDATE CASCADE,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
