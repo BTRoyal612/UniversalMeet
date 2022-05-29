@@ -59,7 +59,6 @@ body {
   width: 50%;
   background-color: var(--light-main);
   border-radius: 30px;
-  padding: 20px;
   overflow: hidden;
   box-shadow: var(--shadow);
   position: absolute;
@@ -76,8 +75,11 @@ body {
 .pref-header {
   text-align: center;
   font-weight: bold;
-  color: #0000ff;
+  color: var(--dark-text);
   margin-bottom: 10px;
+  background-color: #0000ff;
+  padding: 10px 0;
+
 }
 
 .form-check {
