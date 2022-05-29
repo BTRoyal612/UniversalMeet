@@ -16,12 +16,12 @@ router.get('/username', function(req, res, next) {
     }
     var query = "SELECT user_id FROM User WHERE username = ? AND password = ?";
     connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
-    connection.release(); // release connection
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    res.json(rows); //send response
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
     });
   });
 })
@@ -37,20 +37,20 @@ router.get('/updatePassword', function(req, res, next) {
 
     var query = "SELECT user_id FROM User WHERE username = ? AND password = ?";
     connection.query(query, [req.body.username, req.body.currentPass], function(err, rows, fields) {
-    connection.release(); // release connection
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    res.json(rows); //send response
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
 
-    var query = "UPDATE User SET password = ? WHERE username = ? AND password = ?";
-    connection.query(query, [req.body.currentPass, req.body.username, req.body.newpassword], function(err, rows, fields) {
-    connection.release(); // release connection
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
+      var query = "UPDATE User SET password = ? WHERE username = ? AND password = ?";
+      connection.query(query, [req.body.currentPass, req.body.username, req.body.newpassword], function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
     });
 
     var query = "UPDATE User SET password = ? WHERE username = ? AND password = ?";
