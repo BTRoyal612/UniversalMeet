@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET user. */
-router.get('/username', function(req, res, next) {
+router.post('/username', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
@@ -27,7 +27,7 @@ router.get('/username', function(req, res, next) {
 })
 
 /* GET user, update password. */
-router.get('/updatePassword', function(req, res, next) {
+router.post('/updatePassword', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
