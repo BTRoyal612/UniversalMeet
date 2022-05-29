@@ -42,7 +42,7 @@ router.post('/updatePassword', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      id = rows[0].user_id;
+      console.log(rows[0].user_id);
     });
   });
 
