@@ -34,17 +34,8 @@ router.get('/updatePassword', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-
-    var query = "SELECT user_id FROM User WHERE username = ? AND password = ?";
-    connection.query(query, [req.body.username, req.body.currentPass], function(err, rows, fields) {
-    connection.release(); // release connection
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-
-    var query = "UPDATE User SET password = ? WHERE user_id = ?";
-    connection.query(query, [req.body.newPass, rows.user_id], function(err, fields) {
+    var query = "UPDATE User SET password = ? WHERE username = ? AND password = ?";
+    connection.query(query, [req.body.currentPass, req.body.username, req.body.newpassword], function(err, rows, fields) {
     connection.release(); // release connection
     if (err) {
       res.sendStatus(500);
