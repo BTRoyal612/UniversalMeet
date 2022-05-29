@@ -44,9 +44,9 @@ router.post('/updatePassword', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      console.log(rows);
+      console.log(rows[0].user_id);
       var query = "UPDATE User SET password = ? WHERE user_id = ?";
-      connection.query(query, [req.body.newPass, rows.user_id], function(err, rows, fields) {
+      connection.query(query, [req.body.newPass, rows[0].user_id], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           res.sendStatus(500);
