@@ -6,6 +6,26 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+/* POST update password. */
+router.post('/updatePassword', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "UPDATE User SET email = ? WHERE user_id = ?";
+    connection.query(query, [req.body.email, req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
+    });
+  });
+})
+
 /* POST get user event list. */
 router.post('/getEventList', function(req, res, next) {
   // Connect to the database
@@ -114,8 +134,8 @@ router.post('/updateEmail', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "UPDATE Email_preference SET user_respond = ?, avail_confirm = ?, event_finalize = ?, event_cancel = ? WHERE user_id = ?";
-    connection.query(query, [req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel, req.body.user_id], function(err, rows, fields) {
+    var query = "UPDATE User SET email = ? WHERE user_id = ?";
+    connection.query(query, [req.body.email, req.body.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
