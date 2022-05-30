@@ -61,5 +61,25 @@ router.post('/deleteUser', function(req, res, next) {
   });
 })
 
+/* POST get event list admin. */
+router.post('/getEventList', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT * FROM Event";
+    connection.query(query, function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
+})
+
 
 module.exports = router;
