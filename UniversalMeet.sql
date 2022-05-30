@@ -86,7 +86,7 @@ DELIMITER ;
 
 /* EXEC sign_in @username = ?, @password = ?; */
 DELIMITER //
-CREATE PROCEDURE sign_in(
+CREATE PROCEDURE login(
     IN user_name VARCHAR(30), pass_word VARCHAR(50)
 )
 BEGIN
