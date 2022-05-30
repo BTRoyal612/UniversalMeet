@@ -43,10 +43,10 @@ router.post('/getUserList', function(req, res, next) {
 
 /* POST delete user admin. */
 router.post('/deleteUser', function(req, res, next) {
-    // Connect to the database
-    req.pool.getConnection(function(err, connection) {
-      if (err) {
-        res.sendStatus(500);
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
         return;
       }
       var query = "DELETE FROM User WHERE user_id = ?";
