@@ -26,9 +26,11 @@ router.post('/login', function(req, res, next) {
 
         if (rows.length > 0) {
           req.session.user = rows[0];
+          console.log('login success');
           res.sendStatus(200);
         } else {
-
+          console.log('login bad');
+          res.sendStatus(401);
         }
         res.json(rows); //send response
       });
@@ -37,23 +39,25 @@ router.post('/login', function(req, res, next) {
 })
 
 /* POST sign up. */
-router.post('/addUser', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "INSERT INTO User (username, password) VALUES (?, ?)";
-    connection.query(query, [req.body.username, req.body.passwordd], function(err, rows, fields) {
-      connection.release(); // release connection
+router.post('/signup', function(req, res, next) {
+  if ('username' in req.body && 'password' in req.body) {
+    // Connect to the database
+    req.pool.getConnection(function(err, connection) {
       if (err) {
         res.sendStatus(500);
         return;
       }
-      res.send(); //send response
+      var query = "INSERT INTO User (username, password) VALUES (?, ?)";
+      connection.query(query, [req.body.username, req.body.passwordd], function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.send(); //send response
+      });
     });
-  });
+  }
 })
 
 /* POST login. */
