@@ -6,6 +6,27 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+/* POST update user session. */
+router.post('/updateSession', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT * FROM User WHERE WHERE user_id = ?";
+    connection.query(query, [req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      req.session.user = rows[0];
+      res.json(rows); //send response
+    });
+  });
+})
+
 /* POST update password. */
 router.post('/updatePassword', function(req, res, next) {
   // Connect to the database
@@ -14,8 +35,8 @@ router.post('/updatePassword', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "UPDATE User SET email = ? WHERE user_id = ?";
-    connection.query(query, [req.body.email, req.body.user_id], function(err, rows, fields) {
+    var query = "UPDATE User SET password = ? WHERE user_id = ?";
+    connection.query(query, [req.body.password, req.body.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
