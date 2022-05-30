@@ -106,6 +106,26 @@ router.post('/updateEvent', function(req, res, next) {
   });
 })
 
+/* POST update email. */
+router.post('/updateEmail', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "UPDATE Email_preference SET user_respond = ?, avail_confirm = ?, event_finalize = ?, event_cancel = ? WHERE user_id = ?";
+    connection.query(query, [req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel, req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
+    });
+  });
+})
+
 /* POST update email preference. */
 router.post('/updateEmailPreference', function(req, res, next) {
   // Connect to the database
