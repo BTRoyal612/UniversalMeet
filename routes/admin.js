@@ -41,4 +41,25 @@ router.post('/addAdmin', function(req, res, next) {
     });
   })
 
+  /* POST get user list admin. */
+router.post('/getUserListAdmin', function(req, res, next) {
+    // Connect to the database
+    req.pool.getConnection(function(err, connection) {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      var query = "SELECT * FROM User";
+      connection.query(query, function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.json(rows); //send response
+      });
+    });
+  })
+
+
 module.exports = router;
