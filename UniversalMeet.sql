@@ -75,7 +75,27 @@ CREATE TABLE Email_preference(
     CONSTRAINT fk_userid_to_email FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/* For sign up, need to sign_in after sign_up to check if sign_up is successful, and give feedback to user */
+/* EXEC sign_up @username = ?, @email = ?, @password = ?; */
+DELIMITER //
+CREATE PROCEDURE sign_up (
+    IN user_name VARCHAR(30), e_mail VARCHAR(50), pass_word VARCHAR(50)
+)
+BEGIN
+    INSERT INTO User (username, email, password) VALUES (user_name, e_mail, pass_word);
+END //
+DELIMITER ;
 
+/* EXEC sign_in @username = ?, @password = ?; */
+DELIMITER //
+CREATE PROCEDURE sign_in(
+    IN user_name VARCHAR(30), pass_word VARCHAR(50)
+)
+BEGIN
+    SELECT (username, email, isAdmin) FROM User /* if admin, then... else... */
+        WHERE username = user_name AND password = pass_word;
+END //
+DELIMITER ;
 
 -- Sample Database Data
 
