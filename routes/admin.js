@@ -51,15 +51,15 @@ router.post('/deleteUser', function(req, res, next) {
     }
     var query = "DELETE FROM User WHERE user_id = ?";
     connection.query(query, [req.body.user_id], function(err, rows, fields) {
-        connection.release(); // release connection
-        if (err) {
-          res.sendStatus(500);
-          return;
-        }
-        res.send(); //send response
-      });
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
     });
-  })
+  });
+})
 
 
 module.exports = router;
