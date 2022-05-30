@@ -26,8 +26,8 @@ router.post('/addAdmin', function(req, res, next) {
   });
 })
 
-/* POST get user list. */
-router.post('/getUserList', function(req, res, next) {
+/* POST get user list admin. */
+router.post('/getUserListAdmin', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
@@ -86,7 +86,7 @@ router.post('/addUser', function(req, res, next) {
   });
 })
 
-/* POST delete user. */
+/* POST delete user admin. */
 router.post('/deleteUser', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
@@ -106,7 +106,7 @@ router.post('/deleteUser', function(req, res, next) {
   });
 })
 
-/* POST get event list. */
+/* POST get event list admin. */
 router.post('/getEventList', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
