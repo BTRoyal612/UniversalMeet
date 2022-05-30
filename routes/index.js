@@ -27,6 +27,7 @@ router.post('/login', function(req, res, next) {
         if (rows.length > 0) {
           req.session.user = rows[0];
           console.log('login success');
+          console.log(req.session.user);
           res.json(rows); //send response
         } else {
           console.log('login bad');
