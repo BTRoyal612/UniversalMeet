@@ -48,7 +48,7 @@ router.post('/signup', function(req, res, next) {
         return;
       }
       var query = "INSERT INTO User (username, password) VALUES (?, ?)";
-      connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
+      connection.query(query, [req.body.username, req.body.password,], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           console.log(err);
