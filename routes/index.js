@@ -26,7 +26,7 @@ router.post('/login', function(req, res, next) {
 
         if (rows.length > 0) {
           req.session.user = rows[0];
-          res.sendStatus()
+          res.sendStatus(200);
         } else {
 
         }
@@ -54,6 +54,14 @@ router.post('/addUser', function(req, res, next) {
       res.send(); //send response
     });
   });
+})
+
+/* POST login. */
+router.post('/logout', function(req, res, next) {
+  if ('user' in req.session) {
+    delete req.session.user;
+  }
+  res.end();
 })
 
 module.exports = router;
