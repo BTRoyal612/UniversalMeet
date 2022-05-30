@@ -126,13 +126,13 @@ COMMIT;
 -- Dumping data for table event
 --
 
-SET AUTOCOMMIT=0;
-INSERT INTO Event VALUES (1, 1, 'event00', '60', 'Australian Central Standard Time', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', true, false),
-(2, 3, 'event01', '90', 'Indochina Time', '378 house', '2018-07-25 18:34:33', '9/1', 'none', true, false),
-(3, 5, 'event02', '30', 'Mountain Daylight Time', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', false, true),
-(4, 7, 'event03', '15', 'Australian Central Standard Time', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false, false),
-(5, 9, 'event04', '45', 'Australian Central Standard Time', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', true, false);
-COMMIT;
+-- SET AUTOCOMMIT=0;
+-- INSERT INTO Event VALUES (1, 1, 'event00', '60', 'Australian Central Standard Time', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', true, false),
+-- (2, 3, 'event01', '90', 'Indochina Time', '378 house', '2018-07-25 18:34:33', '9/1', 'none', true, false),
+-- (3, 5, 'event02', '30', 'Mountain Daylight Time', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', false, true),
+-- (4, 7, 'event03', '15', 'Australian Central Standard Time', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false, false),
+-- (5, 9, 'event04', '45', 'Australian Central Standard Time', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', true, false);
+-- COMMIT;
 
 --
 -- Dumping data for table event pending
