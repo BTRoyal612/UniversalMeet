@@ -9,11 +9,13 @@ DROP SCHEMA IF EXISTS universal_meet;
 CREATE SCHEMA universal_meet;
 USE universal_meet;
 
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE User(
     user_id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
     email VARCHAR(50),
-    password VARCHAR(30) NOT NULL, -- CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+    password VARCHAR(50) NOT NULL, /* should be salted and hashing encrypto */
     isAdmin BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (user_id),
@@ -25,17 +27,20 @@ CREATE TABLE Event(
     event_id INT NOT NULL AUTO_INCREMENT,
     creator_id INT NOT NULL,
     event_name VARCHAR(100) NOT NULL,
-    duration TINYINT(4) NOT NULL,
-    time_zone VARCHAR(50) NOT NULL,
+    date DATE NOT NULL,
+    time_begin TIME NOT NULL, /* TIME only includes hh:mm:ss */
+    time_end TIME NOT NULL, /* bigger than time_begin */
+    duration TINYINT(4) NOT NULL, /* unit: minute or hour? */
+    time_zone VARCHAR(50) NOT NULL, /* what this variable should be (maybe depends on the value from js) */
     hold_location VARCHAR(300) NOT NULL,
     due_date TIMESTAMP NOT NULL,
     note VARCHAR(500),
-    share_link VARCHAR(300) NOT NULL, -- should be generated automatically, but also unique. Not sure how to do
-    isFinalised BOOLEAN NOT NULL DEFAULT false,
+    share_link VARCHAR(300) NOT NULL, /* should be generated automatically, but also unique. Not sure how to do? */
+    isFinalised BOOLEAN NOT NULL DEFAULT false, /* is this necessary auto renew TIMESTAMP to judge isFinalised based on due_date? */
     isOnline BOOLEAN NOT NULL,
 
-    PRIMARY KEY (event_id)
-    -- CONSTRAINT fk_user_id FOREIGN KEY (creator_id) REFERENCES User (user_id)
+    PRIMARY KEY (event_id),
+    CONSTRAINT fk_userid_to_event FOREIGN KEY (creator_id) REFERENCES User (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE Event_pending(
@@ -43,21 +48,20 @@ CREATE TABLE Event_pending(
     user_id INT NOT NULL,
     isPending BOOLEAN NOT NULL DEFAULT true,
 
-    PRIMARY KEY (event_id, user_id) -- this combination must be unique
-    -- CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES Event (event_id),
-    -- CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id)
+    PRIMARY KEY (event_id, user_id), /* this combination must be unique */
+    CONSTRAINT fk_eventid_to_pending FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE,
+    CONSTRAINT fk_userid_to_pending FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE Event_chosen_time(
-    chosen_time_id INT NOT NULL AUTO_INCREMENT,
     event_id INT NOT NULL,
     user_id INT NOT NULL,
-    chosen_time TIME NOT NULL, -- TIME only includes hh:mm:ss
+    chosen_time TIME NOT NULL,
 
-    PRIMARY KEY (chosen_time_id),
-    CONSTRAINT chosen_time_not_unique UNIQUE (event_id, user_id, chosen_time) -- this combination must be unique
-    -- CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES Event (event_id),
-    -- CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id)
+    /* this combination must be unique. which means one user cannot repeatedly choose the same time in one event */
+    PRIMARY KEY (event_id, user_id, chosen_time),
+    CONSTRAINT fk_eventid_to_chosen FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE,
+    CONSTRAINT fk_userid_to_chosen FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -66,9 +70,9 @@ CREATE TABLE Email_preference(
     user_respond BOOLEAN NOT NULL DEFAULT false,
     avail_confirm BOOLEAN NOT NULL DEFAULT false,
     event_finalize BOOLEAN NOT NULL DEFAULT false,
-    event_cancel BOOLEAN NOT NULL DEFAULT false
+    event_cancel BOOLEAN NOT NULL DEFAULT false,
 
-    -- CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (user_id) -- ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_userid_to_email FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
