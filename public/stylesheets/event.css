@@ -274,8 +274,8 @@ body {
 }
 
 .event-info {
-  height: 650px;
-  width: 500px;
+  height: max-content;
+  width: 60%;
   background-color: var(--light-main);
   border-radius: 30px;
   padding: 20px;
@@ -304,7 +304,7 @@ body {
 }
 
 .time-frame-input {
-  width: 40%;
+  width: 80%;
   padding: 0px 11px;
   margin: 12px 5px;
   display: inline-block;

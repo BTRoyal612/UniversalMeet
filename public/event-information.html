@@ -14,19 +14,17 @@
 
 <body>
   <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
-  <div class="arrow next"><i class="arrow-icon fa-solid fa-angle-right"></i></div>
-  <div class="box">
+  <div class="arrow next" onclick="updateEvent()"><i class="arrow-icon fa-solid fa-angle-right"></i></div>
+  <div class="event-info">
     <h1 class="event-info-header">Event Information</h1>
     <label>Event Name</label>
-    <input type="text" placeholder="Event Name" name="event-name" class="event-input">
-    <label>Time Frames</label>
-    <div class="time-frame-ctn"></div>
+    <input id="event-name" type="text" placeholder="Event Name" name="event-name" class="event-input">
+    <label>Duration (in minute)</label>
+    <input id="event-duration" type="number" placeholder="Duration" name="event-duration" class="event-input">
     <label>From</label>
-    <input type="time" name="event-name" class="time-frame-input">
-    <label>To</label>
-    <input type="time" name="event-name" class="time-frame-input">
+    <input id="event-from" type="time" name="event-from" class="event-input">
     <label>Time Zones</label>
-    <select class="event-input">
+    <select id="event-time-zone" class="event-input">
       <option value="-12">(GMT-12:00) International Date Line West</option>
       <option value="-11">(GMT-11:00) Midway Island, Samoa</option>
       <option value="-10">(GMT-10:00) Hawaii</option>
@@ -110,17 +108,18 @@
       <option value="12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
       <option value="13">(GMT+13:00) Nuku'alofa</option>
     </select>
-    <div class="status-option">
+    <div id="event-status" class="status-option">
       <input id="offline" type="radio" value="offline" name="event-name" checked>
       <label>Offline</label>
       <input id="online" type="radio" value="online" name="event-name">
       <label>Online</label>
     </div>
     <label>Due Date</label>
-    <input type="datetime-local" name="event-name" class="event-input">
+    <input id="event-due-date" type="datetime-local" name="event-name" class="event-input">
     <label id="link">Link/Location</label>
-    <input type="text" placeholder="Link/Location" name="event-name" class="event-input">
+    <input id="event-link" type="text" placeholder="Link/Location" name="event-name" class="event-input">
   </div>
+  <script src="./javascripts/event-information.js"></script>
 </body>
 
 </html>
