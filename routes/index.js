@@ -16,7 +16,7 @@ router.post('/login', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      var query = "SELECT * FROM User WHERE username = ? AND password = ?";
+      var query = "CALL login(?, ?)";
       connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
@@ -47,8 +47,8 @@ router.post('/signup', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      var query = "INSERT INTO User (username, password) VALUES (?, ?)";
-      connection.query(query, [req.body.username, req.body.password,], function(err, rows, fields) {
+      var query = "CALL sign_up(?, ?, ?)";
+      connection.query(query, [req.body.username, req.body.email, req.body.password], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           console.log(err);
