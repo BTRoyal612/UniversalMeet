@@ -16,12 +16,19 @@ router.post('/login', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      var query = "SELECT user_id FROM User WHERE username = ? AND password = ?";
+      var query = "SELECT * FROM User WHERE username = ? AND password = ?";
       connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           res.sendStatus(500);
           return;
+        }
+
+        if (rows.length > 0) {
+          req.session.user = rows[0];
+          res.sendStatus()
+        } else {
+
         }
         res.json(rows); //send response
       });
