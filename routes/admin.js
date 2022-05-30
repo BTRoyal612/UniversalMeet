@@ -47,10 +47,10 @@ router.post('/deleteUser', function(req, res, next) {
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
-        return;
-      }
-      var query = "DELETE FROM User WHERE user_id = ?";
-      connection.query(query, [req.body.user_id], function(err, rows, fields) {
+      return;
+    }
+    var query = "DELETE FROM User WHERE user_id = ?";
+    connection.query(query, [req.body.user_id], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           res.sendStatus(500);
