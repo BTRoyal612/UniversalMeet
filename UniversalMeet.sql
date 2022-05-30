@@ -9,8 +9,6 @@ DROP SCHEMA IF EXISTS universal_meet;
 CREATE SCHEMA universal_meet;
 USE universal_meet;
 
-ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE User(
     user_id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
