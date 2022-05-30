@@ -27,12 +27,11 @@ router.post('/login', function(req, res, next) {
         if (rows.length > 0) {
           req.session.user = rows[0];
           console.log('login success');
-          res.sendStatus(200);
+          res.json(rows); //send response
         } else {
           console.log('login bad');
           res.sendStatus(401);
         }
-        res.json(rows); //send response
       });
     });
   }
