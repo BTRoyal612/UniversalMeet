@@ -63,11 +63,11 @@
             var email = document.createElement("td");
             var password = document.createElement("td");
             var isAdmin = document.createElement("td");
-            userId.innerText = user["user_id"];
-            username.innerText = user["username"];
-            email.innerText = user["email"];
-            password.innerText = user["password"];
-            isAdmin.innerText = user["isAdmin"];
+            userId.innerText = String(user["user_id"]);
+            username.innerText = String(user["username"]);
+            email.innerText = String(user["email"]);
+            password.innerText = String(user["password"]);
+            isAdmin.innerText = String(user["isAdmin"]);
             row.appendChild(userId);
             row.appendChild(username);
             row.appendChild(email);
