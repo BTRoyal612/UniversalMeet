@@ -3,6 +3,7 @@ var router = express.Router();
 
 /* POST add admin. */
 router.post('/addAdmin', function(req, res, next) {
+  console.log("check check");
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
