@@ -120,7 +120,6 @@
       var email = document.getElementById("add-user-email").value;
       var password = document.getElementById("add-user-password").value;
       var isAdmin = document.getElementById("isAdmin-option").value;
-      console.log(username, email, password)
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -139,7 +138,14 @@
     }
 
     const deleteUser = (user_id) => {
-      console.log(user_id)
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      };
+      xhttp.open("POST", "/admin/deleteUser", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ user_id: user_id }));
     }
   </script>
 </body>
