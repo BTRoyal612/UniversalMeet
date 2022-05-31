@@ -6,204 +6,67 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-/* POST add admin. */
-router.post('/addAdmin', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "INSERT INTO User (username, password, isAdmin) VALUES (?, ?, true)";
-    connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
-      connection.release(); // release connection
+/* POST login. */
+router.post('/login', function(req, res, next) {
+
+  if ('username' in req.body && 'password' in req.body) {
+    // Connect to the database
+    req.pool.getConnection(function(err, connection) {
       if (err) {
         res.sendStatus(500);
         return;
       }
-      res.send(); //send response
+      var query = "CALL login(?, ?)";
+      connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+
+        if (rows.length > 0) {
+          req.session.user = rows[0];
+          console.log('login success');
+          console.log(req.session.user);
+          res.json(rows); //send response
+        } else {
+          console.log('login bad');
+          res.sendStatus(401);
+        }
+      });
     });
-  });
+  }
 })
 
-/* POST get user list. */
-router.post('/getUserList', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "SELECT * FROM User";
-    connection.query(query, function(err, rows, fields) {
-      connection.release(); // release connection
+/* POST sign up. */
+router.post('/signup', function(req, res, next) {
+  if ('username' in req.body && 'password' in req.body) {
+    // Connect to the database
+    req.pool.getConnection(function(err, connection) {
       if (err) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); //send response
+      var query = "CALL sign_up(?, ?, ?)";
+      connection.query(query, [req.body.username, req.body.email, req.body.password], function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          console.log(err);
+          res.sendStatus(500);
+          return;
+        }
+        res.send(); //send response
+      });
     });
-  });
+  }
 })
 
-/* POST get user. */
-router.post('/getUser', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "SELECT user_id FROM User WHERE username = ? AND password = ?";
-    connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.json(rows); //send response
-    });
-  });
-})
-
-/* POST add user. */
-router.post('/addUser', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "INSERT INTO User (username, password) VALUES (?, ?)";
-    connection.query(query, [req.body.username, req.body.passwordd], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.send(); //send response
-    });
-  });
-})
-
-/* POST delete user. */
-router.post('/deleteUser', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "DELETE FROM User WHERE user_id = ?";
-    connection.query(query, [req.body.user_id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.send(); //send response
-    });
-  });
-})
-
-/* POST get event list. */
-router.post('/getEventList', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "SELECT * FROM Event";
-    connection.query(query, function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.json(rows); //send response
-    });
-  });
-})
-
-/* POST get event. */
-router.post('/getEvent', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "SELECT * from Even WHERE event_id = ?";
-    connection.query(query, [req.body.event_id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.json(rows); //send response
-    });
-  });
-})
-
-/* POST add event. */
-router.post('/addEvent', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "INSERT INTO Event (creator_id, event_name, duration, time_zone, hold_location, due_date, note, share_link, isOnline) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    connection.query(query, [req.body.creator_id, req.body.event_name, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link,  req.body.isOnline], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.send(); //send response
-    });
-  });
-})
-
-/* POST delete event. */
-router.post('/deleteEvent', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "DELETE FROM Event WHERE event_id = ?";
-    connection.query(query, [req.body.event_id],function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.send(); //send response
-    });
-  });
-})
-
-/* POST update email preference. */
-router.post('/updateEmailPreference', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "UPDATE Email_preference SET user_respond = ?, avail_confirm = ?, event_finalize = ?, event_cancel = ? WHERE user_id = ?";
-    connection.query(query, [req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel, req.body.user_id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.send(); //send response
-    });
-  });
+/* POST login. */
+router.post('/logout', function(req, res, next) {
+  if ('user' in req.session) {
+    delete req.session.user;
+  }
+  res.end();
 })
 
 module.exports = router;

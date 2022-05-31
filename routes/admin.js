@@ -1,42 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-/* POST update user session. */
-router.post('/updateSession', function(req, res, next) {
+/* POST add admin. */
+router.post('/addAdmin', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * FROM User WHERE WHERE user_id = ?";
-    connection.query(query, [req.body.user_id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      req.session.user = rows[0];
-      res.json(rows); //send response
-    });
-  });
-})
-
-/* POST update password. */
-router.post('/updatePassword', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "UPDATE User SET password = ? WHERE user_id = ?";
-    connection.query(query, [req.body.password, req.body.user_id], function(err, rows, fields) {
+    var query = "INSERT INTO User (username, password, isAdmin) VALUES (?, ?, true)";
+    connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -47,7 +21,67 @@ router.post('/updatePassword', function(req, res, next) {
   });
 })
 
-/* POST get user event list. */
+/* POST get user list admin. */
+router.post('/getUserList', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT * FROM User";
+    connection.query(query, function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
+})
+
+/* POST add admin. */
+router.post('/addUser', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "INSERT INTO User (username, password) VALUES (?, ?)";
+    connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
+    });
+  });
+})
+
+/* POST delete user admin. */
+router.post('/deleteUser', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "DELETE FROM User WHERE user_id = ?";
+    connection.query(query, [req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
+    });
+  });
+})
+
+/* POST get event list admin. */
 router.post('/getEventList', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
@@ -55,54 +89,14 @@ router.post('/getEventList', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * FROM Event_pending WHERE user_id = ?";
-    connection.query(query, [req.body.event_id], function(err, rows, fields) {
+    var query = "SELECT * FROM Event";
+    connection.query(query, function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
         return;
       }
       res.json(rows); //send response
-    });
-  });
-})
-
-/* POST get event. */
-router.post('/getEvent', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "SELECT * from Even WHERE event_id = ?";
-    connection.query(query, [req.body.event_id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.json(rows); //send response
-    });
-  });
-})
-
-/* POST add event. */
-router.post('/addEvent', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "INSERT INTO Event (creator_id, event_name, duration, time_zone, hold_location, due_date, note, share_link, isOnline) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    connection.query(query, [req.body.creator_id, req.body.event_name, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link,  req.body.isOnline], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.send(); //send response
     });
   });
 })
@@ -147,27 +141,7 @@ router.post('/updateEvent', function(req, res, next) {
   });
 })
 
-/* POST update email. */
-router.post('/updateEmail', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "UPDATE User SET email = ? WHERE user_id = ?";
-    connection.query(query, [req.body.email, req.body.user_id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.send(); //send response
-    });
-  });
-})
-
-/* POST update email preference. */
+/* POST update user email preference. */
 router.post('/updateEmailPreference', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
