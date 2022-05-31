@@ -108,16 +108,15 @@
     });
 
     function addUser() {
-      console.log('a');
       var username = document.getElementById("add-user-username").value;
       var email = document.getElementById("add-user-email").value;
       var password = document.getElementById("add-user-password").value;
       var isAdmin = document.getElementById("isAdmin-option").value;
       var xhttp = new XMLHttpRequest();
+      console.log(isAdmin);
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           var users = JSON.parse(this.responseText);
-          console.log(users);
           var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
           tBody.innerHTML = "";
           for (let user of users) {
