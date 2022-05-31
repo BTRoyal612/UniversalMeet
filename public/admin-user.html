@@ -17,7 +17,7 @@
     <button class="admin-button submit">Events</button>
     <button class="admin-button submit">Users</button>
     <button class="admin-button submit">Create Admin</button>
-    <button class="admin-button submit" onclick="updateUsers">Update</button>
+    <button class="admin-button submit" onclick="updateUsers()">Update</button>
   </div>
   <div class="table-header">
     <h1>Users</h1>
@@ -50,7 +50,7 @@
       $('#users-table').DataTable();
     });
 
-    const updateUser = function () {
+    const updateUsers = function () {
 
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
