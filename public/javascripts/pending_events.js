@@ -17,6 +17,7 @@ $(document).ready(function () {
       if (this.readyState == 4 && this.status == 200) {
         console.log(vueinst.p_event);
         console.log(JSON.parse(this.responseText))
+        console.log(vueinst.p_event);
         Vue.set(vueinst.p_event, JSON.parse(this.responseText))
       }
   }
