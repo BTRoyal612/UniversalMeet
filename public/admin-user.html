@@ -116,6 +116,7 @@
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+          console.log('a')
           var users = JSON.parse(this.responseText);;
           var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
           tBody.innerHTML = "";
@@ -130,7 +131,6 @@
           ]).draw();
         }
       };
-      console.log(isAdmin);
       if (isAdmin === "True") {
         xhttp.open("POST", "/admin/addAmin", true);
         xhttp.setRequestHeader("Content-type", "application/json");
