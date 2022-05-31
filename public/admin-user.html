@@ -53,9 +53,18 @@
           var users = JSON.parse(this.responseText);;
           var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
           tBody.innerHTML = "";
+          var i = 0;
           for (let user of users) {
+
             var row = document.createElement("tr");
+            if (i%2 == 0) {
+              row.classList.add('even')
+            }
+            else {
+              row.classList.add('odd')
+            }
             var userId = document.createElement("td");
+            userId.classList.add('sorting_1')
             var username = document.createElement("td");
             var email = document.createElement("td");
             var password = document.createElement("td");
