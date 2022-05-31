@@ -47,23 +47,30 @@
   <script>
     $(document).ready(function () {
       var table = $('#users-table').DataTable();
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          var users = JSON.parse(this.responseText);;
-          // var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
-          // tBody.innerHTML = "";
-          // var i = 0;
-          for (let user of users) {
-            console.log(user)
-            table.row.add({
-              "UserID": String(user["user_id"]),
-              "Username": String(user["username"]),
-              "Email": String(user["email"]),
-              "Password": String(user["password"]),
-              "isAdmin": String(user["isAdmin"])
+      table.row.add({
+              "UserID": "a",
+              "Username": "a",
+              "Email": "a",
+              "Password": "a",
+              "isAdmin": "a"
             }).draw();
-            console.log(table)
+      // var xhttp = new XMLHttpRequest();
+      // xhttp.onreadystatechange = function () {
+      //   if (this.readyState == 4 && this.status == 200) {
+      //     var users = JSON.parse(this.responseText);;
+      //     // var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
+      //     // tBody.innerHTML = "";
+      //     // var i = 0;
+      //     for (let user of users) {
+      //       console.log(user)
+      //       table.row.add({
+      //         "UserID": String(user["user_id"]),
+      //         "Username": String(user["username"]),
+      //         "Email": String(user["email"]),
+      //         "Password": String(user["password"]),
+      //         "isAdmin": String(user["isAdmin"])
+      //       }).draw();
+      //       console.log(table)
 
             // var row = document.createElement("tr");
             // var userId = document.createElement("td");
