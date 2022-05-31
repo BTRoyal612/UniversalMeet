@@ -30,6 +30,7 @@
         <th>Email</th>
         <th>Password</th>
         <th>isAdmin</th>
+        <th>button</th>
       </tr>
     </thead>
     <tbody>
@@ -41,6 +42,7 @@
         <th>Email</th>
         <th>Password</th>
         <th>isAdmin</th>
+        <th>button</th>
       </tr>
     </tfoot>
 
@@ -62,28 +64,9 @@
               user["username"],
               user["email"],
               user["password"],
-              user["isAdmin"]
+              user["isAdmin"],
+              '<button>abc</button>'
           ]).draw();
-            // console.log(table)
-
-            // var row = document.createElement("tr");
-            // var userId = document.createElement("td");
-            // var username = document.createElement("td");
-            // var email = document.createElement("td");
-            // var password = document.createElement("td");
-            // var isAdmin = document.createElement("td");
-            // userId.innerText = String(user["user_id"]);
-            // username.innerText = String(user["username"]);
-            // email.innerText = String(user["email"]);
-            // password.innerText = String(user["password"]);
-            // isAdmin.innerText = String(user["isAdmin"]);
-            // row.appendChild(userId);
-            // row.appendChild(username);
-            // row.appendChild(email);
-            // row.appendChild(password);
-            // row.appendChild(isAdmin);
-            // console.log(row)
-            // tBody.appendChild(row);
           }
         }
       };
