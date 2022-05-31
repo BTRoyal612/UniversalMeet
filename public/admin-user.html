@@ -18,6 +18,7 @@
     <button class="admin-button submit">Events</button>
     <button class="admin-button submit">Users</button>
     <button class="admin-button submit">Create Admin</button>
+    <button class="admin-button submit" onclick="addUser()">Add User</button>
   </div>
   <div class="table-header">
     <h1>Users</h1>
@@ -64,7 +65,7 @@
               user["email"],
               user["password"],
               user["isAdmin"],
-              '<button onclick="deleteUser("'+user["user_id"]+'")>delete</button>'
+              '<button onclick="deleteUser('+user["user_id"]+')">delete</button>'
           ]).draw();
           }
         }
