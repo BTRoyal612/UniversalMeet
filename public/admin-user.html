@@ -131,11 +131,13 @@
         }
       };
       if (isAdmin === "True") {
+        console.log('a')
         xhttp.open("POST", "/admin/addAmin", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
       }
       else {
+        console.log('b')
         xhttp.open("POST", "/admin/addUser", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
