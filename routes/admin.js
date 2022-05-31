@@ -6,7 +6,7 @@ router.post('/addAdmin', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
-      console.log('Error here')
+      console.log("This is Error");
       res.sendStatus(500);
       return;
     }
@@ -14,6 +14,7 @@ router.post('/addAdmin', function(req, res, next) {
     connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
+        console.log("Error!");
         res.sendStatus(500);
         return;
       }
