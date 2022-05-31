@@ -130,6 +130,7 @@
           ]).draw();
         }
       };
+      console.log(isAdmin);
       if (isAdmin === "True") {
         xhttp.open("POST", "/admin/addAmin", true);
         xhttp.setRequestHeader("Content-type", "application/json");
