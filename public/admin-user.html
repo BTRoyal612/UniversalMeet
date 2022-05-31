@@ -51,12 +51,10 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           var users = JSON.parse(this.responseText);;
-          var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
-          tBody.innerHTML = "";
-          var i = 0;
+          // var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
+          // tBody.innerHTML = "";
+          // var i = 0;
           for (let user of users) {
-
-
             table.row.add({
               "UserID": user["user_id"],
               "Username": user["username"],
