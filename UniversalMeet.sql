@@ -25,9 +25,9 @@ CREATE TABLE Event(
     event_id INT NOT NULL AUTO_INCREMENT,
     creator_id INT NOT NULL,
     event_name VARCHAR(100) NOT NULL,
-    date DATE NOT NULL,
-    time_begin TIME NOT NULL, /* TIME only includes hh:mm:ss */
-    time_end TIME NOT NULL, /* bigger than time_begin */
+    -- date DATE NOT NULL,
+    -- time_begin TIME NOT NULL, /* TIME only includes hh:mm:ss */
+    -- time_end TIME NOT NULL, /* bigger than time_begin */
     duration TINYINT(4) NOT NULL, /* unit: minute or hour? */
     time_zone VARCHAR(50) NOT NULL, /* what this variable should be (maybe depends on the value from js) */
     hold_location VARCHAR(300) NOT NULL,
@@ -126,13 +126,13 @@ COMMIT;
 -- Dumping data for table event
 --
 
--- SET AUTOCOMMIT=0;
--- INSERT INTO Event VALUES (1, 1, 'event00', '60', 'Australian Central Standard Time', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', true, false),
--- (2, 3, 'event01', '90', 'Indochina Time', '378 house', '2018-07-25 18:34:33', '9/1', 'none', true, false),
--- (3, 5, 'event02', '30', 'Mountain Daylight Time', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', false, true),
--- (4, 7, 'event03', '15', 'Australian Central Standard Time', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false, false),
--- (5, 9, 'event04', '45', 'Australian Central Standard Time', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', true, false);
--- COMMIT;
+SET AUTOCOMMIT=0;
+INSERT INTO Event VALUES (1, 1, 'event00', '60', 'Australian Central Standard Time', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', true, false),
+(2, 3, 'event01', '90', 'Indochina Time', '378 house', '2018-07-25 18:34:33', '9/1', 'none', true, false),
+(3, 5, 'event02', '30', 'Mountain Daylight Time', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', false, true),
+(4, 7, 'event03', '15', 'Australian Central Standard Time', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false, false),
+(5, 9, 'event04', '45', 'Australian Central Standard Time', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', true, false);
+COMMIT;
 
 --
 -- Dumping data for table event pending
@@ -141,6 +141,7 @@ COMMIT;
 SET AUTOCOMMIT=0;
 INSERT INTO Event_pending VALUES (3, 2, true),
 (3, 5, true),
+(4, 2, true),
 (4, 6, true),
 (4, 8, true),
 (4, 4, true);
@@ -151,9 +152,9 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO Event_chosen_time VALUES (1, 4, 6, '18:30:00'),
-(2, 4, 8, '17:15:00'),
-(3, 4, 4, '19:00:00');
+INSERT INTO Event_chosen_time VALUES (4, 6, '18:30:00'),
+(4, 8, '17:15:00'),
+(4, 4, '19:00:00');
 COMMIT;
 
 --
