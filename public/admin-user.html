@@ -90,9 +90,6 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           var users = JSON.parse(this.responseText);;
-          // var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
-          // tBody.innerHTML = "";
-          // var i = 0;
           for (let user of users) {
             table.row.add([
               user["user_id"],
@@ -117,19 +114,16 @@
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          var actors = JSON.parse(this.responseText);;
-          var tBody = document.getElementById('actors-table').getElementsByTagName('tbody')[0];
-          tBody.innerHTML = "";
-          for (let actor of actors) {
-            var row = document.createElement("tr");
-            var first_name = document.createElement("td");
-            var last_name = document.createElement("td");
-            first_name.innerText = actor["first_name"];
-            last_name.innerText = actor["last_name"];
-            row.appendChild(first_name);
-            row.appendChild(last_name);
-            tBody.appendChild(row);
-          }
+          var users = JSON.parse(this.responseText);;
+          for (let user of users) {
+            table.row.add([
+              user["user_id"],
+              user["username"],
+              user["email"],
+              user["password"],
+              user["isAdmin"],
+              '<button onclick="deleteUser('+user["user_id"]+')">delete</button>'
+          ]).draw();
         }
       };
       xhttp.open("POST", "/addactor", true);
