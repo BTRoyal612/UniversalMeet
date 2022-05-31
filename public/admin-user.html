@@ -110,6 +110,32 @@
       xhttp.send();
     });
 
+    function addUser() {
+      var firstname = document.getElementById("actor-first-name").value;
+      var lastname = document.getElementById("actor-last-name").value;
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var actors = JSON.parse(this.responseText);;
+          var tBody = document.getElementById('actors-table').getElementsByTagName('tbody')[0];
+          tBody.innerHTML = "";
+          for (let actor of actors) {
+            var row = document.createElement("tr");
+            var first_name = document.createElement("td");
+            var last_name = document.createElement("td");
+            first_name.innerText = actor["first_name"];
+            last_name.innerText = actor["last_name"];
+            row.appendChild(first_name);
+            row.appendChild(last_name);
+            tBody.appendChild(row);
+          }
+        }
+      };
+      xhttp.open("POST", "/addactor", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ firstname: firstname, lastname: lastname }));
+    }
+
     const deleteUser = (user_id) => {
       console.log(user_id)
     }
