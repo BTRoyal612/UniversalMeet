@@ -151,9 +151,9 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO Event_chosen_time VALUES (1, 4, 6, '18:30:00'),
-(2, 4, 8, '17:15:00'),
-(3, 4, 4, '19:00:00');
+INSERT INTO Event_chosen_time VALUES (1, 4, '18:30:00'),
+(2, 4, '17:15:00'),
+(3, 4, '19:00:00');
 COMMIT;
 
 --
