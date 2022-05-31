@@ -1,44 +1,4 @@
 const PENDING_EVENTS = [
-  {
-    name: 'Web Event',
-    url: '',
-    isHost: true,
-  },
-  {
-    name: 'Web Event',
-    url: '',
-    isHost: true,
-  },
-  {
-    name: 'Web Event',
-    url: '',
-    isHost: false,
-  },
-  {
-    name: 'Web Event',
-    url: '',
-    isHost: true,
-  },
-  {
-    name: 'Web Event',
-    url: '',
-    isHost: false,
-  },
-  {
-    name: 'Web Event',
-    url: '',
-    isHost: false,
-  },
-  {
-    name: 'Web Event',
-    url: '',
-    isHost: false,
-  },
-  {
-    name: 'Web Event',
-    url: '',
-    isHost: true,
-  },
 ]
 
 var vueinst = new Vue({
@@ -49,7 +9,7 @@ var vueinst = new Vue({
 });
 
 
-function getUserEventList() {
+$(document).ready(function () {
   console.log("pass event list");
   var xhttp = new XMLHttpRequest();
 
@@ -61,4 +21,4 @@ function getUserEventList() {
 
   xhttp.open("POST", "/users/getEventList", true);
   xhttp.send();
-};
+});
