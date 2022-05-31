@@ -46,7 +46,7 @@
   </table>
   <script>
     $(document).ready(function () {
-      $('#users-table').DataTable();
+      var table = $('#users-table').DataTable();
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -55,16 +55,19 @@
           tBody.innerHTML = "";
           var i = 0;
           for (let user of users) {
+
+
+table.row.add( {
+        "userId":       "Tiger Nixon",
+        "position":   "System Architect",
+        "salary":     "$3,120",
+        "start_date": "2011/04/25",
+        "office":     "Edinburgh",
+        "extn":       "5421"
+    } ).draw();
+
             var row = document.createElement("tr");
-            if (i%2 == 0) {
-              row.classList.add('odd')
-            }
-            else {
-              row.classList.add('even')
-            }
-            i+=1;
             var userId = document.createElement("td");
-            userId.classList.add('sorting_1')
             var username = document.createElement("td");
             var email = document.createElement("td");
             var password = document.createElement("td");
