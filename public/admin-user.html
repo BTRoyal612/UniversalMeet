@@ -56,13 +56,13 @@
           // var i = 0;
           for (let user of users) {
             console.log(user)
-            // table.row.add({
-            //   "UserID": user["user_id"],
-            //   "Username": user["username"],
-            //   "Email": user["email"],
-            //   "Password": user["password"],
-            //   "isAdmin": user["isAdmin"]
-            // }).draw();
+            table.row.add({
+              "UserID": String(user["user_id"]),
+              "Username": String(user["username"]),
+              "Email": String(user["email"]),
+              "Password": String(user["password"]),
+              "isAdmin": String(user["isAdmin"])
+            }).draw();
             console.log(table)
 
             // var row = document.createElement("tr");
