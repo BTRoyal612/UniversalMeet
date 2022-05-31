@@ -47,26 +47,23 @@
   <script>
     $(document).ready(function () {
       var table = $('#users-table').DataTable();
-      table.row.add({
-              "UserID": "a",
-            }).draw();
-      // var xhttp = new XMLHttpRequest();
-      // xhttp.onreadystatechange = function () {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //     var users = JSON.parse(this.responseText);;
-      //     // var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
-      //     // tBody.innerHTML = "";
-      //     // var i = 0;
-      //     for (let user of users) {
-      //       console.log(user)
-      //       table.row.add({
-      //         "UserID": String(user["user_id"]),
-      //         "Username": String(user["username"]),
-      //         "Email": String(user["email"]),
-      //         "Password": String(user["password"]),
-      //         "isAdmin": String(user["isAdmin"])
-      //       }).draw();
-      //       console.log(table)
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var users = JSON.parse(this.responseText);;
+          // var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
+          // tBody.innerHTML = "";
+          // var i = 0;
+          for (let user of users) {
+            console.log(user)
+            table.row.add([
+              user["user_id"],
+              user["username"],
+              user["email"],
+              user["password"],
+              user["isAdmin"]
+          ]).draw();
+            // console.log(table)
 
             // var row = document.createElement("tr");
             // var userId = document.createElement("td");
@@ -86,12 +83,12 @@
             // row.appendChild(isAdmin);
             // console.log(row)
             // tBody.appendChild(row);
-      //     }
-      //   }
-      // };
-      // xhttp.open("POST", "/admin/getUserList", true);
-      // xhttp.setRequestHeader("Content-type", "application/json");
-      // xhttp.send();
+          }
+        }
+      };
+      xhttp.open("POST", "/admin/getUserList", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
     });
   </script>
 </body>
