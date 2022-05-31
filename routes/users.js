@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
+var user;
 router.get('/', function(req, res, next) {
+  console.log(req.session);
+  user = req.session.user;
   res.send('respond with a resource');
 });
 
@@ -49,16 +52,18 @@ router.post('/updatePassword', function(req, res, next) {
 
 /* POST get user event list. */
 router.post('/getEventList', function(req, res, next) {
+  console.log(user);
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * FROM Event_pending WHERE user_id = ?";
-    connection.query(query, [req.body.event_id], function(err, rows, fields) {
+    var query = "SELECT event_id, event_name FROM Event WHERE event_id IN (SELECT event_id FROM Event_pending WHERE user_id = ?)";
+    connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
+        console.log(err);
         res.sendStatus(500);
         return;
       }
