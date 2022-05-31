@@ -111,6 +111,7 @@
       var username = document.getElementById("add-user-username").value;
       var email = document.getElementById("add-user-email").value;
       var password = document.getElementById("add-user-password").value;
+      var isAdmin = document.getElementById("isAdmin-option").value;
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -126,9 +127,18 @@
           ]).draw();
         }
       };
-      xhttp.open("POST", "/addactor", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(JSON.stringify({ firstname: firstname, lastname: lastname }));
+      if (isAdmin === "True") {
+        xhttp.open("POST", "/addAmin", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
+      }
+      else {
+        xhttp.open("POST", "/addUser", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
+      }
+      }
+
     }
 
     const deleteUser = (user_id) => {
