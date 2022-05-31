@@ -17,7 +17,6 @@
     <button class="admin-button submit">Events</button>
     <button class="admin-button submit">Users</button>
     <button class="admin-button submit">Create Admin</button>
-    <button class="admin-button submit" onclick="updateUsers()">Update</button>
   </div>
   <div class="table-header">
     <h1>Users</h1>
@@ -50,8 +49,7 @@
       $('#users-table').DataTable();
     });
 
-    const updateUsers = function () {
-
+    window.onload = function () {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -76,6 +74,7 @@
             row.appendChild(password);
             row.appendChild(isAdmin);
             tBody.appendChild(row);
+            console.log(tBody);
           }
         }
       };
