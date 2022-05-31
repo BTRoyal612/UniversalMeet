@@ -57,39 +57,38 @@
           for (let user of users) {
 
 
-table.row.add( {
-        "userId":       "Tiger Nixon",
-        "position":   "System Architect",
-        "salary":     "$3,120",
-        "start_date": "2011/04/25",
-        "office":     "Edinburgh",
-        "extn":       "5421"
-    } ).draw();
+            table.row.add({
+              "userId": user["user_id"],
+              "username": user["username"],
+              "email": user["email"],
+              "password": user["password"],
+              "isAdmin": user["isAdmin"])
+          } ).draw();
 
-            var row = document.createElement("tr");
-            var userId = document.createElement("td");
-            var username = document.createElement("td");
-            var email = document.createElement("td");
-            var password = document.createElement("td");
-            var isAdmin = document.createElement("td");
-            userId.innerText = String(user["user_id"]);
-            username.innerText = String(user["username"]);
-            email.innerText = String(user["email"]);
-            password.innerText = String(user["password"]);
-            isAdmin.innerText = String(user["isAdmin"]);
-            row.appendChild(userId);
-            row.appendChild(username);
-            row.appendChild(email);
-            row.appendChild(password);
-            row.appendChild(isAdmin);
-            console.log(row)
-            tBody.appendChild(row);
+            // var row = document.createElement("tr");
+            // var userId = document.createElement("td");
+            // var username = document.createElement("td");
+            // var email = document.createElement("td");
+            // var password = document.createElement("td");
+            // var isAdmin = document.createElement("td");
+            // userId.innerText = String(user["user_id"]);
+            // username.innerText = String(user["username"]);
+            // email.innerText = String(user["email"]);
+            // password.innerText = String(user["password"]);
+            // isAdmin.innerText = String(user["isAdmin"]);
+            // row.appendChild(userId);
+            // row.appendChild(username);
+            // row.appendChild(email);
+            // row.appendChild(password);
+            // row.appendChild(isAdmin);
+            // console.log(row)
+            // tBody.appendChild(row);
           }
         }
       };
-      xhttp.open("POST", "/admin/getUserList", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
+    xhttp.open("POST", "/admin/getUserList", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
     });
   </script>
 </body>
