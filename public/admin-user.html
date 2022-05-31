@@ -64,7 +64,7 @@
               user["email"],
               user["password"],
               user["isAdmin"],
-              '<button onclick="deleteUser('+user["user_id"]+')">delete</button>'
+              '<button onclick="deleteUser("'+user["user_id"]+'")">delete</button>'
           ]).draw();
           }
         }
@@ -75,7 +75,7 @@
     });
 
     const deleteUser = (user_id) => {
-      
+      console.log(user_id)
     }
   </script>
 </body>
