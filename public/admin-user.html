@@ -75,7 +75,7 @@
           <label>Username</label>
           <input id="add-user-username" placeholder="Username" class="add-user-input">
           <label>Email</label>
-          <input id="add-user-email" placeholder="Email" class="add-user-input">
+          <input type="email" id="add-user-email" placeholder="Email" class="add-user-input">
           <label>Password</label>
           <input id="add-user-password" placeholder="Password" class="add-user-input">
           <label>isAdmin</label>
@@ -140,7 +140,7 @@
         }
       };
       if (isAdmin === "True") {
-        xhttp.open("POST", "/admin/addAmin", true);
+        xhttp.open("POST", "/admin/addAdmin", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
       }
