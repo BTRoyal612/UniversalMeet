@@ -120,6 +120,7 @@
       var email = document.getElementById("add-user-email").value;
       var password = document.getElementById("add-user-password").value;
       var isAdmin = document.getElementById("isAdmin-option").value;
+      console.log(username, email, password)
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
