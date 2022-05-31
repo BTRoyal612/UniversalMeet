@@ -22,7 +22,6 @@ $(document).ready(function () {
         for (let event of events) {
           vueinst.p_event.push(event);
         }
-        console.log(vueinst.p_event);
       }
   }
 
