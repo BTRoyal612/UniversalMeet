@@ -55,7 +55,7 @@ router.post('/getEventList', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * FROM Event_pending WHERE user_id = ?";
+    var query = "SELECT * FROM Event_pending WHERE user_id = 2";
     connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
