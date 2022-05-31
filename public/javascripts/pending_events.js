@@ -6,7 +6,6 @@ $(document).ready(function () {
 
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        
         vueinst.p_event.splice(0);
         console.log(JSON.parse(this.responseText))
         var events = JSON.parse(this.responseText);
