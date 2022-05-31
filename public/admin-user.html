@@ -57,7 +57,7 @@
         if (this.readyState == 4 && this.status == 200) {
           var users = JSON.parse(this.responseText);;
           var tBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
-          tBody.innerHTML = "";
+          // tBody.innerHTML = "";
           for (let user of users) {
             var row = document.createElement("tr");
             var userId = document.createElement("td");
