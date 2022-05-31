@@ -10,6 +10,12 @@ $(document).ready(function () {
         console.log(JSON.parse(this.responseText))
         var events = JSON.parse(this.responseText);
         for (let event of events) {
+          var isHost;
+          if (event.creator_id == event.user_id) isHost = true;
+          else isHost = false;
+
+          event["isHost"] = isHost;
+          console.log(event);
           vueinst.p_event.push(event);
         }
       }
