@@ -62,8 +62,8 @@
               "username": user["username"],
               "email": user["email"],
               "password": user["password"],
-              "isAdmin": user["isAdmin"])
-          } ).draw();
+              "isAdmin": user["isAdmin"]
+            }).draw();
 
             // var row = document.createElement("tr");
             // var userId = document.createElement("td");
@@ -86,9 +86,9 @@
           }
         }
       };
-    xhttp.open("POST", "/admin/getUserList", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send();
+      xhttp.open("POST", "/admin/getUserList", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
     });
   </script>
 </body>
