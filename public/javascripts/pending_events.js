@@ -40,7 +40,6 @@ const getClickEvent = (event_id) => {
         console.log(this.responseText)
         }
       }
-  }
 
   xhttp.open("POST", "/users/getEvent", true);
   xhttp.setRequestHeader("Content-type", "application/json");
