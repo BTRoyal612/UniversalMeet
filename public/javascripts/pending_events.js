@@ -15,7 +15,6 @@ $(document).ready(function () {
         else isHost = false;
 
         event["isHost"] = isHost;
-        console.log(event);
         vueinst.p_event.push(event);
       }
     }
