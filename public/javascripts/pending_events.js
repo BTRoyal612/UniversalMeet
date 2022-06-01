@@ -38,7 +38,7 @@ var vueinst = new Vue({
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           console.log(this.responseText)
-          let cur_event = this.responseText;
+          let cur_event = this.responseText[0];
           let event_name = document.getElementById("event-name");
           console.log(event_name)
           event_name.innerText = cur_event["event_name"]
