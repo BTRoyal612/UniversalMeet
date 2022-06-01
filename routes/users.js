@@ -88,6 +88,8 @@ router.post('/getEvent', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
+      console.log(req.body.event_id);
+      console.log(rows)
       res.json(rows); //send response
     });
   });
