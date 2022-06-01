@@ -84,9 +84,9 @@ BEGIN
 END //
 DELIMITER ;
 
-/* EXEC sign_in @username = ?, @password = ?; */
+/* CALL sign_up('zonghan', 'liu1021119271@gmail.com', '123123'); */
 DELIMITER //
-CREATE PROCEDURE login(
+CREATE PROCEDURE login (
     IN user_name VARCHAR(30), pass_word VARCHAR(50)
 )
 BEGIN
@@ -95,37 +95,56 @@ BEGIN
 END //
 DELIMITER ;
 
--- Sample Database Data
+/* CALL create_event(1, 'An event name','2020-06-10','12:00:01', '15:00:01', 30, '+03:00', 'Hub Centre', '2020-06-05 13:59:59', 'This is note', 'https://this-is.sharelink.com', false); */
+DELIMITER //
+CREATE PROCEDURE create_event(
+    IN
+    creator_id_ INT,
+    event_name_ VARCHAR(100),
+    date_ DATE,
+    time_begin_ TIME,
+    time_end_ TIME,
+    duration_ TINYINT(4),
+    time_zone_ VARCHAR(50),
+    hold_location_ VARCHAR(300),
+    due_date_ TIMESTAMP,
+    note_ VARCHAR(500),
+    share_link_ VARCHAR(300),
+    isOnline_ BOOLEAN
+)
+BEGIN
+    INSERT INTO Event(creator_id, event_name, date, time_begin, time_end, duration, time_zone, hold_location, due_date, note, share_link, isOnline)
+        VALUES (creator_id_, event_name_, date_, time_begin_, time_end_, duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
+END //
+DELIMITER ;
 
-SET NAMES utf8mb4;
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
-SET @old_autocommit=@@autocommit;
-
-USE universal_meet;
+DELIMITER //
+CREATE PROCEDURE join_event(IN event_id_ INT, user_id_ INT)
+BEGIN
+    INSERT INTO Event_pending(event_id, user_id) VALUES (event_id_, user_id_);
+END //
+DELIMITER ;
 
 --
 -- Dumping data for table user
 --
 
-SET AUTOCOMMIT=0;
-INSERT INTO User VALUES (1, 'tester00', 'tester00@gmail.com', 'tester00pass', false),
-(2, 'tester01', 'tester01@gmail.com', 'tester01pass', false),
-(3, 'tester02', 'tester02@gmail.com', 'tester02pass', false),
-(4, 'tester03', 'tester03@gmail.com', 'tester03pass', false),
-(5, 'tester04', 'tester04@gmail.com', 'tester04pass', false),
-(6, 'tester05', 'tester05@gmail.com', 'tester05pass', false),
-(7, 'tester06', 'tester06@gmail.com', 'tester06pass', false),
-(8, 'tester07', 'tester07@gmail.com', 'tester07pass', false),
-(9, 'tester08', 'tester08@gmail.com', 'tester08pass', false),
-(10, 'tester09', 'tester09@gmail.com', 'tester09pass', true);
-COMMIT;
+CALL sign_up('zonghan', 'a1@gmail.com', '123123');
+CALL sign_up('nam', 'a2@gmail.com', '123123');
+CALL sign_up('bao', 'a3@gmail.com', '123123');
+CALL sign_up('marcus', 'a4@gmail.com', '123123');
+CALL sign_up('jason', 'a5@gmail.com', '123123');
+CALL sign_up('vill', 'a6@gmail.com', '123123');
+CALL sign_up('maria', 'a7@gmail.com', '123123');
+CALL sign_up('marry', 'a8@gmail.com', '123123');
+CALL sign_up('loser', 'a9@gmail.com', '123123');
+CALL sign_up('biaaatch', 'a10@gmail.com', '123123');
 
 --
 -- Dumping data for table event
 --
 
+<<<<<<< HEAD
 SET AUTOCOMMIT=0;
 INSERT INTO Event VALUES (1, 1, 'event00', '60', 'Australian Central Standard Time', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', true, false),
 (2, 3, 'event01', '90', 'Indochina Time', '378 house', '2018-07-25 18:34:33', '9/1', 'none', true, false),
@@ -133,28 +152,29 @@ INSERT INTO Event VALUES (1, 1, 'event00', '60', 'Australian Central Standard Ti
 (4, 7, 'event03', '15', 'Australian Central Standard Time', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false, false),
 (5, 9, 'event04', '45', 'Australian Central Standard Time', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', true, false);
 COMMIT;
+=======
+CALL create_event(1, 'event00','2020-06-10','12:00:01', '15:00:01', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', false);
+CALL create_event(3, 'event01','2020-06-10','12:00:01', '15:00:01', 90, '+06:00', '378 house', '2018-07-25 18:34:33', '9/1', 'none', false);
+CALL create_event(5, 'event02','2020-06-10','12:00:01', '15:00:01', 30, '-04:30', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', true);
+CALL create_event(7, 'event03','2020-06-10','12:00:01', '15:00:01', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
+CALL create_event(9, 'event04','2020-06-10','12:00:01', '15:00:01', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
+>>>>>>> 0bdcf48a256c8c258c318b29295a0c8867d42b52
 
 --
 -- Dumping data for table event pending
 --
 
-SET AUTOCOMMIT=0;
-INSERT INTO Event_pending VALUES (3, 2, true),
-(3, 5, true),
-(4, 6, true),
-(4, 8, true),
-(4, 4, true);
-COMMIT;
-
---
--- Dumping data for table event chosen time
---
-
-SET AUTOCOMMIT=0;
-INSERT INTO Event_chosen_time VALUES (1, 4, '18:30:00'),
-(2, 4, '17:15:00'),
-(3, 4, '19:00:00');
-COMMIT;
+CALL join_event(1,3);
+CALL join_event(1,4);
+CALL join_event(1,8);
+CALL join_event(2,1);
+CALL join_event(2,7);
+CALL join_event(3,2);
+CALL join_event(3,9);
+CALL join_event(4,10);
+CALL join_event(4,3);
+CALL join_event(5,1);
+CALL join_event(5,5);
 
 --
 -- Dumping data for table email preference

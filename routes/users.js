@@ -2,7 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
+var user;
 router.get('/', function(req, res, next) {
+
+  user = req.session.user[0];
+  console.log(user.user_id);
   res.send('respond with a resource');
 });
 
@@ -49,16 +53,18 @@ router.post('/updatePassword', function(req, res, next) {
 
 /* POST get user event list. */
 router.post('/getEventList', function(req, res, next) {
+  console.log(user);
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * FROM Event_pending WHERE user_id = ?";
-    connection.query(query, [req.body.event_id], function(err, rows, fields) {
+    var query = "SELECT Event.event_id, event_name, creator_id, user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?";
+    connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
+        console.log(err);
         res.sendStatus(500);
         return;
       }
@@ -75,7 +81,7 @@ router.post('/getEvent', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * from Even WHERE event_id = ?";
+    var query = "SELECT * from Event WHERE event_id = ?";
     connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {

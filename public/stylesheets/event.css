@@ -275,7 +275,7 @@ body {
 
 .event-info {
   height: max-content;
-  width: 60%;
+  width: 50%;
   background-color: var(--light-main);
   border-radius: 30px;
   padding: 20px;
@@ -294,7 +294,7 @@ body {
 .event-input {
   width: 100%;
   padding: 12px 11px;
-  margin: 12px 0px;
+  margin: 5px 0px;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -425,8 +425,8 @@ body {
 }
 
 .avail-ctn {
-  max-height: 50vh;
-  overflow: scroll;
+  max-height: 80%;
+  overflow-y: scroll;
 }
 
 
@@ -480,4 +480,40 @@ body {
 .avail-add:hover {
   background-color: var(--red);
   color: white;
+}
+
+.reponse_ctn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-info-response {
+  margin: 20px;
+  width: 40%;
+  height: 100vh;
+}
+
+.response-info-input {
+  background-color: var(--red);
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
+
+.response-info-tf-input {
+  background-color: grey;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.1s;
+}
+
+.chosen-tf {
+  background-color: #05ee0d;
+  color: black;
 }
