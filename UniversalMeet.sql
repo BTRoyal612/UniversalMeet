@@ -26,8 +26,8 @@ CREATE TABLE Event(
     creator_id INT NOT NULL,
     event_name VARCHAR(100) NOT NULL,
     date DATE NOT NULL,
-    time_begin TIME NOT NULL, /* TIME only includes hh:mm:ss */
-    time_end TIME NOT NULL, /* bigger than time_begin */
+    -- time_begin TIME NOT NULL, /* TIME only includes hh:mm:ss */
+    -- time_end TIME NOT NULL, /* bigger than time_begin */
     duration TINYINT(4) NOT NULL, /* unit: minute or hour? */
     time_zone VARCHAR(50) NOT NULL, /* what this variable should be (maybe depends on the value from js) */
     hold_location VARCHAR(300) NOT NULL,
@@ -95,15 +95,13 @@ BEGIN
 END //
 DELIMITER ;
 
-/* CALL create_event(1, 'An event name','2020-06-10','12:00:01', '15:00:01', 30, '+03:00', 'Hub Centre', '2020-06-05 13:59:59', 'This is note', 'https://this-is.sharelink.com', false); */
+/* CALL create_event(1, 'An event name','2020-06-10', 30, '+03:00', 'Hub Centre', '2020-06-05 13:59:59', 'This is note', 'https://this-is.sharelink.com', false); */
 DELIMITER //
 CREATE PROCEDURE create_event(
     IN
     creator_id_ INT,
     event_name_ VARCHAR(100),
     date_ DATE,
-    time_begin_ TIME,
-    time_end_ TIME,
     duration_ TINYINT(4),
     time_zone_ VARCHAR(50),
     hold_location_ VARCHAR(300),
@@ -113,8 +111,9 @@ CREATE PROCEDURE create_event(
     isOnline_ BOOLEAN
 )
 BEGIN
-    INSERT INTO Event(creator_id, event_name, date, time_begin, time_end, duration, time_zone, hold_location, due_date, note, share_link, isOnline)
-        VALUES (creator_id_, event_name_, date_, time_begin_, time_end_, duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
+    INSERT INTO Event(creator_id, event_name, date, duration, time_zone, hold_location, due_date, note, share_link, isOnline)
+        VALUES (creator_id_, event_name_, date_, duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
+    SELECT event_id FROM Event ORDER BY event_id DESC LIMIT 1;
 END //
 DELIMITER ;
 
@@ -144,11 +143,11 @@ CALL sign_up('biaaatch', 'a10@gmail.com', '123123');
 -- Dumping data for table event
 --
 
-CALL create_event(1, 'event00','2020-06-10','12:00:01', '15:00:01', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', false);
-CALL create_event(3, 'event01','2020-06-10','12:00:01', '15:00:01', 90, '+06:00', '378 house', '2018-07-25 18:34:33', '9/1', 'none', false);
-CALL create_event(5, 'event02','2020-06-10','12:00:01', '15:00:01', 30, '-04:30', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', true);
-CALL create_event(7, 'event03','2020-06-10','12:00:01', '15:00:01', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
-CALL create_event(9, 'event04','2020-06-10','12:00:01', '15:00:01', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
+CALL create_event(1, 'event00','2020-06-10', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', false);
+CALL create_event(3, 'event01','2020-06-10', 90, '+06:00', '378 house', '2018-07-25 18:34:33', '9/1', 'none', false);
+CALL create_event(5, 'event02','2020-06-10', 30, '-04:30', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', true);
+CALL create_event(7, 'event03','2020-06-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
+CALL create_event(9, 'event04','2020-06-10', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
 
 --
 -- Dumping data for table event pending
