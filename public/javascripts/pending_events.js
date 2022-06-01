@@ -50,11 +50,15 @@ var vueinst = new Vue({
           let event_status = document.getElementById("event-status");
           if (cur_event["isOnline"] == 0)
           {
-            
+            event_status.innerText = "Offline"
           }
-          event_status.innerText = cur_event["event-status"]
+          else {
+            event_status.innerText = "Online"
+          }
           let event_duedate = document.getElementById("event-duedate");
+          event_duedate.innerText = cur_event["due_date"]
           let event_link = document.getElementById("event-link");
+          event_link.innerText = cur_event["hold_location"]
         }
       }
 
