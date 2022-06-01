@@ -32,7 +32,6 @@ var vueinst = new Vue({
   },
   methods: {
     getClickEvent: function (event_id) {
-      console.log(event_id)
       var xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function () {
