@@ -605,3 +605,24 @@ background-color: #ee1505;
 .btn--icon:hover {
   stroke: #fff;
 }
+
+.event-input {
+  width: 100%;
+  padding: 12px 11px;
+  margin: 5px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+}
+
+.response-info-input {
+  background-color: var(--red);
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
