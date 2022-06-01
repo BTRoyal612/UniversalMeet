@@ -38,6 +38,14 @@ var vueinst = new Vue({
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           console.log(this.responseText)
+          let cur_event = this.responseText;
+          let event_name = document.getElementById("event-name");
+          event_name.innerText = cur_event["event_name"]
+          let event_duration = document.getElementById("event-duration");
+          let event_timezone = document.getElementById("event-timezone");
+          let event_status = document.getElementById("event-status");
+          let event_duedate = document.getElementById("event-duedate");
+          let event_link = document.getElementById("event-link");
         }
       }
 
