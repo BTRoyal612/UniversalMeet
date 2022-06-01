@@ -5,6 +5,9 @@
 		},
 		{
 			"path": ".."
+		},
+		{
+			"path": "../../WDC-prac9"
 		}
 	],
 	"settings": {
