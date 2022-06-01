@@ -40,8 +40,10 @@ var vueinst = new Vue({
           console.log(this.responseText)
           let cur_event = this.responseText;
           let event_name = document.getElementById("event-name");
+          console.log(event_name)
           event_name.innerText = cur_event["event_name"]
           let event_date = document.getElementById("event-date")
+          console.log(event_date)
           event_date.innerText = cur_event["date"]
           let event_duration = document.getElementById("event-duration");
           event_duration.innerText = cur_event["duration"]
