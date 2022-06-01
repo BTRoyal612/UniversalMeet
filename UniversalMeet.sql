@@ -1,33 +1,27 @@
--- Sample Database Schema
-
-SET NAMES utf8mb4;
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
-
-DROP SCHEMA IF EXISTS universal_meet;
-CREATE SCHEMA universal_meet;
-USE universal_meet;
+DROP DATABASE event_app;
+CREATE DATABASE event_app;
+USE event_app;
 
 CREATE TABLE User(
     user_id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
-    email VARCHAR(50),
+    email VARCHAR(50), /* should it be not null? */
     password VARCHAR(50) NOT NULL, /* should be salted and hashing encrypto */
     isAdmin BOOLEAN NOT NULL DEFAULT false,
+    /* isRegistered BOOLEAN NOT NULL, */
 
     PRIMARY KEY (user_id),
     CONSTRAINT username_not_unique UNIQUE (username),
     CONSTRAINT email_not_unique UNIQUE (email)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 CREATE TABLE Event(
     event_id INT NOT NULL AUTO_INCREMENT,
     creator_id INT NOT NULL,
     event_name VARCHAR(100) NOT NULL,
     date DATE NOT NULL,
-    time_begin TIME NOT NULL, /* TIME only includes hh:mm:ss */
-    time_end TIME NOT NULL, /* bigger than time_begin */
+    /* time_begin TIME NOT NULL, */
+    /* time_end TIME NOT NULL, */
     duration TINYINT(4) NOT NULL, /* unit: minute or hour? */
     time_zone VARCHAR(50) NOT NULL, /* what this variable should be (maybe depends on the value from js) */
     hold_location VARCHAR(300) NOT NULL,
@@ -39,7 +33,17 @@ CREATE TABLE Event(
 
     PRIMARY KEY (event_id),
     CONSTRAINT fk_userid_to_event FOREIGN KEY (creator_id) REFERENCES User (user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
+
+CREATE TABLE Event_availability(
+    event_id INT NOT NULL,
+    user_id INT NOT NULL,
+    time_frame TIME NOT NULL,
+
+    PRIMARY KEY (event_id, user_id, time_frame),
+    CONSTRAINT fk_eventid_to_availability FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE,
+    CONSTRAINT fk_userid_to_availability FOREIGN KEY (user_id) REFERENCES User (user_id)
+)
 
 CREATE TABLE Event_pending(
     event_id INT NOT NULL,
@@ -49,7 +53,7 @@ CREATE TABLE Event_pending(
     PRIMARY KEY (event_id, user_id), /* this combination must be unique */
     CONSTRAINT fk_eventid_to_pending FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE,
     CONSTRAINT fk_userid_to_pending FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 CREATE TABLE Event_chosen_time(
     event_id INT NOT NULL,
@@ -60,7 +64,7 @@ CREATE TABLE Event_chosen_time(
     PRIMARY KEY (event_id, user_id, chosen_time),
     CONSTRAINT fk_eventid_to_chosen FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE,
     CONSTRAINT fk_userid_to_chosen FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 
 CREATE TABLE Email_preference(
@@ -71,104 +75,192 @@ CREATE TABLE Email_preference(
     event_cancel BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT fk_userid_to_email FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
+
+
+CREATE VIEW Pp_number AS
+    SELECT event_id, chosen_time, COUNT(*) FROM Event_chosen_time
+    GROUP BY event_id, chosen_time
+    ORDER BY event_id ASC;
+
+
+/*
+Procedure Function List
+    CALL sign_in(username_ VARCHAR(30), password_ VARCHAR(50));
+    CALL sign_up(user_name VARCHAR(30), email_ VARCHAR(50), password_ VARCHAR(50));
+    CALL create_event(creator_id_ INT, event_name_ VARCHAR(100), date_ DATE, duration_ TINYINT(4), time_zone_ VARCHAR(50), hold_location_ VARCHAR(300), due_date_ TIMESTAMP, note_ VARCHAR(500), share_link_ VARCHAR(300), isOnline_ BOOLEAN);
+    CALL change_password(user_id_ INT, old_password_ VARCHAR(50), new_password_ VARCHAR(50));
+    CALL add_email(user_id_ INT, email_ VARCHAR(50));
+    CALL change_email(user_id_ INT, old_email_ VARCHAR(50), new_email_ VARCHAR(50));
+    CALL join_event(event_id_ INT, user_id_ INT);
+    CALL choose_time(event_id_ INT, user_id_ INT, chosen_time_ TIME);
+
+*/
+
+
+DELIMITER //
+CREATE PROCEDURE sign_in(IN username_ VARCHAR(30), password_ VARCHAR(50))
+BEGIN
+    SELECT (user_id, username, email, isAdmin) FROM User /* if admin, then... else... */
+        WHERE username = username_ AND password = password_;
+END // DELIMITER;
+
 
 /* For sign up, need to sign_in after sign_up to check if sign_up is successful, and give feedback to user */
-/* EXEC sign_up @username = ?, @email = ?, @password = ?; */
 DELIMITER //
 CREATE PROCEDURE sign_up (
-    IN user_name VARCHAR(30), e_mail VARCHAR(50), pass_word VARCHAR(50)
+    IN username_ VARCHAR(30), email_ VARCHAR(50), password_ VARCHAR(50)
 )
 BEGIN
-    INSERT INTO User (username, email, password) VALUES (user_name, e_mail, pass_word);
-END //
-DELIMITER ;
+    INSERT INTO User (username, email, password) VALUES (username_, email_, password_);
+    CALL sign_in(username_, password_);
+END // DELIMITER;
 
-/* EXEC sign_in @username = ?, @password = ?; */
+
+/* CALL create_event(1, 'An event name','2020-06-10','12:00:01', '15:00:01', 30, '+03:00', 'Hub Centre', '2020-06-05 13:59:59', 'This is note', 'https://this-is.sharelink.com', false); */
 DELIMITER //
-CREATE PROCEDURE login(
-    IN user_name VARCHAR(30), pass_word VARCHAR(50)
+CREATE PROCEDURE create_event(
+    IN
+    creator_id_ INT,
+    event_name_ VARCHAR(100),
+    date_ DATE,
+    /*time_begin_ TIME,
+    time_end_ TIME,*/
+    duration_ TINYINT(4),
+    time_zone_ VARCHAR(50),
+    hold_location_ VARCHAR(300),
+    due_date_ TIMESTAMP,
+    note_ VARCHAR(500),
+    share_link_ VARCHAR(300),
+    isOnline_ BOOLEAN
 )
 BEGIN
-    SELECT * FROM User /* if admin, then... else... */
-        WHERE username = user_name AND password = pass_word;
-END //
-DELIMITER ;
+    INSERT INTO Event(creator_id, event_name, date, /*time_begin, time_end,*/ duration, time_zone, hold_location, due_date, note, share_link, isOnline)
+        VALUES (creator_id_, event_name_, date_, /*time_begin_, time_end_,*/ duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
+END // DELIMITER;
 
--- Sample Database Data
 
-SET NAMES utf8mb4;
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
-SET @old_autocommit=@@autocommit;
+DELIMITER //
+CREATE PROCEDURE change_password(IN user_id_ INT, old_password_ VARCHAR(50), new_password_ VARCHAR(50))
+BEGIN
+    UPDATE User SET password = new_password_ WHERE user_id_ = user_id AND password = old_password_;
+END // DELIMITER;
 
-USE universal_meet;
 
---
--- Dumping data for table user
---
+DELIMITER //
+CREATE PROCEDURE add_email(IN user_id_ INT, email_ VARCHAR(50))
+BEGIN
+    UPDATE User SET email = email_ WHERE user_id_ = user_id;
+END // DELIMITER;
 
-SET AUTOCOMMIT=0;
-INSERT INTO User VALUES (1, 'tester00', 'tester00@gmail.com', 'tester00pass', false),
-(2, 'tester01', 'tester01@gmail.com', 'tester01pass', false),
-(3, 'tester02', 'tester02@gmail.com', 'tester02pass', false),
-(4, 'tester03', 'tester03@gmail.com', 'tester03pass', false),
-(5, 'tester04', 'tester04@gmail.com', 'tester04pass', false),
-(6, 'tester05', 'tester05@gmail.com', 'tester05pass', false),
-(7, 'tester06', 'tester06@gmail.com', 'tester06pass', false),
-(8, 'tester07', 'tester07@gmail.com', 'tester07pass', false),
-(9, 'tester08', 'tester08@gmail.com', 'tester08pass', false),
-(10, 'tester09', 'tester09@gmail.com', 'tester09pass', true);
-COMMIT;
 
---
--- Dumping data for table event
---
+DELIMITER //
+CREATE PROCEDURE change_email(IN user_id_ INT, old_email_ VARCHAR(50), new_email_ VARCHAR(50))
+BEGIN
+    UPDATE User SET email = new_email_ WHERE user_id_ = user_id AND email = old_email_;
+END // DELIMITER;
 
--- SET AUTOCOMMIT=0;
--- INSERT INTO Event VALUES (1, 1, 'event00', '60', 'Australian Central Standard Time', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', true, false),
--- (2, 3, 'event01', '90', 'Indochina Time', '378 house', '2018-07-25 18:34:33', '9/1', 'none', true, false),
--- (3, 5, 'event02', '30', 'Mountain Daylight Time', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', false, true),
--- (4, 7, 'event03', '15', 'Australian Central Standard Time', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false, false),
--- (5, 9, 'event04', '45', 'Australian Central Standard Time', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', true, false);
--- COMMIT;
 
---
--- Dumping data for table event pending
---
+DELIMITER //
+CREATE PROCEDURE join_event(IN event_id_ INT, user_id_ INT)
+BEGIN
+    INSERT INTO Event_pending(event_id, user_id) VALUES (event_id_, user_id_);
+END // DELIMITER;
 
-SET AUTOCOMMIT=0;
-INSERT INTO Event_pending VALUES (3, 2, true),
-(3, 5, true),
-(4, 6, true),
-(4, 8, true),
-(4, 4, true);
-COMMIT;
 
---
--- Dumping data for table event chosen time
---
+DELIMITER //
+CREATE PROCEDURE choose_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
+BEGIN
+    INSERT INTO Event_chosen_time VALUES (event_id_, user_id_, chosen_time_);
+    UPDATE Event_pending SET isPending = true WHERE event_id = event_id_ AND user_id = user_id_;
+END // DELIMITER;
 
-SET AUTOCOMMIT=0;
-INSERT INTO Event_chosen_time VALUES (1, 4, 6, '18:30:00'),
-(2, 4, 8, '17:15:00'),
-(3, 4, 4, '19:00:00');
-COMMIT;
 
---
--- Dumping data for table email preference
---
+/* If this user is not creator, this function will return NULL */
+DELIMITER //
+CREATE PROCEDURE isCreator(IN event_id_ INT, user_id_ INT)
+BEGIN
+    SELECT (event_id, user_id) FROM Event WHERE event_id = event_id_ AND user_id =user_id_;
+END // DELIMITER;
 
-SET AUTOCOMMIT=0;
-INSERT INTO Email_preference VALUES (1, false, false, false, false),
-(2, false, false, false, false),
-(3, false, false, true, false),
-(4, false, false, false, false),
-(5, true, false, false, true),
-(6, false, false, false, false),
-(7, true, true, true, true),
-(8, false, false, false, false),
-(9, false, true, false, false),
-(10, false, false, false, false);
-COMMIT;
+/* Cannot change duration, timezone, sharelink */
+DELIMITER //
+CREATE PROCEDURE edit_event(
+    IN
+    event_id_ INT,
+    creator_id_ INT,
+    event_name_ VARCHAR(100),
+    hold_location_ VARCHAR(300),
+    due_date_ TIMESTAMP,
+    note_ VARCHAR(500),
+    isOnline_ BOOLEAN
+)
+BEGIN
+    UPDATE Event SET
+        event_name = event_name_,
+        hold_location = hold_location_,
+        due_date = due_date_,
+        note = note_,
+        isOnline = isOnline_
+        WHERE event_id = event_id_ AND creator_id = creator_id_;
+END // DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE delete_event(IN event_id_ INT, user_id_ INT)
+BEGIN
+    DELETE FROM Event WHERE event_id = event_id_ AND user_id = user_id_;
+END // DELIMITER;
+
+/* Havent dont list
+Event Search
+Finalise an event
+Change Finalise Time
+Set email notifications
+Modify user information. (System Admin)
+Delete users. (System Admin)
+Modify event information. (System Admin)
+Delete Events. (System Admin)
+Sign-up other Admins. (System Admin)
+Add new Users. (System Admin)
+*/
+
+/*
+CALL sign_up('zonghan', 'a1@gmail.com', '123123');
+CALL sign_up('nam', 'a2@gmail.com', '123123');
+CALL sign_up('bao', 'a3@gmail.com', '123123');
+CALL sign_up('marcus', 'a4@gmail.com', '123123');
+CALL sign_up('jason', 'a5@gmail.com', '123123');
+CALL sign_up('vill', 'a6@gmail.com', '123123');
+CALL sign_up('maria', 'a7@gmail.com', '123123');
+CALL sign_up('marry', 'a8@gmail.com', '123123');
+CALL sign_up('loser', 'a9@gmail.com', '123123');
+CALL sign_up('biaaatch', 'a10@gmail.com', '123123');
+
+CALL create_event(1, 'event00','2020-06-10', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', false);
+CALL create_event(3, 'event01','2020-06-10', 90, '+06:00', '378 house', '2018-07-25 18:34:33', '9/1', 'none', false);
+CALL create_event(5, 'event02','2020-06-10', 30, '-04:30', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', true);
+CALL create_event(7, 'event03','2020-06-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
+CALL create_event(9, 'event04','2020-06-10', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
+
+CALL join_event(1,3);
+CALL join_event(1,4);
+CALL join_event(1,8);
+CALL join_event(2,1);
+CALL join_event(2,7);
+CALL join_event(3,2);
+CALL join_event(3,9);
+CALL join_event(4,10);
+CALL join_event(4,3);
+CALL join_event(5,1);
+CALL join_event(5,5);
+
+CALL choose_time(1, 3, '12:00:01');
+CALL choose_time(1, 4, '12:00:01');
+CALL choose_time(1, 8, '12:00:01');
+CALL choose_time(1, 3, '12:30:01');
+CALL choose_time(1, 8, '12:30:01');
+CALL choose_time(2, 1, '12:00:01');
+CALL choose_time(2, 7, '12:00:01');
+CALL choose_time(3, 2, '12:00:01');
+
+*/
