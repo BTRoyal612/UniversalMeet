@@ -29,20 +29,22 @@ var vueinst = new Vue({
   el: "#app",
   data: {
     p_event: PENDING_EVENTS,
+  },
+  methods: {
+    const getClickEvent = (event_id) => {
+      console.log(event_id)
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText)
+        }
+      }
+
+      xhttp.open("POST", "/users/getEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+    }
   }
 });
 
-const getClickEvent = (event_id) => {
-  console.log(event_id)
-  var xhttp = new XMLHttpRequest();
-
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText)
-    }
-  }
-
-  xhttp.open("POST", "/users/getEvent", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ event_id: event_id }));
-}
