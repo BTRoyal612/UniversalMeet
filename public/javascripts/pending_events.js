@@ -31,7 +31,7 @@ var vueinst = new Vue({
     p_event: PENDING_EVENTS,
   },
   methods: {
-    const getClickEvent = (event_id) => {
+    getClickEvent: function (event_id) {
       console.log(event_id)
       var xhttp = new XMLHttpRequest();
 
