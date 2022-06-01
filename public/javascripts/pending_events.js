@@ -41,9 +41,18 @@ var vueinst = new Vue({
           let cur_event = this.responseText;
           let event_name = document.getElementById("event-name");
           event_name.innerText = cur_event["event_name"]
+          let event_date = document.getElementById("event-date")
+          event_date.innerText = cur_event["date"]
           let event_duration = document.getElementById("event-duration");
+          event_duration.innerText = cur_event["duration"]
           let event_timezone = document.getElementById("event-timezone");
+          event_timezone.innerText = cur_event["time_zone"]
           let event_status = document.getElementById("event-status");
+          if (cur_event["isOnline"] == 0)
+          {
+            
+          }
+          event_status.innerText = cur_event["event-status"]
           let event_duedate = document.getElementById("event-duedate");
           let event_link = document.getElementById("event-link");
         }
