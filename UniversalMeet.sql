@@ -144,21 +144,11 @@ CALL sign_up('biaaatch', 'a10@gmail.com', '123123');
 -- Dumping data for table event
 --
 
-<<<<<<< HEAD
-SET AUTOCOMMIT=0;
-INSERT INTO Event VALUES (1, 1, 'event00', '60', 'Australian Central Standard Time', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', true, false),
-(2, 3, 'event01', '90', 'Indochina Time', '378 house', '2018-07-25 18:34:33', '9/1', 'none', true, false),
-(3, 5, 'event02', '30', 'Mountain Daylight Time', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', false, true),
-(4, 7, 'event03', '15', 'Australian Central Standard Time', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false, false),
-(5, 9, 'event04', '45', 'Australian Central Standard Time', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', true, false);
-COMMIT;
-=======
 CALL create_event(1, 'event00','2020-06-10','12:00:01', '15:00:01', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', false);
 CALL create_event(3, 'event01','2020-06-10','12:00:01', '15:00:01', 90, '+06:00', '378 house', '2018-07-25 18:34:33', '9/1', 'none', false);
 CALL create_event(5, 'event02','2020-06-10','12:00:01', '15:00:01', 30, '-04:30', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', true);
 CALL create_event(7, 'event03','2020-06-10','12:00:01', '15:00:01', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
 CALL create_event(9, 'event04','2020-06-10','12:00:01', '15:00:01', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
->>>>>>> 0bdcf48a256c8c258c318b29295a0c8867d42b52
 
 --
 -- Dumping data for table event pending
