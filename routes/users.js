@@ -94,6 +94,12 @@ router.post('/getEvent', function(req, res, next) {
 })
 
 /* POST add event. */
+var dateEvent;
+router.post('/passDate', function(req, res, next) {
+  dateEvent = req.body.dateEvent;
+  res.send();
+})
+
 router.post('/addEvent', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
@@ -101,8 +107,8 @@ router.post('/addEvent', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "INSERT INTO Event (creator_id, event_name, duration, time_zone, hold_location, due_date, note, share_link, isOnline) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    connection.query(query, [req.body.creator_id, req.body.event_name, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link,  req.body.isOnline], function(err, rows, fields) {
+    var query = "CALL create_event (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    connection.query(query, [user.user_id, req.body.event_name, dateEvent, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);

@@ -1,5 +1,6 @@
 var dateChosen;
 var dateChosenCount = 0;
+var dateEvent;
 
 const chooseDate = (id) => {
   var id_str = id.toString()
@@ -31,8 +32,9 @@ const chooseDate = (id) => {
   if (dateChosenCount % 2 == 0) {
     dateChosen = "";
   }
-  var date = new Date(id_str)
-  console.log(date)
+  var date = new Date(id_str);
+  dateEvent = date.toISOString().slice(0, 10);
+  console.log(dateEvent);
 }
 
 // CHECK LEAP YEAR
@@ -114,4 +116,17 @@ let curr_month = { value: currDate.getMonth() }
 let curr_year = { value: currDate.getFullYear() }
 
 generateCalendar(curr_month.value, curr_year.value)
+
+function passDate() {
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+      }
+  }
+
+  xhttp.open("POST", "/users/passDate", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ "dateEvent":dateEvent }));
+};
 
