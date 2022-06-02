@@ -15,7 +15,7 @@ const updateEvent = () => {
   event.time_zone = document.getElementById("event-time-zone").value;
   let offline = document.getElementById("offline");
   let online = document.getElementById("online");
-  if (offline.checked) {
+  if (online.checked) {
     event.isOnline = false;
     event.share_link = document.getElementById("event-link").value;
     event.hold_location = ""
