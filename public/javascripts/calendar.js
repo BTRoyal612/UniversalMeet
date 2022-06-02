@@ -119,7 +119,6 @@ generateCalendar(curr_month.value, curr_year.value)
 
 function passDate() {
   var xhttp = new XMLHttpRequest();
-
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
       }
@@ -127,6 +126,6 @@ function passDate() {
 
   xhttp.open("POST", "/users/passDate", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ "dateEvent":dateEvent }));
+  xhttp.send(JSON.stringify({ dateEvent:dateEvent }));
 };
 
