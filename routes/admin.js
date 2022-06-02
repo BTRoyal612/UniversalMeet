@@ -212,14 +212,14 @@ router.post('/updateEmailPreference', function(req, res, next) {
   });
 })
 var test;
-router.get('/getAdminUser', function(req, res, next) {
-  test = req.params;
+router.post('/getAdminUser', function(req, res, next) {
+  test = req.body;
   console.log(test)
   res.send();
 })
 
-router.get('/getAdminEvent', function(req, res, next) {
-  test = req.params;
+router.post('/getAdminEvent', function(req, res, next) {
+  test = req.body;
   console.log(test)
   res.send();
 })
