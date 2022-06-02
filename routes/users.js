@@ -97,11 +97,13 @@ router.post('/getEvent', function(req, res, next) {
 var dateEvent;
 router.post('/passDate', function(req, res, next) {
   dateEvent = req.body.dateEvent;
+  console.log(dateEvent);
   res.send();
 })
 
 router.post('/addEvent', function(req, res, next) {
   // Connect to the database
+  console.log(req.body);
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
@@ -114,7 +116,7 @@ router.post('/addEvent', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      res.send(); //send response
+      res.json(rows); //send response
     });
   });
 })
