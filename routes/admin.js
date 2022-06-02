@@ -213,6 +213,7 @@ router.post('/updateEmailPreference', function(req, res, next) {
 })
 
 router.get('/getAdminUser', function(req, res, next) {
+  console.log('a')
 })
 
 router.get('/getAdminEvent', function(req, res, next) {
