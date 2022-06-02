@@ -91,17 +91,8 @@
     </div>
   </div>
   <script>
-    var table = $('#users-table').DataTable();
-    $('#myTable').on( 'click', 'tbody tr', function () {
-    table.row( this ).delete( {
-        buttons: [
-            { label: 'Cancel', fn: function () { this.close(); } },
-            'Delete'
-        ]
-    } );
-} );
     $(document).ready(function () {
-
+      var table = $('#users-table').DataTable();
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
