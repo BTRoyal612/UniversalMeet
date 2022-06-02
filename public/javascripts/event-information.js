@@ -11,7 +11,6 @@ let event = {
 const updateEvent = () => {
   event.event_name = document.getElementById("event-name").value;
   event.duration = document.getElementById("event-duration").value;
-  let event_from = document.getElementById("event-from").value;
   event.time_zone = document.getElementById("event-time-zone").value;
   let offline = document.getElementById("offline");
   let online = document.getElementById("online");
@@ -33,6 +32,7 @@ function addEvent() {
 
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
+        windows.location = './availbility.html'
       }
   }
 
