@@ -202,7 +202,6 @@
         if (this.readyState == 4 && this.status == 200) {
           var events = JSON.parse(this.responseText);;
           for (let event of events) {
-            console.log(event)
             table.row.add([
               event["event_id"],
               event["creator_id"],
