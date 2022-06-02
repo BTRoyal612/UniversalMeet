@@ -565,3 +565,35 @@ background-color: #ee1505;
   cursor: pointer;
   user-select: none;
 }
+
+.modal-body-custom {
+  background-color: #ee1505;
+  text-align: center;
+  /* border-bottom-left-radius: calc(0.3rem - 1px);
+  border-bottom-right-radius: calc(0.3rem - 1px); */
+}
+
+.modal-btn-custom {
+  height: 50px;
+  width: 20vw;
+  margin: 10px auto;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  background-color: white;
+  border: 2px solid #ee1505;
+  color: #ee1505;
+  transition: 0.3s;
+}
+
+.modal-btn-custom:hover {
+  background-color: #ee1505;
+  border: 2px solid white;
+  color: white;
+  transform: scale(1.05);
+}
+
+.close-modal-btn-custom {
+  background-color: #ee1505 !important;
+  color: white !important;
+}

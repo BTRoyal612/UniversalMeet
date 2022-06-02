@@ -114,6 +114,7 @@ router.post('/addEvent', function(req, res, next) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
+        console.log(err)
         return;
       }
       res.json(rows); //send response
@@ -200,6 +201,5 @@ router.post('/updateEmailPreference', function(req, res, next) {
     });
   });
 })
-
 
 module.exports = router;

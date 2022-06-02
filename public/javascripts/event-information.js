@@ -11,17 +11,17 @@ let event = {
 const updateEvent = () => {
   event.event_name = document.getElementById("event-name").value;
   event.duration = document.getElementById("event-duration").value;
-  let event_from = document.getElementById("event-from").value;
+  console.log(event.duration)
   event.time_zone = document.getElementById("event-time-zone").value;
   let offline = document.getElementById("offline");
   let online = document.getElementById("online");
-  if (offline.checked) {
-    event.isOnline = false;
+  if (online.checked) {
+    event.isOnline = true;
     event.share_link = document.getElementById("event-link").value;
     event.hold_location = ""
   }
   else {
-    event.isOnline = true;
+    event.isOnline = false;
     event.hold_location = document.getElementById("event-link").value;
     event.share_link = ""
   }
@@ -33,6 +33,7 @@ function addEvent() {
 
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
+        window.location = './availbility.html'
       }
   }
 
