@@ -87,6 +87,8 @@
           <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
           <label>Event Name</label>
           <input id="add-event-name" type="text" placeholder="Event Name" name="event-name" class="event-input">
+          <label>Event Name</label>
+          <input id="add-event-name" type="text" placeholder="Event Name" name="event-name" class="event-input">
           <label>Duration (in minute)</label>
           <input id="add-event-duration" type="number" placeholder="Duration" name="event-duration" class="event-input">
           <label>Time Zones</label>
@@ -223,35 +225,33 @@
     });
 
     function addEvent() {
-      var event_name = document.getElementById("event-name").value;
-      var event-duration = document.getElementById("event-duration").value;
-      let event_from = document.getElementById("event-from").value;
-      event.time_zone = document.getElementById("event-time-zone").value;
-      let offline = document.getElementById("offline");
-      let online = document.getElementById("online");
+      let new_event = {}
+      new_event.creator_id = document.getElementById("add-event-creatorid").value;
+      new_event.event_name = document.getElementById("add-event-name").value;
+      new_event.date = document.getElementById("add-event-date").value;
+      new_event.duration = document.getElementById("add-event-duration").value;
+      new_event.time_zone = document.getElementById("add-event-time-zone").value;
+      let offline = document.getElementById("add-event-offline");
+      let online = document.getElementById("add-event-online");
       if (offline.checked) {
-        event.isOnline = false;
+        new_event.isOnline = false;
+        new_event.hold_location = document.getElementById("add-event-link").value;
+        new_event.share_link = "";
       }
       else {
-        event.isOnline = true;
+        new_event.isOnline = true;
+        new_event.share_link = document.getElementById("add-event-link").value;
+        new_event.hold_location = "";
       }
-      event.due_date = document.getElementById("event-due-date").value;
-      event.share_link = document.getElementById("event-link").value;
+      new_event.due_date = document.getElementById("add-event-due-date").value;
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
         }
       };
-      if (isAdmin === "True") {
         xhttp.open("POST", "/admin/addAdmin", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
-      }
-      else {
-        xhttp.open("POST", "/admin/addUser", true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
-      }
     }
 
     const deleteEvent = (event_id) => {
