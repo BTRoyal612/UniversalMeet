@@ -129,4 +129,3 @@ function passDate() {
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ dateEvent:dateEvent }));
 };
-
