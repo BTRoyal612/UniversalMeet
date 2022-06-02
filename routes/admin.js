@@ -211,7 +211,12 @@ router.post('/updateEmailPreference', function(req, res, next) {
     });
   });
 })
-router.get('/admin-user.html', function(req, res, next) {
+
+router.get('/getAdminUser', function(req, res, next) {
 })
+
+router.get('/getAdminEvent', function(req, res, next) {
+})
+
 
 module.exports = router;

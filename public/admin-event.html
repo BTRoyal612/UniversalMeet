@@ -26,7 +26,6 @@
 
 <body>
   <div class="admin-button-ctn">
-    <button class="admin-button submit">Events</button>
     <button class="admin-button submit" onclick="renderAdminUser()">Users</button>
     <button class="admin-button submit" data-toggle="modal" data-target="#exampleModalCenter">
       Add Event
@@ -266,7 +265,6 @@
     }
 
     const renderAdminUser = () => {
-      console.log('hello')
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -276,7 +274,6 @@
       xhttp.open("GET", "/admin-user.html", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
-
     }
   </script>
 </body>
