@@ -16,12 +16,12 @@ const updateEvent = () => {
   let offline = document.getElementById("offline");
   let online = document.getElementById("online");
   if (online.checked) {
-    event.isOnline = false;
+    event.isOnline = true;
     event.share_link = document.getElementById("event-link").value;
     event.hold_location = ""
   }
   else {
-    event.isOnline = true;
+    event.isOnline = false;
     event.hold_location = document.getElementById("event-link").value;
     event.share_link = ""
   }
