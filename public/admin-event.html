@@ -35,7 +35,7 @@
   <div class="table-header">
     <h1>Events</h1>
   </div>
-  <table id="example" class="display" style="width:100%">
+  <table id="events-table" class="display" style="width:100%">
     <thead>
       <tr>
         <th>EventID</th>
@@ -49,6 +49,7 @@
         <th>Share Link</th>
         <th>isFinalised</th>
         <th>isOnline</th>
+        <th>button</th>
       </tr>
     </thead>
     <tbody>
@@ -65,6 +66,7 @@
         <th>Share Link</th>
         <th>isFinalised</th>
         <th>isOnline</th>
+        <th>button</th>
     </tfoot>
   </table>
 
@@ -101,7 +103,7 @@
   </div> -->
   <script>
     $(document).ready(function () {
-      var table = $('#users-table').DataTable();
+      var table = $('#events-table').DataTable();
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
