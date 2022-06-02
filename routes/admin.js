@@ -148,7 +148,7 @@ router.post('/addEvent', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-}
+});
 
 /* POST delete event. */
 router.post('/deleteEvent', function(req, res, next) {
