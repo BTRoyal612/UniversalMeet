@@ -17,7 +17,9 @@
   <div class="admin-button-ctn">
     <button class="admin-button submit">Events</button>
     <button class="admin-button submit">Users</button>
-    <button class="admin-button submit">Create Admin</button>
+    <button class="admin-button submit" data-toggle="modal" data-target="#exampleModalCenter">
+      Add Event
+    </button>
   </div>
   <div class="table-header">
     <h1>Events</h1>
@@ -53,33 +55,70 @@
         <th>isFinalised</th>
         <th>isOnline</th>
     </tfoot>
-
   </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label>Username</label>
+          <input id="add-user-username" placeholder="Username" class="add-user-input">
+          <label>Email</label>
+          <input type="email" id="add-user-email" placeholder="Email" class="add-user-input">
+          <label>Password</label>
+          <input id="add-user-password" placeholder="Password" class="add-user-input">
+          <label>isAdmin</label>
+          <select id="isAdmin-option" class="add-user-input">
+            <option value="True">True</option>
+            <option value="False">False</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="addEvent()">Add User</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script>
     $(document).ready(function () {
       var table = $('#users-table').DataTable();
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          var users = JSON.parse(this.responseText);;
-          for (let user of users) {
+          var events = JSON.parse(this.responseText);;
+          for (let event of events) {
             table.row.add([
-              user["user_id"],
-              user["username"],
-              user["email"],
-              user["password"],
-              user["isAdmin"],
-              '<button onclick="deleteUser(' + user["user_id"] + ')">delete</button>'
+              event["event_id"],
+              event["creator_id"],
+              event["event_name"],
+              event["duration"],
+              event["time_zone"],
+              event["hold_location"],
+              event["due_date"],
+              event["note"],
+              event["share_link"],
+              event["isFinalised"],
+              event["isOnline"],
+              '<button onclick="deleteUser(' + event["event_id"] + ')">delete</button>'
             ]).draw();
           }
         }
       };
-      xhttp.open("POST", "/admin/getUserList", true);
+      xhttp.open("POST", "/admin/getEventList", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
     });
 
-    function addUser() {
+    function addEvent() {
       var username = document.getElementById("add-user-username").value;
       var email = document.getElementById("add-user-email").value;
       var password = document.getElementById("add-user-password").value;
