@@ -223,10 +223,20 @@
     });
 
     function addEvent() {
-      var username = document.getElementById("add-user-username").value;
-      var email = document.getElementById("add-user-email").value;
-      var password = document.getElementById("add-user-password").value;
-      var isAdmin = document.getElementById("isAdmin-option").value;
+      var event_name = document.getElementById("event-name").value;
+      var event-duration = document.getElementById("event-duration").value;
+      let event_from = document.getElementById("event-from").value;
+      event.time_zone = document.getElementById("event-time-zone").value;
+      let offline = document.getElementById("offline");
+      let online = document.getElementById("online");
+      if (offline.checked) {
+        event.isOnline = false;
+      }
+      else {
+        event.isOnline = true;
+      }
+      event.due_date = document.getElementById("event-due-date").value;
+      event.share_link = document.getElementById("event-link").value;
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
