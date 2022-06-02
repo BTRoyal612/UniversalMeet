@@ -86,9 +86,9 @@
           <input id="add-event-creatorid" placeholder="Creator ID" class="add-user-input">
           <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
           <label>Event Name</label>
-          <input id="add-event-name" type="text" placeholder="Event Name" name="event-name" class="event-input">
-          <label>Event Name</label>
-          <input id="add-event-name" type="text" placeholder="Event Name" name="event-name" class="event-input">
+          <input id="add-event-name" type="text" placeholder="Event Name" class="event-input">
+          <label>Event Date</label>
+          <input id="add-event-date" type="date" placeholder="Event Date" class="event-input">
           <label>Duration (in minute)</label>
           <input id="add-event-duration" type="number" placeholder="Duration" name="event-duration" class="event-input">
           <label>Time Zones</label>
@@ -244,14 +244,15 @@
         new_event.hold_location = "";
       }
       new_event.due_date = document.getElementById("add-event-due-date").value;
+      new_event.note = "";
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
         }
       };
-        xhttp.open("POST", "/admin/addAdmin", true);
+        xhttp.open("POST", "/admin/addEvent", true);
         xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
+        xhttp.send(JSON.stringify(new_event));
     }
 
     const deleteEvent = (event_id) => {
