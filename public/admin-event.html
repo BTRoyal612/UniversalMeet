@@ -186,10 +186,10 @@
           <label id="link">Link/Location</label>
           <input id="add-event-link" type="text" placeholder="Link/Location" name="event-name" class="add-input">
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="addEvent()">Add User</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="addEvent()">Add User</button>
+        </div>
       </div>
     </div>
   </div>
@@ -249,9 +249,9 @@
         if (this.readyState == 4 && this.status == 200) {
         }
       };
-        xhttp.open("POST", "/admin/addEvent", true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify(new_event));
+      xhttp.open("POST", "/admin/addEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify(new_event));
     }
 
     const deleteEvent = (event_id) => {
