@@ -44,7 +44,7 @@ body {
   margin: 10px 20px;
 }
 
-.add-user-input {
+.add-input {
   width: 100%;
   padding: 12px 11px;
   margin: 12px 0px;
@@ -54,4 +54,10 @@ body {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   font-style: normal;
+}
+
+.status-option {
+  width: 100%;
+  padding: 12px 11px;
+  margin: 8px 0;
 }

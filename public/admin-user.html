@@ -26,8 +26,7 @@
 
 <body>
   <div class="admin-button-ctn">
-    <button class="admin-button submit">Events</button>
-    <button class="admin-button submit">Users</button>
+    <button class="admin-button submit" onclick="renderAdminEvent()">Events</button>
     <button class="admin-button submit" data-toggle="modal" data-target="#exampleModalCenter">
       Add User
     </button>
@@ -72,13 +71,13 @@
         </div>
         <div class="modal-body">
           <label>Username</label>
-          <input id="add-user-username" placeholder="Username" class="add-user-input">
+          <input id="add-user-username" placeholder="Username" class="add-input">
           <label>Email</label>
-          <input type="email" id="add-user-email" placeholder="Email" class="add-user-input">
+          <input type="email" id="add-user-email" placeholder="Email" class="add-input">
           <label>Password</label>
-          <input id="add-user-password" placeholder="Password" class="add-user-input">
+          <input id="add-user-password" placeholder="Password" class="add-input">
           <label>isAdmin</label>
-          <select id="isAdmin-option" class="add-user-input">
+          <select id="isAdmin-option" class="add-input">
             <option value="True">True</option>
             <option value="False">False</option>
           </select>
@@ -137,6 +136,7 @@
     }
 
     const deleteUser = (user_id) => {
+
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -145,6 +145,19 @@
       xhttp.open("POST", "/admin/deleteUser", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ user_id: user_id }));
+      window.location.reload()
+    }
+
+    const renderAdminEvent = () => {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          window.location = '/admin-event.html';
+        }
+      };
+      xhttp.open("POST", "/admin/getAdminEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({test: "a"}));
     }
   </script>
 </body>

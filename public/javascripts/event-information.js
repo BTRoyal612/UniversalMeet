@@ -17,13 +17,15 @@ const updateEvent = () => {
   let online = document.getElementById("online");
   if (offline.checked) {
     event.isOnline = false;
+    event.share_link = document.getElementById("event-link").value;
+    event.hold_location = ""
   }
   else {
     event.isOnline = true;
+    event.hold_location = document.getElementById("event-link").value;
+    event.share_link = ""
   }
   event.due_date = document.getElementById("event-due-date").value;
-  event.share_link = document.getElementById("event-link").value;
-  console.log(event);
 }
 
 function addEvent() {
