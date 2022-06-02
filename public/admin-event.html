@@ -200,6 +200,7 @@
         if (this.readyState == 4 && this.status == 200) {
           var events = JSON.parse(this.responseText);;
           for (let event of events) {
+            console.log(event)
             table.row.add([
               event["event_id"],
               event["creator_id"],
@@ -262,6 +263,7 @@
       xhttp.open("POST", "/admin/deleteEvent", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id }));
+      window.location.reload()
     }
 
     const renderAdminUser = () => {
