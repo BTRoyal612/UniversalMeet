@@ -32,7 +32,7 @@ function addEvent() {
 
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        windows.location = './availbility.html'
+        window.location = './availbility.html'
       }
   }
 
