@@ -110,7 +110,7 @@ router.post('/addEvent', function(req, res, next) {
       return;
     }
     var query = "CALL create_event (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    connection.query(query, [user.user_id, req.body.event_name, dateEvent, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline], function(err, rows, fields) {
+    connection.query(query, [user.user_id, req.body.event_name, dateEvent, parseInt(req.body.duration), req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
