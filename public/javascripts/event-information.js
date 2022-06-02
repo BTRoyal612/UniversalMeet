@@ -26,7 +26,6 @@ const updateEvent = () => {
     event.share_link = ""
   }
   event.due_date = document.getElementById("event-due-date").value;
-  // console.log(event_name,event_duration,event_from,event_time_zone,event_status,event_due_date,event_link)
 }
 
 function addEvent() {
@@ -39,5 +38,5 @@ function addEvent() {
 
   xhttp.open("POST", "/users/addEvent", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ "event_name":event.event_name, "duration":event.duration, "time_zone":event.time_zone, "hold_location":event.hold_location, "due_date":event.due_date, "note":event.note, "share_link": event.share_link, "isOnline":event.isOnline }));
+  xhttp.send(JSON.stringify({ event_name:event.event_name, duration:event.duration, time_zone:event.time_zone, hold_location:event.hold_location, due_date:event.due_date, note:event.note, share_link:event.share_link, isOnline:event.isOnline }));
 };
