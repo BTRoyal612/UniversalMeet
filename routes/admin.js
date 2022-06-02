@@ -213,7 +213,7 @@ router.post('/updateEmailPreference', function(req, res, next) {
 })
 
 router.get('/getAdminUser', function(req, res, next) {
-  // res.sendFile('/home/ubuntu/UniversalMeet/public/admin-user.html');
+  res.send('a');
 })
 
 module.exports = router;

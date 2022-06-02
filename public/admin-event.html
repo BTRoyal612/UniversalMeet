@@ -269,11 +269,12 @@
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
           window.location = '/admin-user.html';
         }
       };
-      xhttp.open("get", "/");
-      // xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.open("GET", "/getAdminUser", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
 
     }
