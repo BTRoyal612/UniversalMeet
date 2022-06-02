@@ -70,8 +70,4 @@ router.post('/logout', function(req, res, next) {
   res.end();
 })
 
-router.get('/admin-user.html', function(req, res, next) {
-  res.send('boocu');
-})
-
 module.exports = router;
