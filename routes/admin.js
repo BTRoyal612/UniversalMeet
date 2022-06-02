@@ -213,7 +213,7 @@ router.post('/updateEmailPreference', function(req, res, next) {
 })
 
 router.get('/getAdminUser', function(req, res, next) {
-  res.render('/admin-user.html');
+  res.send('./public/admin-user.html');
 })
 
 module.exports = router;
