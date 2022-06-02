@@ -43,7 +43,7 @@ CREATE TABLE Event_availability(
     PRIMARY KEY (event_id, user_id, time_frame),
     CONSTRAINT fk_eventid_to_availability FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE,
     CONSTRAINT fk_userid_to_availability FOREIGN KEY (user_id) REFERENCES User (user_id)
-)
+);
 
 CREATE TABLE Event_pending(
     event_id INT NOT NULL,
