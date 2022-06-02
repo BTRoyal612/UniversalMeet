@@ -25,57 +25,92 @@
   <table id="example" class="display" style="width:100%">
     <thead>
       <tr>
-        <th>UserID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Social Media</th>
-        <th>Password</th>
+        <th>EventID</th>
+        <th>CreatorID</th>
+        <th>Event Name</th>
+        <th>Duration</th>
+        <th>Timezone</th>
+        <th>Hold Location</th>
+        <th>Due Date</th>
+        <th>Note</th>
+        <th>Share Link</th>
+        <th>isFinalised</th>
+        <th>isOnline</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>a12800</td>
-        <td>Edinburgh</td>
-        <td>a@gmail.com</td>
-        <td>Facebook/Email</td>
-        <td>123445</td>
-      </tr>
-      <tr>
-        <td>a12801</td>
-        <td>Tokyo</td>
-        <td>b@gmail.com</td>
-        <td>Facebook/Email</td>
-        <td>qiuwos</td>
-      </tr>
-      <tr>
-        <td>a12802</td>
-        <td>San Francisco</td>
-        <td>c@gmail.com</td>
-        <td>Facebook/Email</td>
-        <td>123445</td>
-      </tr>
-      <tr>
-        <td>a12803</td>
-        <td>Saigon</td>
-        <td>d@gmail.com</td>
-        <td>Facebook/Email</td>
-        <td>kwkssd</td>
-      </tr>
+    </tbody>
     <tfoot>
-      <tr>
-        <th>UserID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Social Media</th>
-        <th>Password</th>
-      </tr>
+      <th>EventID</th>
+        <th>CreatorID</th>
+        <th>Event Name</th>
+        <th>Duration</th>
+        <th>Timezone</th>
+        <th>Hold Location</th>
+        <th>Due Date</th>
+        <th>Note</th>
+        <th>Share Link</th>
+        <th>isFinalised</th>
+        <th>isOnline</th>
     </tfoot>
 
   </table>
   <script>
     $(document).ready(function () {
-      $('#example').DataTable();
+      var table = $('#users-table').DataTable();
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var users = JSON.parse(this.responseText);;
+          for (let user of users) {
+            table.row.add([
+              user["user_id"],
+              user["username"],
+              user["email"],
+              user["password"],
+              user["isAdmin"],
+              '<button onclick="deleteUser(' + user["user_id"] + ')">delete</button>'
+            ]).draw();
+          }
+        }
+      };
+      xhttp.open("POST", "/admin/getUserList", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
     });
+
+    function addUser() {
+      var username = document.getElementById("add-user-username").value;
+      var email = document.getElementById("add-user-email").value;
+      var password = document.getElementById("add-user-password").value;
+      var isAdmin = document.getElementById("isAdmin-option").value;
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      };
+      if (isAdmin === "True") {
+        xhttp.open("POST", "/admin/addAdmin", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
+      }
+      else {
+        xhttp.open("POST", "/admin/addUser", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ username: username, email: email, password: password }));
+      }
+    }
+
+    const deleteUser = (user_id) => {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      };
+      xhttp.open("POST", "/admin/deleteUser", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ user_id: user_id }));
+    }
   </script>
 </body>
 
