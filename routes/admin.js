@@ -211,12 +211,16 @@ router.post('/updateEmailPreference', function(req, res, next) {
     });
   });
 })
-
+var test;
 router.get('/getAdminUser', function(req, res, next) {
+  test = req.body.test;
+  console.log(test)
   res.send();
 })
 
 router.get('/getAdminEvent', function(req, res, next) {
+  test = req.body.test;
+  console.log(test)
   res.send();
 })
 

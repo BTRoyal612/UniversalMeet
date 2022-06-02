@@ -273,7 +273,7 @@
       };
       xhttp.open("GET", "/admin/getAdminUser", true);
       xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
+      xhttp.send(JSON.stringify({test: "b"}));
     }
   </script>
 </body>

@@ -157,7 +157,7 @@
       };
       xhttp.open("GET", "/admin/getAdminEvent", true);
       xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
+      xhttp.send(JSON.stringify({test: "a"}));
     }
   </script>
 </body>
