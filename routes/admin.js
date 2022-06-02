@@ -147,7 +147,7 @@ router.post('/addEvent', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); //send response
+      res.json(rows); //send respons
     });
   });
 });
