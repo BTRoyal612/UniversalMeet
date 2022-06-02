@@ -20,8 +20,6 @@ const chooseDate = (id) => {
   if (dateChosenCount % 2 == 0) {
     dateChosen = "";
   }
-  var date = new Date(id_str);
-  dateEvent = date.toISOString().slice(0, 10);
   console.log(dateEvent);
 }
 
