@@ -212,4 +212,8 @@ router.post('/updateEmailPreference', function(req, res, next) {
   });
 })
 
+router.get('/getAdminUser', function(req, res, next) {
+  res.render('/admin-user.html');
+})
+
 module.exports = router;
