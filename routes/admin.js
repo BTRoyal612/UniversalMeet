@@ -216,7 +216,6 @@ router.get('/getAdminUser', function(req, res, next) {
 })
 
 router.get('/getAdminEvent', function(req, res, next) {
-  console.log('a')
 })
 
 
