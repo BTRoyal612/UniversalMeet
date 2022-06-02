@@ -190,7 +190,7 @@ router.post('/updateEmailPreference', function(req, res, next) {
       return;
     }
     var query = "UPDATE Email_preference SET user_respond = ?, avail_confirm = ?, event_finalize = ?, event_cancel = ? WHERE user_id = ?";
-    connection.query(query, [req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel, req.body.user_id], function(err, rows, fields) {
+    connection.query(query, [req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel, user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
