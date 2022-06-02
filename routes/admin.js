@@ -212,8 +212,6 @@ router.post('/updateEmailPreference', function(req, res, next) {
   });
 })
 
-router.get('/admin-user.html', function(req, res, next) {
-  res.send('boocu');
-})
+
 
 module.exports = router;
