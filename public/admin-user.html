@@ -91,6 +91,14 @@
     </div>
   </div>
   <script>
+    $('#users-table').on( 'click', 'tbody tr', function () {
+    myTable.row( this ).delete( {
+        buttons: [
+            { label: 'Cancel', fn: function () { this.close(); } },
+            'Delete'
+        ]
+    } );
+} );
     $(document).ready(function () {
       var table = $('#users-table').DataTable();
       var xhttp = new XMLHttpRequest();
