@@ -1,6 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
+/* GET admin listing. */
+var admin;
+router.get('/', function(req, res, next) {
+  console.log(req.session);
+  admin = req.session.user;
+  res.send('respond with a resource');
+});
+
 /* POST add admin. */
 router.post('/addAdmin', function(req, res, next) {
   // Connect to the database
@@ -41,7 +49,27 @@ router.post('/getUserList', function(req, res, next) {
   });
 })
 
-/* POST add admin. */
+/* POST get user. */
+router.post('/getUser', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT * FROM User WHERE WHERE user_id = ?";
+    connection.query(query, [req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
+})
+
+/* POST add user. */
 router.post('/addUser', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
@@ -101,6 +129,29 @@ router.post('/getEventList', function(req, res, next) {
   });
 })
 
+/* POST add event. */
+router.post('/addEvent', function(req, res, next) {
+  // Connect to the database
+  console.log(req.body);
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      console.log(err)
+      res.sendStatus(500);
+      return;
+    }
+    var query = "CALL create_event (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    connection.query(query, [req.body.creator_id, req.body.event_name, req.body.date, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        console.log(err)
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send respons
+    });
+  });
+});
+
 /* POST delete event. */
 router.post('/deleteEvent', function(req, res, next) {
   // Connect to the database
@@ -159,6 +210,14 @@ router.post('/updateEmailPreference', function(req, res, next) {
       res.send(); //send response
     });
   });
+})
+
+router.post('/getAdminUser', function(req, res, next) {
+  res.send();
+})
+
+router.post('/getAdminEvent', function(req, res, next) {
+  res.send();
 })
 
 

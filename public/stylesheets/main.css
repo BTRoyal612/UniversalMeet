@@ -172,7 +172,6 @@
 .profile_body {
   min-height: 100vh;
   /* background-image: linear-gradient(to right, #06beb6, #48b1bf); */
-  background-color: #e0e5ec;
 }
 
 .profile_username {
@@ -188,13 +187,18 @@
 .profile_schedule {
   height: 50vh;
   width: 60%;
-  background-color: white;
-  margin: auto;
   border-radius: 7px;
   border: solid 1px;
   overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  margin: auto;
+  background-color: #fff;
+  border-radius: 7px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -362,6 +366,8 @@ background-color: #ee1505;
 .day_title {
   padding: 5px 10px;
   font-size: 1.2rem;
+  background-color: #ee1505;
+  color: white;
 }
 
 .day_event {
@@ -416,27 +422,36 @@ background-color: #ee1505;
   padding-top: 20px;
 }
 
-.bubble_ctn {
+.welcome-line {
+  font-size: 2rem;
   width: 70%;
+  padding-left: 20px;
+  color: #ee1505;
+  font-weight: bold;
 }
 
 .setting_btn_ctn {
   width: 30%;
-  position: relative;
 }
 
 .setting_btn {
-  position: absolute;
   height: 50px;
   width: 20vw;
   padding: 0 10px;
-  background-color: #4831d4;
-  color: white;
   margin: auto;
   border: none;
   border-radius: 7px;
   cursor: pointer;
   font-size: 1rem;
+  background-color: white;
+  border: 2px solid #ee1505;
+  color: #ee1505;
+  transition: 0.3s;
+}
+
+.setting_btn:hover {
+  background-color: #ee1505;
+  color: white;
 }
 
 @media only screen and (max-width: 780px) {
@@ -530,63 +545,55 @@ background-color: #ee1505;
   color: white;
 }
 
-.page_nav_ctn {
+.event-input {
   width: 100%;
+  padding: 12px 11px;
+  margin: 5px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
-}
-.pages {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-.page {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
+.response-info-input {
+  background-color: var(--red);
+  color: white;
+  text-align: center;
+  font-weight: 700;
   cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.page:hover {
-  background-color: #087f5b;
-  color: #fff;
+  user-select: none;
 }
 
-.active {
-  background-color: #087f5b;
-  color: #fff;
+.modal-body-custom {
+  background-color: #ee1505;
+  text-align: center;
+  /* border-bottom-left-radius: calc(0.3rem - 1px);
+  border-bottom-right-radius: calc(0.3rem - 1px); */
 }
 
-.btn {
-  background-color: #fff;
-  border: 1px solid #087f5b;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
+.modal-btn-custom {
+  height: 50px;
+  width: 20vw;
+  margin: 10px auto;
+  border-radius: 7px;
   cursor: pointer;
+  font-size: 1.3rem;
+  background-color: white;
+  border: 2px solid #ee1505;
+  color: #ee1505;
+  transition: 0.3s;
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.modal-btn-custom:hover {
+  background-color: #ee1505;
+  border: 2px solid white;
+  color: white;
+  transform: scale(1.05);
 }
-.btn:hover {
-  background-color: #087f5b;
-}
-.btn--icon {
-  height: 24px;
-  width: 24px;
-  stroke: #087f5b;
-}
-.btn--icon:hover {
-  stroke: #fff;
+
+.close-modal-btn-custom {
+  background-color: #ee1505 !important;
+  color: white !important;
 }

@@ -5,8 +5,19 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./admin.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="./stylesheets/admin.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/a2d20e5bcc.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
@@ -15,69 +26,259 @@
 
 <body>
   <div class="admin-button-ctn">
-    <button class="admin-button submit">Events</button>
-    <button class="admin-button submit">Users</button>
-    <button class="admin-button submit">Create Admin</button>
+    <button class="admin-button submit" onclick="renderAdminUser()">Users</button>
+    <button class="admin-button submit" data-toggle="modal" data-target="#exampleModalCenter">
+      Add Event
+    </button>
   </div>
   <div class="table-header">
     <h1>Events</h1>
   </div>
-  <table id="example" class="display" style="width:100%">
+  <table id="events-table" class="display" style="width:100%">
     <thead>
       <tr>
-        <th>UserID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Social Media</th>
-        <th>Password</th>
+        <th>EventID</th>
+        <th>CreatorID</th>
+        <th>Event Name</th>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Timezone</th>
+        <th>Hold Location</th>
+        <th>Due Date</th>
+        <th>Note</th>
+        <th>Share Link</th>
+        <th>isFinalised</th>
+        <th>isOnline</th>
+        <th>button</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>a12800</td>
-        <td>Edinburgh</td>
-        <td>a@gmail.com</td>
-        <td>Facebook/Email</td>
-        <td>123445</td>
-      </tr>
-      <tr>
-        <td>a12801</td>
-        <td>Tokyo</td>
-        <td>b@gmail.com</td>
-        <td>Facebook/Email</td>
-        <td>qiuwos</td>
-      </tr>
-      <tr>
-        <td>a12802</td>
-        <td>San Francisco</td>
-        <td>c@gmail.com</td>
-        <td>Facebook/Email</td>
-        <td>123445</td>
-      </tr>
-      <tr>
-        <td>a12803</td>
-        <td>Saigon</td>
-        <td>d@gmail.com</td>
-        <td>Facebook/Email</td>
-        <td>kwkssd</td>
-      </tr>
+    </tbody>
     <tfoot>
-      <tr>
-        <th>UserID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Social Media</th>
-        <th>Password</th>
-      </tr>
+      <th>EventID</th>
+      <th>CreatorID</th>
+      <th>Event Name</th>
+      <th>Date</th>
+      <th>Duration</th>
+      <th>Timezone</th>
+      <th>Hold Location</th>
+      <th>Due Date</th>
+      <th>Note</th>
+      <th>Share Link</th>
+      <th>isFinalised</th>
+      <th>isOnline</th>
+      <th>button</th>
     </tfoot>
-
   </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add Event</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label>Creator ID</label>
+          <input id="add-event-creatorid" placeholder="Creator ID" class="add-input">
+          <label>Event Name</label>
+          <input id="add-event-name" type="text" placeholder="Event Name" class="add-input">
+          <label>Event Date</label>
+          <input id="add-event-date" type="date" placeholder="Event Date" class="add-input">
+          <label>Duration (in minute)</label>
+          <input id="add-event-duration" type="number" placeholder="Duration" name="event-duration" class="add-input">
+          <label>Time Zones</label>
+          <select id="add-event-time-zone" class="add-input">
+            <option value="-12:00">(GMT-12:00) International Date Line West</option>
+            <option value="-11:00">(GMT-11:00) Midway Island, Samoa</option>
+            <option value="-10:00">(GMT-10:00) Hawaii</option>
+            <option value="-09:00">(GMT-09:00) Alaska</option>
+            <option value="-08:00">(GMT-08:00) Pacific Time (US & Canada)</option>
+            <option value="-08:00">(GMT-08:00) Tijuana, Baja California</option>
+            <option value="-07:00">(GMT-07:00) Arizona</option>
+            <option value="-07:00">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
+            <option value="-07:00">(GMT-07:00) Mountain Time (US & Canada)</option>
+            <option value="-06:00">(GMT-06:00) Central America</option>
+            <option value="-06:00">(GMT-06:00) Central Time (US & Canada)</option>
+            <option value="-06:00">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
+            <option value="-06:00">(GMT-06:00) Saskatchewan</option>
+            <option value="-05:00">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
+            <option value="-05:00">(GMT-05:00) Eastern Time (US & Canada)</option>
+            <option value="-05:00">(GMT-05:00) Indiana (East)</option>
+            <option value="-04:00">(GMT-04:00) Atlantic Time (Canada)</option>
+            <option value="-04:00">(GMT-04:00) Caracas, La Paz</option>
+            <option value="-04:00">(GMT-04:00) Manaus</option>
+            <option value="-04:00">(GMT-04:00) Santiago</option>
+            <option value="-03:30">(GMT-03:30) Newfoundland</option>
+            <option value="-03:00">(GMT-03:00) Brasilia</option>
+            <option value="-03:00">(GMT-03:00) Buenos Aires, Georgetown</option>
+            <option value="-03:00">(GMT-03:00) Greenland</option>
+            <option value="-03:00">(GMT-03:00) Montevideo</option>
+            <option value="-02:00">(GMT-02:00) Mid-Atlantic</option>
+            <option value="-01:00">(GMT-01:00) Cape Verde Is.</option>
+            <option value="-01:00">(GMT-01:00) Azores</option>
+            <option value="+00:00">(GMT+00:00) Casablanca, Monrovia, Reykjavik</option>
+            <option value="+00:00">(GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</option>
+            <option value="+01:00">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+            <option value="+01:00">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
+            <option value="+01:00">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</option>
+            <option value="+01:00">(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb</option>
+            <option value="+01:00">(GMT+01:00) West Central Africa</option>
+            <option value="+02:00">(GMT+02:00) Amman</option>
+            <option value="+02:00">(GMT+02:00) Athens, Bucharest, Istanbul</option>
+            <option value="+02:00">(GMT+02:00) Beirut</option>
+            <option value="+02:00">(GMT+02:00) Cairo</option>
+            <option value="+02:00">(GMT+02:00) Harare, Pretoria</option>
+            <option value="+02:00">(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</option>
+            <option value="+02:00">(GMT+02:00) Jerusalem</option>
+            <option value="+02:00">(GMT+02:00) Minsk</option>
+            <option value="+02:00">(GMT+02:00) Windhoek</option>
+            <option value="+03:00">(GMT+03:00) Kuwait, Riyadh, Baghdad</option>
+            <option value="+03:00">(GMT+03:00) Moscow, St. Petersburg, Volgograd</option>
+            <option value="+03:00">(GMT+03:00) Nairobi</option>
+            <option value="+03:00">(GMT+03:00) Tbilisi</option>
+            <option value="+03:30">(GMT+03:30) Tehran</option>
+            <option value="+04:00">(GMT+04:00) Abu Dhabi, Muscat</option>
+            <option value="+04:00">(GMT+04:00) Baku</option>
+            <option value="+04:00">(GMT+04:00) Yerevan</option>
+            <option value="+04:30">(GMT+04:30) Kabul</option>
+            <option value="+05:00">(GMT+05:00) Yekaterinburg</option>
+            <option value="+05:00">(GMT+05:00) Islamabad, Karachi, Tashkent</option>
+            <option value="+05:30">(GMT+05:30) Sri Jayawardenapura</option>
+            <option value="+05:30">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+            <option value="+05:45">(GMT+05:45) Kathmandu</option>
+            <option value="+06:00">(GMT+06:00) Almaty, Novosibirsk</option>
+            <option value="+06:00">(GMT+06:00) Astana, Dhaka</option>
+            <option value="+06:30">(GMT+06:30) Yangon (Rangoon)</option>
+            <option value="+07:00">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+            <option value="+07:00">(GMT+07:00) Krasnoyarsk</option>
+            <option value="+08:00">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</option>
+            <option value="+08:00">(GMT+08:00) Kuala Lumpur, Singapore</option>
+            <option value="+08:00">(GMT+08:00) Irkutsk, Ulaan Bataar</option>
+            <option value="+08:00">(GMT+08:00) Perth</option>
+            <option value="+08:00">(GMT+08:00) Taipei</option>
+            <option value="+09:00">(GMT+09:00) Osaka, Sapporo, Tokyo</option>
+            <option value="+09:00">(GMT+09:00) Seoul</option>
+            <option value="+09:00">(GMT+09:00) Yakutsk</option>
+            <option value="+09:30">(GMT+09:30) Adelaide</option>
+            <option value="+09:30">(GMT+09:30) Darwin</option>
+            <option value="+10:00">(GMT+10:00) Brisbane</option>
+            <option value="+10:00">(GMT+10:00) Canberra, Melbourne, Sydney</option>
+            <option value="+10:00">(GMT+10:00) Hobart</option>
+            <option value="+10:00">(GMT+10:00) Guam, Port Moresby</option>
+            <option value="+10:00">(GMT+10:00) Vladivostok</option>
+            <option value="+11:00">(GMT+11:00) Magadan, Solomon Is., New Caledonia</option>
+            <option value="+12:00">(GMT+12:00) Auckland, Wellington</option>
+            <option value="+12:00">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
+            <option value="+13:00">(GMT+13:00) Nuku'alofa</option>
+          </select>
+          <div id="add-event-status" class="status-option">
+            <input id="add-event-offline" type="radio" value="offline" name="event-name" checked>
+            <label>Offline</label>
+            <input id="add-event-online" type="radio" value="online" name="event-name">
+            <label>Online</label>
+          </div>
+          <label>Due Date</label>
+          <input id="add-event-due-date" type="datetime-local" name="event-name" class="add-input">
+          <label id="link">Link/Location</label>
+          <input id="add-event-link" type="text" placeholder="Link/Location" name="event-name" class="add-input">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="addEvent()">Add Event</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script>
     $(document).ready(function () {
-      $('#example').DataTable();
+      var table = $('#events-table').DataTable();
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var events = JSON.parse(this.responseText);;
+          for (let event of events) {
+            table.row.add([
+              event["event_id"],
+              event["creator_id"],
+              event["event_name"],
+              event["date"],
+              event["duration"],
+              event["time_zone"],
+              event["hold_location"],
+              event["due_date"],
+              event["note"],
+              event["share_link"],
+              event["isFinalised"],
+              event["isOnline"],
+              '<button class="admin-button" onclick="deleteEvent(' + event["event_id"] + ')">delete</button>'
+            ]).draw();
+          }
+        }
+      };
+      xhttp.open("POST", "/admin/getEventList", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
     });
+
+    function addEvent() {
+      let new_event = {}
+      new_event.creator_id = document.getElementById("add-event-creatorid").value;
+      new_event.event_name = document.getElementById("add-event-name").value;
+      new_event.date = document.getElementById("add-event-date").value;
+      new_event.duration = document.getElementById("add-event-duration").value;
+      new_event.time_zone = document.getElementById("add-event-time-zone").value;
+      let offline = document.getElementById("add-event-offline");
+      let online = document.getElementById("add-event-online");
+      if (offline.checked) {
+        new_event.isOnline = false;
+        new_event.hold_location = document.getElementById("add-event-link").value;
+        new_event.share_link = "";
+      }
+      else {
+        new_event.isOnline = true;
+        new_event.share_link = document.getElementById("add-event-link").value;
+        new_event.hold_location = "";
+      }
+      new_event.due_date = document.getElementById("add-event-due-date").value;
+      new_event.note = "";
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      };
+      xhttp.open("POST", "/admin/addEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify(new_event));
+    }
+
+    const deleteEvent = (event_id) => {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      };
+      xhttp.open("POST", "/admin/deleteEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+      window.location.reload()
+    }
+
+    const renderAdminUser = () => {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          window.location = '/admin-user.html';
+        }
+      };
+      xhttp.open("POST", "/admin/getAdminUser", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify());
+    }
   </script>
 </body>
-
-
 </html>

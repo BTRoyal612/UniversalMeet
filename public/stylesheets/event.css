@@ -12,7 +12,7 @@
   --light-second: #c3c2c8;
   --light-hover: #edf0f5;
   --light-text: #151426;
-  --blue: #0000ff;
+  --red: #ee1505;
   --white: #fff;
   --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -60,7 +60,7 @@ body {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
-  background-color: var(--blue);
+  background-color: var(--red);
   backdrop-filter: blur(3px);
   display: grid;
   place-items: center;
@@ -75,6 +75,10 @@ body {
 
 .next {
   right: 2rem;
+}
+
+.prev:hover, .next:hover {
+  background-color: #af150a;
 }
 
 .box {
@@ -203,9 +207,12 @@ body {
 }
 
 .calendar-days div.curr-date {
-  background-color: var(--blue);
-  color: var(--white);
+  border: 2px solid var(--red);
   border-radius: 50%;
+}
+
+.calendar-days div {
+  user-select: none;
 }
 
 .month-list {
@@ -249,9 +256,10 @@ body {
   background-color: var(--light-hover);
 }
 
-.chosen-day {
-  background-color: red;
-  border-radius: 10%;
+.chosen {
+  background-color: var(--red);
+  color: var(--white);
+  border-radius: 50%;
 }
 
 @keyframes to-top {
@@ -266,8 +274,8 @@ body {
 }
 
 .event-info {
-  height: 650px;
-  width: 500px;
+  height: max-content;
+  width: 50%;
   background-color: var(--light-main);
   border-radius: 30px;
   padding: 20px;
@@ -279,14 +287,14 @@ body {
 .event-info-header, .link-header, .avail-header {
   text-align: center;
   font-weight: bold;
-  color: #0000ff;
+  color: var(--red);
   margin-bottom: 10px;
 }
 
 .event-input {
   width: 100%;
   padding: 12px 11px;
-  margin: 12px 0px;
+  margin: 5px 0px;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -296,7 +304,7 @@ body {
 }
 
 .time-frame-input {
-  width: 40%;
+  width: 80%;
   padding: 0px 11px;
   margin: 12px 5px;
   display: inline-block;
@@ -348,7 +356,7 @@ body {
 
 .copy-text button {
   padding: 10px;
-  background-color: #0000ff;
+  background-color: var(--red);
   color: #fff;
   font-size: 18px;
   border: none;
@@ -356,6 +364,10 @@ body {
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
+}
+
+.copy-text button:hover {
+  background-color: #af150a;
 }
 
 .copy-text button:active {
@@ -385,12 +397,16 @@ body {
 
 .link-box {
   width: 100%;
-  background-color: #0000ff;
+  background-color: var(--red);
   margin: 0 10px;
   color: white;
   padding: 8px 10px;
   border-radius: 30px;
   cursor: pointer;
+}
+
+.link-box:hover {
+  background-color: #af150a;
 }
 
 @media only screen and (min-width: 600px) {
@@ -409,19 +425,10 @@ body {
 }
 
 .avail-ctn {
-  overflow: scroll;
+  max-height: 80%;
+  overflow-y: scroll;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.avail-ctn::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.avail-ctn {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
 
 .avail-ctn-box {
   height: max-content;
@@ -437,7 +444,7 @@ body {
 
 .avail-time-frame {
   width: 100%;
-  background-color: #0000ff;
+  background-color: var(--red);
   padding: 15px 11px;
   margin: 12px 0px;
   color: white;
@@ -459,11 +466,54 @@ body {
 
 .avail-add {
   width: 100%;
-  background-color: #79788c;
   padding: 15px 11px;
   margin: 12px 0px;
-  color: white;
+  color: var(--red);
+  border: 2px solid var(--red);
   border-radius: 7px;
   text-align: center;
   cursor: pointer;
+  transition: 0.3s;
+  font-size: 1.2rem;
+}
+
+.avail-add:hover {
+  background-color: var(--red);
+  color: white;
+}
+
+.reponse_ctn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-info-response {
+  margin: 20px;
+  width: 40%;
+  height: 100vh;
+}
+
+.response-info-input {
+  background-color: var(--red);
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
+
+.response-info-tf-input {
+  background-color: grey;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.1s;
+}
+
+.chosen-tf {
+  background-color: #05ee0d;
+  color: black;
 }
