@@ -14,7 +14,7 @@ router.post('/updateSession', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * FROM User WHERE WHERE user_id = ?";
+    var query = "SELECT * FROM User WHERE user_id = ?";
     connection.query(query, [req.body.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
@@ -186,6 +186,130 @@ router.post('/updateEmailPreference', function(req, res, next) {
     });
   });
 })
+
+/* POST add chosen time */
+router.post('/addChosenTime', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    for(time_frame of req.body.chosen_time){
+      var query = "CALL choose_time(?, ?, ?);";
+
+      /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
+      /* Im not sure if this format is right */
+      connection.query(query, [req.body.event_id, req.body.user_id, time_frame],function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.send(); //send response
+      });
+    }
+  });
+})
+
+/* POST delete chosen time */
+router.post('/deleteChosenTime', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    for(time_frame of req.body.chosen_time){
+      var query = "CALL delete_time(?, ?, ?);";
+
+      /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
+      /* Im not sure if this format is right */
+      connection.query(query, [req.body.event_id, req.body.user_id, time_frame],function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.send(); //send response
+      });
+    }
+  });
+})
+
+/* POST get count how many user choose a time */
+router.post('/countChosenTime', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    for(time_frame of req.body.chosen_time){
+      var query = "SELECT * FROM Pp_number WHERE event_id = ? AND chosen_time = ?;";
+
+      /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
+      /* Im not sure if this format is right */
+      connection.query(query, [req.body.event_id, time_frame],function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.send(); //send response
+      });
+    }
+  });
+})
+
+/* POST event creator add availability */
+router.post('/addAvailability', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    for(time_frame of req.body.chosen_time){
+      var query = "CALL add_availability(?, ?, ?);";
+
+      /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
+      /* Im not sure if this format is right */
+      connection.query(query, [req.body.event_id, req.body.user_id, time_frame],function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.send(); //send response
+      });
+    }
+  });
+})
+
+/* POST show all Availability */
+router.post('/showAvailability', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+      var query = "SELECT avail_time FROM Event_availability WHERE event_id = ?;";
+
+      connection.query(query, [req.body.event_id],function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.send(); //send response
+      });
+
+  });
+})
+
+
 
 
 module.exports = router;
