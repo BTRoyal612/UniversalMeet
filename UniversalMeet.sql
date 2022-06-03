@@ -102,7 +102,8 @@ CREATE PROCEDURE login (
 BEGIN
     SELECT * FROM User /* if admin, then... else... */
         WHERE username = user_name AND password = pass_word;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE sign_in(IN username_ VARCHAR(30), password_ VARCHAR(50))
@@ -292,6 +293,7 @@ CALL choose_time(3, 2, '12:00:01');
 
 */
 
+/*
 SET AUTOCOMMIT=0;
 INSERT INTO Email_preference VALUES (1, false, false, false, false),
 (2, false, false, false, false),
@@ -304,3 +306,4 @@ INSERT INTO Email_preference VALUES (1, false, false, false, false),
 (9, false, true, false, false),
 (10, false, false, false, false);
 COMMIT;
+*/
