@@ -95,6 +95,14 @@ Procedure Function List
 
 */
 
+DELIMITER //
+CREATE PROCEDURE login (
+    IN user_name VARCHAR(30), pass_word VARCHAR(50)
+)
+BEGIN
+    SELECT * FROM User /* if admin, then... else... */
+        WHERE username = user_name AND password = pass_word;
+END // DELIMITER;
 
 DELIMITER //
 CREATE PROCEDURE sign_in(IN username_ VARCHAR(30), password_ VARCHAR(50))
