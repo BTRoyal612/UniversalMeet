@@ -56,7 +56,15 @@ router.post('/signup', function(req, res, next) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
+        if (rows.length > 0) {
+          req.session.user = rows[0];
+          console.log('login success');
+          console.log(req.session.user);
+          res.json(rows); //send response
+        } else {
+          console.log('login bad');
+          res.sendStatus(401);
+        }
       });
     });
   }
