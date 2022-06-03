@@ -241,17 +241,6 @@ BEGIN
 END //
 DELIMITER ;
 
-/* Havent dont list
-Event Search
-Finalise an event
-Change Finalise Time
-Set email notifications
-Modify user information. (System Admin)
-Delete users. (System Admin)
-Modify event information. (System Admin)
-Delete Events. (System Admin)
-Sign-up other Admins. (System Admin)
-Add new Users. (System Admin)
 
 /* Havent dont list
 Event Search
