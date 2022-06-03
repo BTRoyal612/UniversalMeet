@@ -37,13 +37,11 @@ CREATE TABLE Event(
 
 CREATE TABLE Event_availability(
     event_id INT NOT NULL,
-    user_id INT NOT NULL,
-    time_frame TIME NOT NULL,
+    avail_time TIME NOT NULL,
 
-    PRIMARY KEY (event_id, user_id, time_frame),
+    PRIMARY KEY (event_id, avail_time),
     CONSTRAINT fk_eventid_to_availability FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE,
-    CONSTRAINT fk_userid_to_availability FOREIGN KEY (user_id) REFERENCES User (user_id)
-);
+)
 
 CREATE TABLE Event_pending(
     event_id INT NOT NULL,
@@ -175,6 +173,16 @@ BEGIN
     UPDATE Event_pending SET isPending = true WHERE event_id = event_id_ AND user_id = user_id_;
 END // DELIMITER;
 
+DELIMITER //
+CREATE PROCEDURE delete_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
+BEGIN
+    DELETE FROM Event_chosen_time WHERE
+        event_id = event_id_ AND user_id = user_id_ AND chosen_time = chosen_time_;
+    IF ISNULL(SELECT * FROM Event_chosen_time WHERE event_id = event_id_ AND user_id = user_id_) THEN
+        UPDATE Event_pending SET isPending = false WHERE event_id = event_id_ AND user_id = user_id_;
+    END IF;
+END // DELIMITER;
+
 
 /* If this user is not creator, this function will return NULL */
 DELIMITER //
@@ -209,6 +217,14 @@ DELIMITER //
 CREATE PROCEDURE delete_event(IN event_id_ INT, user_id_ INT)
 BEGIN
     DELETE FROM Event WHERE event_id = event_id_ AND user_id = user_id_;
+END // DELIMITER;
+
+/* Creator add availability */
+DELIMITER //
+CREATE PROCEDURE add_availability(IN event_id_ INT, user_id_ INT, avail_time_ TIME)
+BEGIN
+    INSERT INTO Event_chosen_time VALUES (event_id_, avail_time_)
+        WHERE event_id = (SELECT Event.event_id WHERE event_id = event_id_ AND creator_id = user_id_);
 END // DELIMITER;
 
 /* Havent dont list
