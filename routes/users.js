@@ -329,7 +329,7 @@ router.post('/showAvailability', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT Event_availability.avail_time, Event.duration FROM Event INNER JOIN Event_availability ON Event.event_id = Event_availability.event_id WHERE Event_availability.event_id = ?;";
+      var query = "SELECT Event_availability.avail_time, Event.duration FROM Event INNER JOIN Event_availability ON Event.event_id = Event_availability.event_id WHERE Event_availability.event_id = ?;";
 
       connection.query(query, [req.body.event_id],function(err, rows, fields) {
         connection.release(); // release connection
