@@ -1,6 +1,6 @@
-DROP DATABASE event_app;
-CREATE DATABASE event_app;
-USE event_app;
+DROP DATABASE universal_meet;
+CREATE DATABASE universal_meet;
+USE universal_meet;
 
 CREATE TABLE User(
     user_id INT NOT NULL AUTO_INCREMENT,
@@ -40,8 +40,8 @@ CREATE TABLE Event_availability(
     avail_time TIME NOT NULL,
 
     PRIMARY KEY (event_id, avail_time),
-    CONSTRAINT fk_eventid_to_availability FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE,
-)
+    CONSTRAINT fk_eventid_to_availability FOREIGN KEY (event_id) REFERENCES Event (event_id) ON DELETE CASCADE
+);
 
 CREATE TABLE Event_pending(
     event_id INT NOT NULL,
@@ -101,7 +101,8 @@ CREATE PROCEDURE sign_in(IN username_ VARCHAR(30), password_ VARCHAR(50))
 BEGIN
     SELECT (user_id, username, email, isAdmin) FROM User /* if admin, then... else... */
         WHERE username = username_ AND password = password_;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 
 /* For sign up, need to sign_in after sign_up to check if sign_up is successful, and give feedback to user */
@@ -112,7 +113,8 @@ CREATE PROCEDURE sign_up (
 BEGIN
     INSERT INTO User (username, email, password) VALUES (username_, email_, password_);
     CALL sign_in(username_, password_);
-END // DELIMITER;
+END //
+DELIMITER ;
 
 
 /* CALL create_event(1, 'An event name','2020-06-10','12:00:01', '15:00:01', 30, '+03:00', 'Hub Centre', '2020-06-05 13:59:59', 'This is note', 'https://this-is.sharelink.com', false); */
@@ -135,53 +137,60 @@ CREATE PROCEDURE create_event(
 BEGIN
     INSERT INTO Event(creator_id, event_name, date, /*time_begin, time_end,*/ duration, time_zone, hold_location, due_date, note, share_link, isOnline)
         VALUES (creator_id_, event_name_, date_, /*time_begin_, time_end_,*/ duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
-END // DELIMITER;
+END //
+DELIMITER ;
 
 
 DELIMITER //
 CREATE PROCEDURE change_password(IN user_id_ INT, old_password_ VARCHAR(50), new_password_ VARCHAR(50))
 BEGIN
     UPDATE User SET password = new_password_ WHERE user_id_ = user_id AND password = old_password_;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 
 DELIMITER //
 CREATE PROCEDURE add_email(IN user_id_ INT, email_ VARCHAR(50))
 BEGIN
     UPDATE User SET email = email_ WHERE user_id_ = user_id;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 
 DELIMITER //
 CREATE PROCEDURE change_email(IN user_id_ INT, old_email_ VARCHAR(50), new_email_ VARCHAR(50))
 BEGIN
     UPDATE User SET email = new_email_ WHERE user_id_ = user_id AND email = old_email_;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 
 DELIMITER //
 CREATE PROCEDURE join_event(IN event_id_ INT, user_id_ INT)
 BEGIN
     INSERT INTO Event_pending(event_id, user_id) VALUES (event_id_, user_id_);
-END // DELIMITER;
+END //
+DELIMITER ;
 
 
 DELIMITER //
 CREATE PROCEDURE choose_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
 BEGIN
     INSERT INTO Event_chosen_time VALUES (event_id_, user_id_, chosen_time_);
-    UPDATE Event_pending SET isPending = true WHERE event_id = event_id_ AND user_id = user_id_;
-END // DELIMITER;
+    UPDATE Event_pending SET isPending = false WHERE event_id = event_id_ AND user_id = user_id_;
+END //
+DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE delete_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
 BEGIN
     DELETE FROM Event_chosen_time WHERE
         event_id = event_id_ AND user_id = user_id_ AND chosen_time = chosen_time_;
-    IF ISNULL(SELECT * FROM Event_chosen_time WHERE event_id = event_id_ AND user_id = user_id_) THEN
-        UPDATE Event_pending SET isPending = false WHERE event_id = event_id_ AND user_id = user_id_;
+    IF EXISTS (SELECT * FROM Event_chosen_time WHERE event_id = event_id_ AND user_id = user_id_) = false THEN
+        UPDATE Event_pending SET isPending = true WHERE event_id = event_id_ AND user_id = user_id_;
     END IF;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 
 /* If this user is not creator, this function will return NULL */
@@ -189,7 +198,8 @@ DELIMITER //
 CREATE PROCEDURE isCreator(IN event_id_ INT, user_id_ INT)
 BEGIN
     SELECT (event_id, user_id) FROM Event WHERE event_id = event_id_ AND user_id =user_id_;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 /* Cannot change duration, timezone, sharelink */
 DELIMITER //
@@ -211,21 +221,25 @@ BEGIN
         note = note_,
         isOnline = isOnline_
         WHERE event_id = event_id_ AND creator_id = creator_id_;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE delete_event(IN event_id_ INT, user_id_ INT)
 BEGIN
     DELETE FROM Event WHERE event_id = event_id_ AND user_id = user_id_;
-END // DELIMITER;
+END //
+DELIMITER ;
 
 /* Creator add availability */
 DELIMITER //
 CREATE PROCEDURE add_availability(IN event_id_ INT, user_id_ INT, avail_time_ TIME)
 BEGIN
-    INSERT INTO Event_chosen_time VALUES (event_id_, avail_time_)
-        WHERE event_id = (SELECT Event.event_id WHERE event_id = event_id_ AND creator_id = user_id_);
-END // DELIMITER;
+    IF EXISTS (SELECT * FROM Event WHERE event_id = event_id_ AND creator_id = user_id_) THEN
+        INSERT INTO Event_availability VALUES (event_id_, avail_time_);
+    END IF;
+END //
+DELIMITER ;
 
 /* Havent dont list
 Event Search

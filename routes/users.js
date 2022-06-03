@@ -206,9 +206,9 @@ router.post('/addChosenTime', function(req, res, next) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
       });
     }
+    res.send(); //send response
   });
 })
 
@@ -231,9 +231,9 @@ router.post('/deleteChosenTime', function(req, res, next) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
       });
     }
+    res.send(); //send response
   });
 })
 
@@ -252,13 +252,13 @@ router.post('/countChosenTime', function(req, res, next) {
       /* Im not sure if this format is right */
       connection.query(query, [req.body.event_id, time_frame],function(err, rows, fields) {
         connection.release(); // release connection
-        if (err) {
-          res.sendStatus(500);
-          return;
-        }
-        res.send(); //send response
       });
     }
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    res.send(); //send response
   });
 })
 
@@ -281,9 +281,9 @@ router.post('/addAvailability', function(req, res, next) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
       });
     }
+    res.send(); //send response
   });
 })
 
@@ -295,7 +295,7 @@ router.post('/showAvailability', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-      var query = "SELECT avail_time FROM Event_availability WHERE event_id = ?;";
+      var query = "SELECT Event_availability.avail_time, Event.duration FROM Event INNER JOIN Event_availability ON Event.event_id = Event_availability.event_id WHERE Event_availability.event_id = ?;";
 
       connection.query(query, [req.body.event_id],function(err, rows, fields) {
         connection.release(); // release connection
@@ -303,7 +303,7 @@ router.post('/showAvailability', function(req, res, next) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
+        res.send(rows); //send response
       });
 
   });
