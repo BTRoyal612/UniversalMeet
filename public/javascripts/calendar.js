@@ -1,39 +1,31 @@
-// DARK MODE TOGGLE
+var dateChosen;
+var dateChosenCount = 0;
+var dateEvent;
 
-dateChosen = []
-
-
-// document.querySelector('.dark-mode-switch').onclick = () => {
-//   document.querySelector('body').classList.toggle('dark')
-//   document.querySelector('body').classList.toggle('light')
-// }
-
-// const chooseDate = (id) => {
-//   let inArray = false;
-//   if (document.querySelector('body').classList[0] == 'dark') {
-    
-//   for (let index = 0; index < dateChosen.length; index++) {
-//     if (dateChosen[index] == id)
-//     {
-//       dateChosen.splice(index, 1)
-//       inArray= true
-//     }
-//   }
-//   if (!inArray) {
-//     dateChosen.push(id)
-//   }
-// }
-// else {
-//   dateChosen = [id]
-// }
-
-//   let date = document.getElementById(id)
-//   date.classList.toggle('chosen-day')
-// }
+const chooseDate = (id) => {
+  dateEvent = id.toString();
+  var days = document.getElementsByClassName('calendar-day-hover');
+  var chosenEl = document.querySelector(".chosen");
+  for (let i = 0; i < days.length; i++) {
+    if (chosenEl == days[i] && chosenEl.id != id) {
+      chosenEl.classList.remove("chosen");
+      dateChosenCount -= 1;
+    }
+    if (days[i].id == id) {
+      days[i].classList.toggle("chosen");
+      dateChosen = id;
+      dateChosenCount += 1;
+    }
+  }
+  if (dateChosenCount % 2 == 0) {
+    dateChosen = "";
+  }
+  console.log(dateEvent);
+}
 
 // CHECK LEAP YEAR
 const isLeapYear = (year) => {
-  return (year%4 === 0 && year%100 !==0 && year % 400 !==0) || (year % 100 === 0 && year%400 === 0)
+  return (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0) || (year % 100 === 0 && year % 400 === 0)
 }
 
 const getFebDays = (year) => {
@@ -51,6 +43,7 @@ month_picker.onclick = () => {
 }
 
 const generateCalendar = (month, year) => {
+
   var calendar_days = document.querySelector('.calendar-days')
   calendar_days.innerHTML = ''
   let calendar_header_year = document.querySelector('#year')
@@ -61,19 +54,18 @@ const generateCalendar = (month, year) => {
 
   month_picker.innerHTML = month_names[month]
   calendar_header_year.innerHTML = year
-
-  let first_day = new Date(month, year, 1)
+  var new_month = month + 1
+  let first_day = new Date(new_month + "-1-" + year)
 
   for (var i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
     let day = document.createElement('div')
     if (i >= first_day.getDay()) {
-      let date = (i-first_day.getDay()+1).toString() + (month+1).toString() + (year).toString()
+      let date = (year).toString() + "-" + (month + 1).toString() + "-" + (i - first_day.getDay() + 1).toString()
       day.setAttribute('id', date);
-      day.setAttribute('onclick', 'chooseDate('+date+')');
+      day.setAttribute('onclick', "chooseDate('" + date + "')");
       day.classList.add('calendar-day-hover')
       day.innerHTML = i - first_day.getDay() + 1
-      if (i - first_day.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth())
-      {
+      if (i - first_day.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
         day.classList.add('curr-date')
       }
     }
@@ -83,9 +75,9 @@ const generateCalendar = (month, year) => {
 
 let month_list = calendar.querySelector('.month-list')
 
-month_names.forEach((e,index) => {
+month_names.forEach((e, index) => {
   let month = document.createElement('div')
-  month.innerHTML = '<div>'+ e + '</div>'
+  month.innerHTML = '<div>' + e + '</div>'
   month.onclick = () => {
     month_list.classList.remove('show')
     curr_month.value = index
@@ -106,8 +98,20 @@ document.querySelector('#next-year').onclick = () => {
 
 let currDate = new Date()
 
-let curr_month = {value: currDate.getMonth()}
-let curr_year = {value: currDate.getFullYear()}
+let curr_month = { value: currDate.getMonth() }
+let curr_year = { value: currDate.getFullYear() }
 
 generateCalendar(curr_month.value, curr_year.value)
 
+function passDate() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        window.location = './event-information.html'
+      }
+  }
+
+  xhttp.open("POST", "/users/passDate", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ dateEvent:dateEvent }));
+};

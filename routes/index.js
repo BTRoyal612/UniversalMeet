@@ -8,11 +8,11 @@ router.get('/', function(req, res, next) {
 
 /* POST login. */
 router.post('/login', function(req, res, next) {
-
   if ('username' in req.body && 'password' in req.body) {
     // Connect to the database
     req.pool.getConnection(function(err, connection) {
       if (err) {
+        console.log(err);
         res.sendStatus(500);
         return;
       }
@@ -20,6 +20,7 @@ router.post('/login', function(req, res, next) {
       connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
+          console.log(err);
           res.sendStatus(500);
           return;
         }
