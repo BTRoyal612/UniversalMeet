@@ -229,20 +229,20 @@ router.post('/addChosenTime', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    for(time_frame of req.body.chosen_time){
+    for(time_frame of req.body.chosen_time) {
       var query = "CALL choose_time(?, ?, ?);";
 
       /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
       /* Im not sure if this format is right */
-      connection.query(query, [req.body.event_id, req.body.user_id, time_frame],function(err, rows, fields) {
+      connection.query(query, [req.body.event_id, user.user_id, time_frame],function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
       });
     }
+    res.send(); //send response
   });
 })
 
@@ -254,24 +254,26 @@ router.post('/deleteChosenTime', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    for(time_frame of req.body.chosen_time){
+    for(time_frame of req.body.chosen_time) {
       var query = "CALL delete_time(?, ?, ?);";
 
       /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
       /* Im not sure if this format is right */
-      connection.query(query, [req.body.event_id, req.body.user_id, time_frame],function(err, rows, fields) {
+      connection.query(query, [req.body.event_id, user.user_id, time_frame],function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
+
       });
     }
+    res.send(); //send response
   });
 })
 
 /* POST get count how many user choose a time */
+var count = [];
 router.post('/countChosenTime', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
@@ -290,9 +292,10 @@ router.post('/countChosenTime', function(req, res, next) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
+        count.push(rows);
       });
     }
+    res.json(count); //send response
   });
 })
 
@@ -304,20 +307,20 @@ router.post('/addAvailability', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    for(time_frame of req.body.chosen_time){
+    for (time_frame of req.body.chosen_time) {
       var query = "CALL add_availability(?, ?, ?);";
 
       /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
       /* Im not sure if this format is right */
-      connection.query(query, [req.body.event_id, req.body.user_id, time_frame],function(err, rows, fields) {
+      connection.query(query, [req.body.event_id, user.user_id, time_frame],function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           res.sendStatus(500);
           return;
         }
-        res.send(); //send response
       });
     }
+    res.send(); //send response
   });
 })
 
@@ -329,17 +332,16 @@ router.post('/showAvailability', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-      var query = "SELECT Event_availability.avail_time, Event.duration FROM Event INNER JOIN Event_availability ON Event.event_id = Event_availability.event_id WHERE Event_availability.event_id = ?;";
 
-      connection.query(query, [req.body.event_id],function(err, rows, fields) {
-        connection.release(); // release connection
-        if (err) {
-          res.sendStatus(500);
-          return;
-        }
-        res.send(rows); //send response
-      });
-
+    var query = "SELECT avail_time FROM Event_availability WHERE event_id = ?;";
+    connection.query(query, [req.body.event_id],function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
   });
 })
 
