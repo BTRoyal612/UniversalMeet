@@ -146,6 +146,7 @@ CREATE PROCEDURE create_event(
 BEGIN
     INSERT INTO Event(creator_id, event_name, date, /*time_begin, time_end,*/ duration, time_zone, hold_location, due_date, note, share_link, isOnline)
         VALUES (creator_id_, event_name_, date_, /*time_begin_, time_end_,*/ duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
+    SELECT event_id FROM Event ORDER BY event_id DESC LIMIT 1;
 END //
 DELIMITER ;
 
@@ -265,7 +266,7 @@ Sign-up other Admins. (System Admin)
 Add new Users. (System Admin)
 */
 
-/*
+
 CALL sign_up('zonghan', 'a1@gmail.com', '123123');
 CALL sign_up('nam', 'a2@gmail.com', '123123');
 CALL sign_up('bao', 'a3@gmail.com', '123123');
@@ -283,6 +284,10 @@ CALL create_event(5, 'event02','2020-06-10', 30, '-04:30', 'online', '2022-06-30
 CALL create_event(7, 'event03','2020-06-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
 CALL create_event(9, 'event04','2020-06-10', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
 
+CALL add_availability(4, 7, '17:00:00');
+CALL add_availability(4, 7, '19:00:00');
+CALL add_availability(4, 7, '21:00:00');
+
 CALL join_event(1,3);
 CALL join_event(1,4);
 CALL join_event(1,8);
@@ -295,18 +300,18 @@ CALL join_event(4,3);
 CALL join_event(5,1);
 CALL join_event(5,5);
 
-CALL choose_time(1, 3, '12:00:01');
-CALL choose_time(1, 4, '12:00:01');
-CALL choose_time(1, 8, '12:00:01');
-CALL choose_time(1, 3, '12:30:01');
-CALL choose_time(1, 8, '12:30:01');
-CALL choose_time(2, 1, '12:00:01');
-CALL choose_time(2, 7, '12:00:01');
-CALL choose_time(3, 2, '12:00:01');
+-- CALL choose_time(1, 3, '12:00:01');
+-- CALL choose_time(1, 4, '12:00:01');
+-- CALL choose_time(1, 8, '12:00:01');
+-- CALL choose_time(1, 3, '12:30:01');
+-- CALL choose_time(1, 8, '12:30:01');
+-- CALL choose_time(2, 1, '12:00:01');
+-- CALL choose_time(2, 7, '12:00:01');
+-- CALL choose_time(3, 2, '12:00:01');
 
-*/
 
-/*
+
+
 SET AUTOCOMMIT=0;
 INSERT INTO Email_preference VALUES (1, false, false, false, false),
 (2, false, false, false, false),
@@ -319,4 +324,4 @@ INSERT INTO Email_preference VALUES (1, false, false, false, false),
 (9, false, true, false, false),
 (10, false, false, false, false);
 COMMIT;
-*/
+

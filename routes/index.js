@@ -32,7 +32,7 @@ router.post('/login', function(req, res, next) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
-          res.json(rows); //send response
+          res.json(rows[0]); //send response
         } else {
           console.log('login bad');
           res.sendStatus(401);
@@ -87,7 +87,7 @@ router.post('/googleLogin', function(req, res, next) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
-          res.json(rows); //send response
+          res.json(rows[0]); //send response
         } else {
           console.log('login bad');
           res.sendStatus(401);
@@ -131,7 +131,7 @@ router.post('/signup', function(req, res, next) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
-          res.json(rows); //send response
+          res.json(rows[0]); //send response
         } else {
           console.log('login bad');
           res.sendStatus(401);
@@ -141,8 +141,8 @@ router.post('/signup', function(req, res, next) {
   }
 })
 
-/* POST login. */
-router.post('/logout', function(req, res, next) {
+/* GET logout. */
+router.get('/logout', function(req, res, next) {
   if ('user' in req.session) {
     delete req.session.user;
   }

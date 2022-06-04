@@ -120,3 +120,4 @@ function updateEmail() {
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ new_email:new_email }));
 }
+
