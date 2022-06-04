@@ -27,15 +27,6 @@
 
 <body class="pending_event_body">
   <div id="app">
-    <a href="#" onclick="signOut();">Sign out</a>
-    <script>
-      function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          console.log('User signed out.');
-        });
-      }
-    </script>
     <div class="pending_events_header">Your Events</div>
     <div class="pending_event_ctn">
       <div class="row">
