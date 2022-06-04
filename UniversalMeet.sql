@@ -1,4 +1,4 @@
-DROP DATABASE universal_meet;
+DROP DATABASE IF EXISTS universal_meet;
 CREATE DATABASE universal_meet;
 USE universal_meet;
 
