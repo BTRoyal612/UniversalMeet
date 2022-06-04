@@ -4,7 +4,7 @@ USE universal_meet;
 
 CREATE TABLE User(
     user_id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(30) NOT NULL,
+    username VARCHAR(50) NOT NULL,
     email VARCHAR(50), /* should it be not null? */
     password VARCHAR(50) NOT NULL, /* should be salted and hashing encrypto */
     isAdmin BOOLEAN NOT NULL DEFAULT false,
@@ -84,8 +84,8 @@ CREATE VIEW Pp_number AS
 
 /*
 Procedure Function List
-    CALL sign_in(username_ VARCHAR(30), password_ VARCHAR(50));
-    CALL sign_up(user_name VARCHAR(30), email_ VARCHAR(50), password_ VARCHAR(50));
+    CALL sign_in(username_ VARCHAR(50), password_ VARCHAR(50));
+    CALL sign_up(user_name VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(50));
     CALL create_event(creator_id_ INT, event_name_ VARCHAR(100), date_ DATE, duration_ TINYINT(4), time_zone_ VARCHAR(50), hold_location_ VARCHAR(300), due_date_ TIMESTAMP, note_ VARCHAR(500), share_link_ VARCHAR(300), isOnline_ BOOLEAN);
     CALL change_password(user_id_ INT, old_password_ VARCHAR(50), new_password_ VARCHAR(50));
     CALL add_email(user_id_ INT, email_ VARCHAR(50));
@@ -97,18 +97,10 @@ Procedure Function List
 
 DELIMITER //
 CREATE PROCEDURE login (
-    IN user_name VARCHAR(30), pass_word VARCHAR(50)
+    IN username_ VARCHAR(50), password_ VARCHAR(50)
 )
 BEGIN
     SELECT * FROM User /* if admin, then... else... */
-        WHERE username = user_name AND password = pass_word;
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE sign_in(IN username_ VARCHAR(30), password_ VARCHAR(50))
-BEGIN
-    SELECT (user_id, username, email, isAdmin) FROM User /* if admin, then... else... */
         WHERE username = username_ AND password = password_;
 END //
 DELIMITER ;
@@ -117,11 +109,19 @@ DELIMITER ;
 /* For sign up, need to sign_in after sign_up to check if sign_up is successful, and give feedback to user */
 DELIMITER //
 CREATE PROCEDURE sign_up (
-    IN username_ VARCHAR(30), email_ VARCHAR(50), password_ VARCHAR(50)
+    IN username_ VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(50)
 )
 BEGIN
     INSERT INTO User (username, email, password) VALUES (username_, email_, password_);
-    CALL sign_in(username_, password_);
+    CALL login(username_, password_);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE google_login ( IN username_ VARCHAR(50), email_ VARCHAR(50) )
+BEGIN
+    INSERT INTO User (username, email, password) VALUES (username_, email_, 'a_very_strong_default_password');
+    SELECT * FROM User WHERE email = email_;
 END //
 DELIMITER ;
 
