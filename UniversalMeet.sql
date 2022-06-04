@@ -97,18 +97,10 @@ Procedure Function List
 
 DELIMITER //
 CREATE PROCEDURE login (
-    IN user_name VARCHAR(30), pass_word VARCHAR(50)
+    IN username_ VARCHAR(30), password_ VARCHAR(50)
 )
 BEGIN
     SELECT * FROM User /* if admin, then... else... */
-        WHERE username = user_name AND password = pass_word;
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE sign_in(IN username_ VARCHAR(30), password_ VARCHAR(50))
-BEGIN
-    SELECT (user_id, username, email, isAdmin) FROM User /* if admin, then... else... */
         WHERE username = username_ AND password = password_;
 END //
 DELIMITER ;
@@ -121,7 +113,15 @@ CREATE PROCEDURE sign_up (
 )
 BEGIN
     INSERT INTO User (username, email, password) VALUES (username_, email_, password_);
-    CALL sign_in(username_, password_);
+    CALL login(username_, password_);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE google_login ( IN username_ VARCHAR(30), email_ VARCHAR(50) )
+BEGIN
+    INSERT INTO User (username, email, password) VALUES (username_, email_, 'a_very_strong_default_password');
+    SELECT * FROM User WHERE email = email_;
 END //
 DELIMITER ;
 
