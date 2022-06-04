@@ -60,7 +60,7 @@ router.post('/googleLogin', function(req, res, next) {
       const userid = payload['sub'];
       console.log(userid);
       email = payload['email'];
-      username = payload['username'];
+      username = payload['name'];
       // If request specified a G Suite domain: const domain = payload['hd'];
     }
     verify().then(function(){}).catch(function(){
@@ -74,7 +74,7 @@ router.post('/googleLogin', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      var query = "CALL google_login(?)";
+      var query = "CALL google_login(?, ?)";
       connection.query(query, [username, email], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
