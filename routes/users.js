@@ -9,6 +9,12 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+/* GET users logout. */
+router.get('/logout', function(req, res, next) {
+  user = null;
+  res.send('respond with a resource');
+});
+
 /* POST update user session. */
 router.post('/updateSession', function(req, res, next) {
   // Connect to the database
@@ -307,21 +313,21 @@ router.post('/addAvailability', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    for (time_frame of req.body.chosen_time) {
-      var query = "CALL add_availability(?, ?, ?);";
 
-      /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
-      /* Im not sure if this format is right */
-      connection.query(query, [req.body.event_id, user.user_id, time_frame],function(err, rows, fields) {
-        connection.release(); // release connection
-        if (err) {
-          res.sendStatus(500);
-          return;
-        }
-      });
-    }
-    res.send(); //send response
+    var query = "CALL add_availability(?, ?, ?)";
+    /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
+    /* Im not sure if this format is right */
+    connection.query(query, [req.body.event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
+    });
   });
+
 })
 
 /* POST show all Availability */
