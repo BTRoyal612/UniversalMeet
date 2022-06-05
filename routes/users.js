@@ -122,8 +122,8 @@ router.post('/addEvent', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      console.log(rows[0]);
-      event_id = rows[0][0].event_id;
+      // console.log(rows[0]);
+      // event_id = rows[0][0].event_id;
       res.json(rows); //send response
     });
   });
