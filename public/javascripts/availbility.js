@@ -43,5 +43,5 @@ function showAvailability() {
 
   xhttp.open("POST", "/users/showAvailability", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ event_id:event_id }));
-};
+  xhttp.send();
+}

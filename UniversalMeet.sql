@@ -300,14 +300,14 @@ CALL join_event(4,3);
 CALL join_event(5,1);
 CALL join_event(5,5);
 
--- CALL choose_time(1, 3, '12:00:01');
--- CALL choose_time(1, 4, '12:00:01');
--- CALL choose_time(1, 8, '12:00:01');
--- CALL choose_time(1, 3, '12:30:01');
--- CALL choose_time(1, 8, '12:30:01');
--- CALL choose_time(2, 1, '12:00:01');
--- CALL choose_time(2, 7, '12:00:01');
--- CALL choose_time(3, 2, '12:00:01');
+CALL choose_time(4, 3, '12:00:01');
+CALL choose_time(4, 4, '12:00:01');
+CALL choose_time(4, 8, '12:00:01');
+CALL choose_time(1, 3, '12:30:01');
+CALL choose_time(1, 8, '12:30:01');
+CALL choose_time(2, 1, '12:00:01');
+CALL choose_time(2, 7, '12:00:01');
+CALL choose_time(3, 2, '12:00:01');
 
 
 
