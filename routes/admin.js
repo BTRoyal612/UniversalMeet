@@ -9,6 +9,12 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+/* GET admin logout. */
+router.get('/logout', function(req, res, next) {
+  admin = null;
+  res.send('respond with a resource');
+});
+
 /* POST add admin. */
 router.post('/addAdmin', function(req, res, next) {
   // Connect to the database

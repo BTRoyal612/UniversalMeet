@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client('110103062531-ujd4r0sb2khv4rueml1fuunk2f5roddc.apps.googleusercontent.com');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -29,7 +32,7 @@ router.post('/login', function(req, res, next) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
-          res.json(rows); //send response
+          res.json(rows[0]); //send response
         } else {
           console.log('login bad');
           res.sendStatus(401);
@@ -38,6 +41,74 @@ router.post('/login', function(req, res, next) {
     });
   }
 })
+
+
+router.post('/googleLogin', function(req, res, next) {
+
+  if ('token' in req.body) {
+
+    let email = null;
+    let username = null;
+
+    async function verify() {
+      const ticket = await client.verifyIdToken({
+          idToken: req.body.token,
+          audience: '110103062531-ujd4r0sb2khv4rueml1fuunk2f5roddc.apps.googleusercontent.com',
+          // Specify the CLIENT_ID of the app that access the backend. If multiple clients access the backend: [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+      });
+      const payload = ticket.getPayload();
+      const userid = payload['sub'];
+      console.log(userid);
+      email = payload['email'];
+      username = payload['name'];
+      // If request specified a G Suite domain: const domain = payload['hd'];
+    }
+    verify().then(function(){}).catch(function(){
+      res.sendStatus(403);
+    });
+
+    // Connect to the database
+    req.pool.getConnection(function(err, connection) {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      }
+      var query = "CALL google_login(?, ?)";
+      connection.query(query, [username, email], function(err, rows, fields) {
+        connection.release(); // release connection
+        if (err) {
+          console.log(err);
+          res.sendStatus(500);
+          return;
+        }
+
+        if (rows.length > 0) {
+          req.session.user = rows[0];
+          console.log('login success');
+          console.log(req.session.user);
+          res.json(rows[0]); //send response
+        } else {
+          console.log('login bad');
+          res.sendStatus(401);
+        }
+      });
+    });
+  }
+
+
+
+  //Codes below are from https://developers.google.com/identity/sign-in/web/backend-auth
+  // var xhr = new XMLHttpRequest();
+  // xhr.open('POST', 'https://yourbackend.example.com/tokensignin');
+  // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  // xhr.onload = function() {
+  //   console.log('Signed in as: ' + xhr.responseText);
+  // };
+  // xhr.send('idtoken=' + id_token);
+
+})
+
 
 /* POST sign up. */
 router.post('/signup', function(req, res, next) {
@@ -60,7 +131,7 @@ router.post('/signup', function(req, res, next) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
-          res.json(rows); //send response
+          res.json(rows[0]); //send response
         } else {
           console.log('login bad');
           res.sendStatus(401);
@@ -70,8 +141,8 @@ router.post('/signup', function(req, res, next) {
   }
 })
 
-/* POST login. */
-router.post('/logout', function(req, res, next) {
+/* GET logout. */
+router.get('/logout', function(req, res, next) {
   if ('user' in req.session) {
     delete req.session.user;
   }

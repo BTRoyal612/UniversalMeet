@@ -431,12 +431,13 @@ background-color: #ee1505;
 }
 
 .setting_btn_ctn {
-  width: 30%;
+  width: 50%;
+  display: flex;
 }
 
 .setting_btn {
   height: 50px;
-  width: 20vw;
+  width: 15vw;
   padding: 0 10px;
   margin: auto;
   border: none;

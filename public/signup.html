@@ -10,6 +10,10 @@
   <script src="https://kit.fontawesome.com/5c7b331ea5.js" crossorigin="anonymous"></script>
   <script src="./javascripts/login-signup.js" defer></script>
 
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="110103062531-ujd4r0sb2khv4rueml1fuunk2f5roddc.apps.googleusercontent.com">
+  <meta name="google-signin-plugin_name" content="APP">
+
   <title>Sign Up</title>
 </head>
 <body>
@@ -39,6 +43,7 @@
     <a href="./login.html">Already have an account</a>
     <div class="authBtn">
       <button type='submit' onclick="signup();">Sign up</button>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 </form>
 </body>
