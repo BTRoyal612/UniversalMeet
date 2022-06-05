@@ -28,6 +28,7 @@ function login() {
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
+
         if (this.readyState == 4 && this.status == 200) {
           let user = JSON.parse(this.responseText)[0];
           if (user.isAdmin) {
@@ -89,7 +90,7 @@ function onSignIn(googleUser) {
 
     let xhttp = new XMLHttpRequest();
 
-    xtthp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
             let user = JSON.parse(this.responseText)[0];
             if (user.isAdmin) {
