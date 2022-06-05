@@ -362,9 +362,16 @@ router.post('/availability', function(req, res, next) {
   let duration = req.body.event_duration;
   let timezone = req.body.event_timezone;
   let status = req.body.event_status;
+  let isOnline;
+  if (status == "online") {
+    isOnline = true;
+  }
+  else {
+    isOnline = 0;
+  }
   let duedate = req.body.event_duedate;
   let link = req.body.event_link;
-  res.render('availability', {name: name, date: date});
+  res.render('availability', {name: name, date: date, d});
 })
 
 router.get('/invitation', function(req, res, next) {
