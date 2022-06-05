@@ -5,8 +5,13 @@ const addTimeFrame = () => {
   tf.id = curTF;
   curTF+=1;
   tf.classList.add("avail-time-frame");
-  tf.innerHTML = '<label>From</label><input type="time" name="event-name" class="avail-time-frame-input"><label>To</label><input type="time" name="event-name" class="avail-time-frame-input">'
+  tf.innerHTML = '<label>From</label><input type="time" name="event-name" class="avail-time-frame-input"><i class="xmark-time-frame fa-solid fa-xmark" onclick="deleteTimeFrame('+tf.id+')"></i>'
   tf_ctn.appendChild(tf)
+}
+
+const deleteTimeFrame = (id) => {
+  var tf = document.getElementById(id);
+  tf.outerHTML = "";
 }
 
 function addAvailability(time_frame) {
