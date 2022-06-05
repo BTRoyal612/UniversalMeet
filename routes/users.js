@@ -274,7 +274,6 @@ router.post('/addAvailability', function(req, res, next) {
     connection.query(query, [req.session.event[0].event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
