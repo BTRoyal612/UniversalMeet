@@ -14,6 +14,7 @@ function userLogout() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             logout();
+            window.location = './login.html';
         }
     }
 
@@ -26,6 +27,7 @@ function adminLogout() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             logout();
+            window.location = './login.html';
         }
     }
 
