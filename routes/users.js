@@ -357,6 +357,13 @@ router.post('/event-info', function(req, res, next) {
 })
 
 router.post('/availability', function(req, res, next) {
+  let name = req.body.event_name;
+  let date = req.body.event_date;
+  let name = req.body.event_duration;
+  let name = req.body.event_timezone;
+  let name = req.body.event_status;
+  let name = req.body.event_duedate;
+  let name = req.body.event_link;
   res.render('availability');
 })
 
