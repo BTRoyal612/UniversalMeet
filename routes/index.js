@@ -70,4 +70,30 @@ router.post('/logout', function(req, res, next) {
   res.end();
 })
 
+// GET invitation link
+router.get('/invitation/:id', function(req, res, next) {
+  let deserializedID = deserialize(req.params.id); 
+  res.redirect('/invitation/' + deserializedID);
+});
+
+var nodemailer = require("nodemailer");
+let transporter = nodemailer.createTransport({
+  host: "gmail",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: "meet.universal@gmail.com", // generated ethereal user
+    pass: "Finalproject1", // generated ethereal password
+  },
+});
+
+// send mail with defined transport object
+let info = await transporter.sendMail({
+  from: '"Fred Foo 👻" <foo@example.com>', // sender address
+  to: "bar@example.com, baz@example.com", // list of receivers
+  subject: "Hello ✔", // Subject line
+  text: "Hello world?", // plain text body
+  html: "<b>Hello world?</b>", // html body
+});
 module.exports = router;
+
