@@ -267,6 +267,7 @@ router.post('/deleteChosenTime', function(req, res, next) {
 
       /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
       /* Im not sure if this format is right */
+      console.log(event_id, user.user_id, time_frame)
       connection.query(query, [event_id, user.user_id, time_frame],function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
