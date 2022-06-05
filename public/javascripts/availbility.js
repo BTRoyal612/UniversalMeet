@@ -31,7 +31,7 @@ function addAvailability(time_frame) {
 
   xhttp.open("POST", "/users/addAvailability", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ time_frame:time_frame}));
+  xhttp.send(JSON.stringify({ time_frame: time_frame}));
 }
 
 function showAvailability() {
