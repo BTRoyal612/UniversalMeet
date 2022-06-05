@@ -14,6 +14,14 @@ const deleteTimeFrame = (id) => {
   tf.outerHTML = "";
 }
 
+const addAvailabilityHandler = () => {
+  var childDivs = document.getElementsByClassName('avail-time-frame-input');
+  for (let i = 0; i < childDivs.length; i++) {
+    tf = childDivs[i].value;
+    addAvailability(tf)
+  }
+}
+
 function addAvailability(time_frame) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
