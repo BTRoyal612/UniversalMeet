@@ -106,9 +106,10 @@ router.post('/passDate', function(req, res, next) {
   res.send();
 })
 
+var event;
+
 router.post('/addEvent', function(req, res, next) {
   // Connect to the database
-  console.log(req.body);
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
@@ -119,7 +120,6 @@ router.post('/addEvent', function(req, res, next) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
-        console.log(err)
         return;
       }
       res.json(rows); //send response
