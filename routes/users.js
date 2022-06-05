@@ -106,9 +106,10 @@ router.post('/passDate', function(req, res, next) {
   res.send();
 })
 
+var event_id;
+
 router.post('/addEvent', function(req, res, next) {
   // Connect to the database
-  console.log(req.body);
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
@@ -119,7 +120,6 @@ router.post('/addEvent', function(req, res, next) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
-        console.log(err)
         return;
       }
       res.json(rows); //send response
@@ -317,7 +317,7 @@ router.post('/addAvailability', function(req, res, next) {
     var query = "CALL add_availability(?, ?, ?)";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right */
-    connection.query(query, [req.body.event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
+    connection.query(query, [event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         console.log(err);

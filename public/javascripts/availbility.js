@@ -5,8 +5,21 @@ const addTimeFrame = () => {
   tf.id = curTF;
   curTF+=1;
   tf.classList.add("avail-time-frame");
-  tf.innerHTML = '<label>From</label><input type="time" name="event-name" class="avail-time-frame-input"><label>To</label><input type="time" name="event-name" class="avail-time-frame-input">'
+  tf.innerHTML = '<label>From</label><input type="time" name="event-name" class="avail-time-frame-input"><i class="xmark-time-frame fa-solid fa-xmark" onclick="deleteTimeFrame('+tf.id+')"></i>'
   tf_ctn.appendChild(tf)
+}
+
+const deleteTimeFrame = (id) => {
+  var tf = document.getElementById(id);
+  tf.outerHTML = "";
+}
+
+const addAvailabilityHandler = () => {
+  var childDivs = document.getElementsByClassName('avail-time-frame-input');
+  for (let i = 0; i < childDivs.length; i++) {
+    tf = childDivs[i].value +":00";
+    addAvailability(tf)
+  }
 }
 
 function addAvailability(time_frame) {
@@ -18,7 +31,7 @@ function addAvailability(time_frame) {
 
   xhttp.open("POST", "/users/addAvailability", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ event_id:event_id , time_frame:time_frame}));
+  xhttp.send(JSON.stringify({ time_frame: time_frame}));
 }
 
 function showAvailability() {
