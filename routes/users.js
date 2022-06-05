@@ -352,7 +352,8 @@ router.post('/calendar', function(req, res, next) {
 })
 
 router.post('/event-info', function(req, res, next) {
-  res.render('event-info');
+  let date = req.body.eventDate;
+  res.render('event-info', {date: date});
 })
 
 router.post('/availability', function(req, res, next) {

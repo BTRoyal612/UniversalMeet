@@ -4,6 +4,8 @@ var dateEvent;
 
 const chooseDate = (id) => {
   dateEvent = id.toString();
+  let dateInput = document.getElementById('date-input');
+  dateInput.value = dateEvent;
   var days = document.getElementsByClassName('calendar-day-hover');
   var chosenEl = document.querySelector(".chosen");
   for (let i = 0; i < days.length; i++) {
@@ -20,7 +22,6 @@ const chooseDate = (id) => {
   if (dateChosenCount % 2 == 0) {
     dateChosen = "";
   }
-  console.log(dateEvent);
 }
 
 // CHECK LEAP YEAR
