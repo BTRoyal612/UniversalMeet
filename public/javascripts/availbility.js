@@ -35,6 +35,8 @@ function addAvailability(time_frame) {
 }
 
 function addEvent() {
+  var getTest = <%=event_name%>;
+  console.log(getTest)
   var xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
