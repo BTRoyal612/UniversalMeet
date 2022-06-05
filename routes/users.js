@@ -90,12 +90,10 @@ router.post('/getEvent', function(req, res, next) {
     connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
       req.session.event = rows[0];
-      // console.log(req.session.event.event_id);
       res.json(rows); //send response
     });
   });
