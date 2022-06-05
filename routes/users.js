@@ -125,6 +125,7 @@ router.post('/addEvent', function(req, res, next) {
         return;
       }
       req.session.event = rows[0];
+      console.log(req.session.event)
       res.json(rows); //send response
     });
   });
