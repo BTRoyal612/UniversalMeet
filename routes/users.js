@@ -358,26 +358,7 @@ router.post('/event-info', function(req, res, next) {
 })
 
 router.post('/availability', function(req, res, next) {
-  let event_name = req.body.event_name;
-  let date = req.body.event_date;
-  let duration = req.body.event_duration;
-  let timezone = req.body.event_timezone;
-  let status = req.body.event_status;
-  let isOnline;
-  let share_link;
-  if (status == "online") {
-    isOnline = true;
-    share_link = req.body.event_link;
-    hold_location = "";
-  }
-  else {
-    isOnline = false;
-    hold_location = req.body.event_link;
-    share_link = "";
-  }
-  let duedate = req.body.event_duedate;
-
-  res.render('availability', {event_name: event_name, date: date, duration: duration, timezone: timezone, share_link: share_link, hold_location: hold_location, due_date: duedate, isOnline: isOnline});
+  res.render('availability');
 })
 
 router.get('/invitation', function(req, res, next) {
