@@ -86,8 +86,8 @@ router.post('/getEvent', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * from Event WHERE event_id = 1";
-    connection.query(query, [], function(err, rows, fields) {
+    var query = "SELECT * from Event WHERE event_id = ?";
+    connection.query(query, [body.req.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         console.log(err);
