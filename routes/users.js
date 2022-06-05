@@ -125,7 +125,6 @@ router.post('/addEvent', function(req, res, next) {
         return;
       }
       req.session.event = rows[0];
-      console.log(req.session.event)
       res.json(rows); //send response
     });
   });
@@ -272,6 +271,7 @@ router.post('/addAvailability', function(req, res, next) {
     var query = "CALL add_availability(?, ?, ?)";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right */
+    console.log(req.session.event)
     console.log(req.session.event.event_id, user.user_id, req.body.time_frame);
     connection.query(query, [req.session.event.event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
       connection.release(); // release connection
