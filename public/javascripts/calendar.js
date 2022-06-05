@@ -1,20 +1,9 @@
 var dateChosen;
 var dateChosenCount = 0;
+var dateEvent;
 
 const chooseDate = (id) => {
-  var id_str = id.toString()
-  var date_arr = []
-  var cur_date = ""
-  for (let i = 0; i < id_str.length; i++) {
-    if (id_str[i] == '-') {
-      date_arr.push(cur_date);
-      cur_date = "";
-    }
-    else {
-      cur_date += id_str[i];
-    }
-  }
-  date_arr.push(cur_date)
+  dateEvent = id.toString();
   var days = document.getElementsByClassName('calendar-day-hover');
   var chosenEl = document.querySelector(".chosen");
   for (let i = 0; i < days.length; i++) {
@@ -31,8 +20,7 @@ const chooseDate = (id) => {
   if (dateChosenCount % 2 == 0) {
     dateChosen = "";
   }
-  var date = new Date(id_str)
-  console.log(date)
+  console.log(dateEvent);
 }
 
 // CHECK LEAP YEAR
@@ -72,7 +60,7 @@ const generateCalendar = (month, year) => {
   for (var i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
     let day = document.createElement('div')
     if (i >= first_day.getDay()) {
-      let date = (month + 1).toString() + "-" + (i - first_day.getDay() + 1).toString() + "-" + (year).toString()
+      let date = (year).toString() + "-" + (month + 1).toString() + "-" + (i - first_day.getDay() + 1).toString()
       day.setAttribute('id', date);
       day.setAttribute('onclick', "chooseDate('" + date + "')");
       day.classList.add('calendar-day-hover')
@@ -115,3 +103,15 @@ let curr_year = { value: currDate.getFullYear() }
 
 generateCalendar(curr_month.value, curr_year.value)
 
+function passDate() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        window.location = './event-information.html'
+      }
+  }
+
+  xhttp.open("POST", "/users/passDate", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ dateEvent:dateEvent }));
+};

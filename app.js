@@ -19,6 +19,8 @@ var dbConnectionPool = mysql.createPool({
 
 var app = express();
 
+app.set('view engine', 'jade');
+
 // Middleware for accessing database: We need access to the database to be available *before* we process routes in index.js,
 // so this code needs to be *before* the app.use('/', routes);
 // Express will run this function on every request and then continue with the next module, index.js.
