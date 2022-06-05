@@ -17,7 +17,7 @@ const deleteTimeFrame = (id) => {
 const addAvailabilityHandler = () => {
   var childDivs = document.getElementsByClassName('avail-time-frame-input');
   for (let i = 0; i < childDivs.length; i++) {
-    tf = childDivs[i].value;
+    tf = childDivs[i].value +":00";
     addAvailability(tf)
   }
 }
