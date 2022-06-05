@@ -14,9 +14,8 @@ const updateEvent = () => {
   event.date = document.getElementById("event-date").value
   event.duration = document.getElementById("event-duration").value;
   event.time_zone = document.getElementById("event-time-zone").value;
-  let offline = document.getElementById("offline");
-  let online = document.getElementById("online");
-  if (online.checked) {
+  let status = document.getElementById("event-status").value;
+  if (status = "online") {
     event.isOnline = true;
     event.share_link = document.getElementById("event-link").value;
     event.hold_location = ""
