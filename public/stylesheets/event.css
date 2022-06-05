@@ -526,3 +526,7 @@ body {
   background-color: #05ee0d;
   color: black;
 }
+
+#date-input {
+  display: none;
+}
