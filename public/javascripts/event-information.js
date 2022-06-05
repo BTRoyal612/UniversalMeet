@@ -1,5 +1,6 @@
 let event = {
   event_name: "",
+  date: "",
   duration: "",
   time_zone: "",
   hold_location: "",
@@ -10,6 +11,7 @@ let event = {
 }
 const updateEvent = () => {
   event.event_name = document.getElementById("event-name").value;
+  event.date = document.getElementById("event-date").value
   event.duration = document.getElementById("event-duration").value;
   console.log(event.duration)
   event.time_zone = document.getElementById("event-time-zone").value;
@@ -33,11 +35,10 @@ function addEvent() {
 
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        window.location = './availbility.html'
       }
   }
 
   xhttp.open("POST", "/users/addEvent", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ event_name:event.event_name, duration:event.duration, time_zone:event.time_zone, hold_location:event.hold_location, due_date:event.due_date, note:event.note, share_link:event.share_link, isOnline:event.isOnline }));
+  xhttp.send(JSON.stringify({ event_name:event.event_name, date:event.date, duration:event.duration, time_zone:event.time_zone, hold_location:event.hold_location, due_date:event.due_date, note:event.note, share_link:event.share_link, isOnline:event.isOnline }));
 };

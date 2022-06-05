@@ -18,7 +18,7 @@
     <button class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></button>
   </form>
   <form action="/users/invitation" method="get">
-    <button class="arrow next" onclick="addAvailabilityHandler();addEvent()"><i class="fa-solid fa-check"></i></button>
+    <button class="arrow next" onclick="addAvailabilityHandler()"><i class="fa-solid fa-check"></i></button>
   </form>
   <div class="avail-ctn-box">
     <h1 class="avail-header">Your Availability</h1>
@@ -26,7 +26,7 @@
     </div>
     <div class="avail-add" onclick="addTimeFrame()">Add Time Frame</div>
   </div>
-  <script>
+  <!-- <script>
     function addEvent() {
       var getTest = <%=event_name%>;
       console.log(getTest)
@@ -40,7 +40,7 @@
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_name:<%=event_name%>, date:<%=date %>, duration:<%=duration %>, time_zone:<%=timezone %>, hold_location:<%=hold_location %>, due_date:<%=due_date %>, note: "", share_link:<%=share_link %>, isOnline:<%=isOnline %> }));
 };
-  </script>
+  </script> -->
 </body>
 
 </html>
