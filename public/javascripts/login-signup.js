@@ -33,10 +33,10 @@ function login() {
           let user = JSON.parse(this.responseText)[0];
           if (user.isAdmin) {
             getAdmin();
-            window.location = './admin-user.html'
+            window.location = './admin-user.html';
           } else {
             getUser();
-            window.location = './profile.html'
+            window.location = './profile.html';
           }
         }
 

@@ -34,3 +34,51 @@ const sendTimeFrames = () => {
   }
   console.log(tfArr)
 }
+
+function addChosenTime(chosen_time) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+      }
+  }
+
+  xhttp.open("POST", "/users/addChosenTime", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ chosen_time: chosen_time }));
+}
+
+function deleteChosenTime(chosen_time) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+      }
+  }
+
+  xhttp.open("POST", "/users/deleteChosenTime", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ chosen_time: chosen_time }));
+}
+
+function addChosenTime(chosen_time) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+      }
+  }
+
+  xhttp.open("POST", "/users/addChosenTime", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ chosen_time: chosen_time }));
+}
+
+function countChosenTime(chosen_time) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+      }
+  }
+
+  xhttp.open("POST", "/users/countChosenTime", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ chosen_time: chosen_time }));
+}

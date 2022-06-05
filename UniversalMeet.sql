@@ -265,7 +265,6 @@ Sign-up other Admins. (System Admin)
 Add new Users. (System Admin)
 */
 
-
 CALL sign_up('zonghan', 'a1@gmail.com', '123123');
 CALL sign_up('nam', 'a2@gmail.com', '123123');
 CALL sign_up('bao', 'a3@gmail.com', '123123');
@@ -277,11 +276,11 @@ CALL sign_up('marry', 'a8@gmail.com', '123123');
 CALL sign_up('loser', 'a9@gmail.com', '123123');
 CALL sign_up('biaaatch', 'a10@gmail.com', '123123');
 
-CALL create_event(1, 'event00','2020-06-10', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', false);
-CALL create_event(3, 'event01','2020-06-10', 90, '+06:00', '378 house', '2018-07-25 18:34:33', '9/1', 'none', false);
-CALL create_event(5, 'event02','2020-06-10', 30, '-04:30', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', true);
-CALL create_event(7, 'event03','2020-06-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
-CALL create_event(9, 'event04','2020-06-10', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
+CALL create_event(1, 'event00', '2020-06-10', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', false);
+CALL create_event(3, 'event01', '2020-06-10', 90, '+06:00', '378 house', '2018-07-25 18:34:33', '9/1', 'none', false);
+CALL create_event(5, 'event02', '2020-06-10', 30, '-04:30', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', true);
+CALL create_event(7, 'event03', '2020-06-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
+CALL create_event(9, 'event04', '2020-06-10', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
 
 CALL add_availability(4, 7, '17:00:00');
 CALL add_availability(4, 7, '19:00:00');
