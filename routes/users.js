@@ -122,7 +122,7 @@ router.post('/addEvent', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      console.log(rows);
+      console.log(rows[0]);
       res.json(rows); //send response
     });
   });
