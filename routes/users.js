@@ -202,7 +202,7 @@ router.post('/addChosenTime', function(req, res, next) {
 
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right [req.session.event.event_id, user.user_id, req.body.chosen_time] */
-    connection.query(query, [req.session.event.event_id, user.user_id, req.body.chosen_time],function(err, rows, fields) {
+    connection.query(query, [req.session.event, user.user_id, req.body.chosen_time],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
