@@ -376,7 +376,7 @@ router.post('/availability', function(req, res, next) {
   }
   let duedate = req.body.event_duedate;
 
-  res.render('availability', {event_name: event_name, date: date, duration: duration, timezone: timezone, hold_location: hold_location, due_date: duedate, isOnline: isOnline});
+  res.render('availability', {event_name: event_name, date: date, duration: duration, timezone: timezone, share_link: share_link, hold_location: hold_location, due_date: duedate, isOnline: isOnline});
 })
 
 router.get('/invitation', function(req, res, next) {
