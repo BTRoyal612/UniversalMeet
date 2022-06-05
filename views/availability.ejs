@@ -15,10 +15,10 @@
 
 <body>
   <form action="/users/event-info" method="post">
-    <button class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left" onclick="addAvailabilityHandler();addEvent()"></i></button>
+    <button class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></button>
   </form>
   <form action="/users/invitation" method="get">
-    <button class="arrow next"><i class="fa-solid fa-check"></i></button>
+    <button class="arrow next"><i class="fa-solid fa-check" onclick="addAvailabilityHandler();addEvent()"></i></button>
   </form>
   <div class="avail-ctn-box">
     <h1 class="avail-header">Your Availability</h1>
