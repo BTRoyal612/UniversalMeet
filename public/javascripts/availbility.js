@@ -34,20 +34,7 @@ function addAvailability(time_frame) {
   xhttp.send(JSON.stringify({ time_frame: time_frame}));
 }
 
-function addEvent() {
-  var getTest = <%=event_name%>;
-  console.log(getTest)
-  var xhttp = new XMLHttpRequest();
 
-  xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-      }
-  }
-
-  xhttp.open("POST", "/users/addEvent", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ event_name:<%=event_name%>, date: <%=date%>, duration:<%=duration%>, time_zone:<%=timezone%>, hold_location:<%=hold_location%>, due_date:<%=due_date%>, note:"", share_link:<%=share_link%>, isOnline:<%=isOnline%> }));
-};
 
 function showAvailability() {
   var xhttp = new XMLHttpRequest();
