@@ -29,23 +29,23 @@ function addAvailability(time_frame) {
       }
   }
 
-  function addEvent() {
-    var xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        }
-    }
-
-    xhttp.open("POST", "/users/addEvent", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify({ event_name:<%=event_name%>, date: <%=date%> duration:<%=duration%>, time_zone:event.<%=timezone%>, hold_location:<%=hold_location%>, due_date:<%=due_date%>, note:event.note, share_link:event.share_link, isOnline:event.isOnline }));
-  };
-
   xhttp.open("POST", "/users/addAvailability", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ time_frame: time_frame}));
 }
+
+function addEvent() {
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+      }
+  }
+
+  xhttp.open("POST", "/users/addEvent", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ event_name:<%=event_name%>, date: <%=date%>, duration:<%=duration%>, time_zone:<%=timezone%>, hold_location:<%=hold_location%>, due_date:<%=due_date%>, note:"", share_link:<%=share_link%>, isOnline:<%=isOnline%> }));
+};
 
 function showAvailability() {
   var xhttp = new XMLHttpRequest();
