@@ -343,5 +343,27 @@ router.post('/updateEmailPreference', function(req, res, next) {
   });
 })
 
+router.get('/profile', function(req, res, next) {
+  res.render('profile');
+})
 
+router.post('/calendar', function(req, res, next) {
+  res.render('calendar');
+})
+
+router.post('/event-info', function(req, res, next) {
+  res.render('event-info');
+})
+
+router.post('/availability', function(req, res, next) {
+  res.render('availability');
+})
+
+router.get('/invitation', function(req, res, next) {
+  res.render('invitation');
+})
+
+router.get('/pending-events', function(req, res, next) {
+  res.render('pending-events');
+})
 module.exports = router;

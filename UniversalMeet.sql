@@ -6,7 +6,7 @@ CREATE TABLE User(
     user_id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(50), /* should it be not null? */
-    password VARCHAR(50) NOT NULL, /* should be salted and hashing encrypto */
+    password BINARY(32) NOT NULL, /* should be salted and hashing encrypto */
     isAdmin BOOLEAN NOT NULL DEFAULT false,
     /* isRegistered BOOLEAN NOT NULL, */
 
@@ -22,7 +22,7 @@ CREATE TABLE Event(
     date DATE NOT NULL,
     /* time_begin TIME NOT NULL, */
     /* time_end TIME NOT NULL, */
-    duration TINYINT(4) NOT NULL, /* unit: minute or hour? */
+    duration SMALLINT(4) NOT NULL, /* unit: minute or hour? */
     time_zone VARCHAR(50) NOT NULL, /* what this variable should be (maybe depends on the value from js) */
     hold_location VARCHAR(300) NOT NULL,
     due_date TIMESTAMP NOT NULL,
@@ -84,24 +84,23 @@ CREATE VIEW Pp_number AS
 
 /*
 Procedure Function List
-    CALL sign_in(username_ VARCHAR(50), password_ VARCHAR(50));
-    CALL sign_up(user_name VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(50));
-    CALL create_event(creator_id_ INT, event_name_ VARCHAR(100), date_ DATE, duration_ TINYINT(4), time_zone_ VARCHAR(50), hold_location_ VARCHAR(300), due_date_ TIMESTAMP, note_ VARCHAR(500), share_link_ VARCHAR(300), isOnline_ BOOLEAN);
-    CALL change_password(user_id_ INT, old_password_ VARCHAR(50), new_password_ VARCHAR(50));
+    CALL sign_in(username_ VARCHAR(50), password_ VARCHAR(30));
+    CALL sign_up(user_name VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(30));
+    CALL create_event(creator_id_ INT, event_name_ VARCHAR(100), date_ DATE, duration_ SMALLINT(4), time_zone_ VARCHAR(50), hold_location_ VARCHAR(300), due_date_ TIMESTAMP, note_ VARCHAR(500), share_link_ VARCHAR(300), isOnline_ BOOLEAN);
+    CALL change_password(user_id_ INT, old_password_ VARCHAR(30), new_password_ VARCHAR(30));
     CALL add_email(user_id_ INT, email_ VARCHAR(50));
     CALL change_email(user_id_ INT, old_email_ VARCHAR(50), new_email_ VARCHAR(50));
     CALL join_event(event_id_ INT, user_id_ INT);
     CALL choose_time(event_id_ INT, user_id_ INT, chosen_time_ TIME);
-
 */
 
 DELIMITER //
 CREATE PROCEDURE login (
-    IN username_ VARCHAR(50), password_ VARCHAR(50)
+    IN username_ VARCHAR(50), password_ VARCHAR(30)
 )
 BEGIN
     SELECT * FROM User /* if admin, then... else... */
-        WHERE username = username_ AND password = password_;
+        WHERE username = username_ AND password = UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256));
 END //
 DELIMITER ;
 
@@ -109,10 +108,10 @@ DELIMITER ;
 /* For sign up, need to sign_in after sign_up to check if sign_up is successful, and give feedback to user */
 DELIMITER //
 CREATE PROCEDURE sign_up (
-    IN username_ VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(50)
+    IN username_ VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(30)
 )
 BEGIN
-    INSERT INTO User (username, email, password) VALUES (username_, email_, password_);
+    INSERT INTO User (username, email, password) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256)));
     CALL login(username_, password_);
 END //
 DELIMITER ;
@@ -120,7 +119,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE google_login ( IN username_ VARCHAR(50), email_ VARCHAR(50) )
 BEGIN
-    INSERT INTO User (username, email, password) VALUES (username_, email_, 'a_very_strong_default_password');
+    INSERT INTO User (username, email, password) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', 'strong_default_password', 'LT'), 256)));
     SELECT * FROM User WHERE email = email_;
 END //
 DELIMITER ;
@@ -135,7 +134,7 @@ CREATE PROCEDURE create_event(
     date_ DATE,
     /*time_begin_ TIME,
     time_end_ TIME,*/
-    duration_ TINYINT(4),
+    duration_ SMALLINT(4),
     time_zone_ VARCHAR(50),
     hold_location_ VARCHAR(300),
     due_date_ TIMESTAMP,
@@ -152,9 +151,9 @@ DELIMITER ;
 
 
 DELIMITER //
-CREATE PROCEDURE change_password(IN user_id_ INT, old_password_ VARCHAR(50), new_password_ VARCHAR(50))
+CREATE PROCEDURE change_password(IN user_id_ INT, old_password_ VARCHAR(30), new_password_ VARCHAR(30))
 BEGIN
-    UPDATE User SET password = new_password_ WHERE user_id_ = user_id AND password = old_password_;
+    UPDATE User SET password = UNHEX(SHA2(CONCAT('SA', new_password_, 'LT'), 256)) WHERE user_id_ = user_id AND password = UNHEX(SHA2(CONCAT('SA', old_password_, 'LT'), 256));
 END //
 DELIMITER ;
 
