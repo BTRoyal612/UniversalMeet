@@ -9,6 +9,7 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="/stylesheets/event.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a2d20e5bcc.js" crossorigin="anonymous"></script>
+  <script src="/javascripts/availbility.js"></script>
   <title>Availablity</title>
 </head>
 
@@ -25,21 +26,20 @@
     </div>
     <div class="avail-add" onclick="addAvailabilityHandler();addEvent()">Add Time Frame</div>
   </div>
-  <script src="/javascripts/availbility.js"></script>
   <script>
     function addEvent() {
-  var getTest = <%=event_name%>;
-  console.log(getTest)
-  var xhttp = new XMLHttpRequest();
+      var getTest = <%=event_name%>;
+      console.log(getTest)
+      var xhttp = new XMLHttpRequest();
 
-  xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
       }
-  }
 
-  xhttp.open("POST", "/users/addEvent", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ event_name:<%=event_name%>, date: <%=date%>, duration:<%=duration%>, time_zone:<%=timezone%>, hold_location:<%=hold_location%>, due_date:<%=due_date%>, note:"", share_link:<%=share_link%>, isOnline:<%=isOnline%> }));
+      xhttp.open("POST", "/users/addEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_name:<%=event_name%>, date:<%=date %>, duration:<%=duration %>, time_zone:<%=timezone %>, hold_location:<%=hold_location %>, due_date:<%=due_date %>, note: "", share_link:<%=share_link %>, isOnline:<%=isOnline %> }));
 };
   </script>
 </body>
