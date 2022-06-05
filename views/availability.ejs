@@ -15,7 +15,7 @@
 
 <body>
   <form action="/users/event-info" method="post">
-    <button class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></button>
+    <button class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left" onclick="addAvailabilityHandler();addEvent()"></i></button>
   </form>
   <form action="/users/invitation" method="get">
     <button class="arrow next"><i class="fa-solid fa-check"></i></button>
@@ -24,7 +24,7 @@
     <h1 class="avail-header">Your Availability</h1>
     <div class="avail-ctn">
     </div>
-    <div class="avail-add" onclick="addAvailabilityHandler()">Add Time Frame</div>
+    <div class="avail-add" onclick="addTimeFrame()">Add Time Frame</div>
   </div>
   <script>
     function addEvent() {
