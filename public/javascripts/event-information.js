@@ -13,7 +13,6 @@ const updateEvent = () => {
   event.event_name = document.getElementById("event-name").value;
   event.date = document.getElementById("event-date").value
   event.duration = document.getElementById("event-duration").value;
-  console.log(event.duration)
   event.time_zone = document.getElementById("event-time-zone").value;
   let offline = document.getElementById("offline");
   let online = document.getElementById("online");
