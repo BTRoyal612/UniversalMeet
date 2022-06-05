@@ -28,7 +28,7 @@ router.post('/login', function(req, res, next) {
           return;
         }
 
-        if (rows.length > 0) {
+        if (rows[0].length > 0) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
@@ -83,7 +83,7 @@ router.post('/googleLogin', function(req, res, next) {
           return;
         }
 
-        if (rows.length > 0) {
+        if (rows[0].length > 0) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
@@ -127,7 +127,7 @@ router.post('/signup', function(req, res, next) {
           res.sendStatus(500);
           return;
         }
-        if (rows.length > 0) {
+        if (rows[0].length > 0) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
