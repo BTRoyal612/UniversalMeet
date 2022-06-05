@@ -36,7 +36,7 @@ function login() {
             window.location = './admin-user.html'
           } else {
             getUser();
-            window.location = './profile.html'
+            window.location = '/users/profile'
           }
         }
 
