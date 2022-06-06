@@ -31,7 +31,7 @@ router.post('/login', function(req, res, next) {
           return;
         }
 
-        if (rows.length > 0) {
+        if (rows[0].length > 0) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
@@ -61,9 +61,11 @@ router.post('/googleLogin', function(req, res, next) {
       });
       const payload = ticket.getPayload();
       const userid = payload['sub'];
-      console.log(userid);
-      email = payload['email'];
       username = payload['name'];
+      email = payload['email'];
+      console.log(userid);
+      console.log(username);
+      console.log(email);
       // If request specified a G Suite domain: const domain = payload['hd'];
     }
     verify().then(function(){}).catch(function(){
@@ -82,21 +84,24 @@ router.post('/googleLogin', function(req, res, next) {
         connection.release(); // release connection
         if (err) {
           console.log(err);
-          res.sendStatus(500);
+          res.sendStatus(501);
           return;
         }
 
-        if (rows.length > 0) {
+        if (rows[0].length > 0) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
           res.json(rows[0]); //send response
         } else {
-          console.log('login bad');
+          console.log('login bad! No corresponding account');
           res.sendStatus(401);
         }
       });
     });
+  }else{
+    console.log('no id_token');
+    res.sendStatus(400);
   }
 
 
@@ -130,7 +135,7 @@ router.post('/signup', function(req, res, next) {
           res.sendStatus(500);
           return;
         }
-        if (rows.length > 0) {
+        if (rows[0].length > 0) {
           req.session.user = rows[0];
           console.log('login success');
           console.log(req.session.user);
