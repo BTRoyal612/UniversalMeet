@@ -158,8 +158,8 @@ router.post('/updateEvent', function(req, res, next) {
       return;
     }
 
-    var query = "UPDATE Event SET event_name = ?, duration = ?, time_zone = ?, hold_location = ?, due_date = ?, note = ?, share_link = ?, isOnline = ? WHERE event_id = ?";
-    connection.query(query, [req.body.event_name, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline, req.session.event[0].event_id], function(err, rows, fields) {
+    var query = "CALL edit_event(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    connection.query(query, [req.session.event.event_id, user.user_id, req.body.event_name, req.body.hold_location, req.body.due_date, req.body.note, req.body.isOnline, req.body.duration, req.body.time_zone, req.body.share_link], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
