@@ -286,6 +286,7 @@ CALL add_availability(5, 9, '17:00:00');
 CALL add_availability(5, 9, '19:00:00');
 CALL add_availability(5, 9, '21:00:00');
 
+CALL join_event(1,1);
 CALL join_event(1,3);
 CALL join_event(1,4);
 CALL join_event(1,8);
