@@ -613,7 +613,7 @@ background-color: #ee1505;
   -moz-user-select: none;
   user-select: none;
   /* color: #ee1505; */
-  background-color: white;
+  /* background-color: white; */
   /* border: 3px solid #ee1505; */
   padding: 0.5rem 1rem;
   margin-top: 1rem;
@@ -622,22 +622,22 @@ background-color: #ee1505;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.host-btn {
+.attandee-btn {
   border: 3px solid #ee1505;
   color: #ee1505;
 }
 
-.host-btn:hover {
+.attandee-btn:hover {
   background-color: #ee1505;
   color: white;
 }
 
-.attandee-btn {
+..host-btn {
   border: 3px solid blue;
   color: blue;
 }
 
-.attandee-btn:hover {
+.host-btn:hover {
   background-color: blue;
   color: white;
 }
