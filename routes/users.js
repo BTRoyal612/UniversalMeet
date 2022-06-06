@@ -65,7 +65,7 @@ router.post('/getEventList', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT Event.event_id, event_name, creator_id, user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?";
+    var query = "SELECT Event.event_id, event_name, creator_id, user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?"; //mark
     connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
@@ -137,8 +137,8 @@ router.post('/deleteEvent', function(req, res, next) {
       return;
     }
 
-    var query = "DELETE FROM Event WHERE event_id = ?";
-    connection.query(query, [req.body.event_id],function(err, rows, fields) {
+    var query = "CALL delete_event(?, ?)";
+    connection.query(query, [req.session.event[0].event_id, user.user_id],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -252,7 +252,7 @@ router.post('/addAvailability', function(req, res, next) {
     var query = "CALL add_availability(?, ?, ?)";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right */
-    connection.query(query, [req.session.event.event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
+    connection.query(query, [req.session.event[0].event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -315,8 +315,8 @@ router.post('/updateEmail', function(req, res, next) {
       return;
     }
 
-    var query = "UPDATE User SET email = ? WHERE user_id = ?";
-    connection.query(query, [req.body.new_email, user.user_id], function(err, rows, fields) {
+    var query = "CALL change_email(?, ?)";
+    connection.query(query, [user.user_id, req.body.new_email], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -336,8 +336,8 @@ router.post('/updateEmailPreference', function(req, res, next) {
       return;
     }
 
-    var query = "UPDATE Email_preference SET user_respond = ?, avail_confirm = ?, event_finalize = ?, event_cancel = ? WHERE user_id = ?";
-    connection.query(query, [req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel, user.user_id], function(err, rows, fields) {
+    var query = "CALL change_notification(?, ?, ?, ?, ?)";
+    connection.query(query, [user.user_id, req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);

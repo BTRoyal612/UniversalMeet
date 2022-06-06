@@ -5,13 +5,12 @@ USE universal_meet;
 CREATE TABLE User(
     user_id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
-    email VARCHAR(50), /* should it be not null? */
-    password BINARY(32) NOT NULL, /* should be salted and hashing encrypto */
+    email VARCHAR(50) NOT NULL,
+    password BINARY(32) NOT NULL,
     isAdmin BOOLEAN NOT NULL DEFAULT false,
-    /* isRegistered BOOLEAN NOT NULL, */
+    isRegistered BOOLEAN NOT NULL,
 
     PRIMARY KEY (user_id),
-    CONSTRAINT username_not_unique UNIQUE (username),
     CONSTRAINT email_not_unique UNIQUE (email)
 );
 
@@ -84,7 +83,7 @@ CREATE VIEW Pp_number AS
 
 /*
 Procedure Function List
-    CALL sign_in(username_ VARCHAR(50), password_ VARCHAR(30));
+    CALL login(email_ VARCHAR(50), password_ VARCHAR(30));
     CALL sign_up(user_name VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(30));
     CALL create_event(creator_id_ INT, event_name_ VARCHAR(100), date_ DATE, duration_ SMALLINT(4), time_zone_ VARCHAR(50), hold_location_ VARCHAR(300), due_date_ TIMESTAMP, note_ VARCHAR(500), share_link_ VARCHAR(300), isOnline_ BOOLEAN);
     CALL change_password(user_id_ INT, old_password_ VARCHAR(30), new_password_ VARCHAR(30));
@@ -96,11 +95,11 @@ Procedure Function List
 
 DELIMITER //
 CREATE PROCEDURE login (
-    IN username_ VARCHAR(50), password_ VARCHAR(30)
+    IN email_ VARCHAR(50), password_ VARCHAR(30)
 )
 BEGIN
     SELECT * FROM User /* if admin, then... else... */
-        WHERE username = username_ AND password = UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256));
+        WHERE email = email_ AND password = UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256));
 END //
 DELIMITER ;
 
@@ -111,8 +110,8 @@ CREATE PROCEDURE sign_up (
     IN username_ VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(30)
 )
 BEGIN
-    INSERT INTO User (username, email, password) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256)));
-    CALL login(username_, password_);
+    INSERT INTO User (username, email, password, isRegistered) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256)), true);
+    CALL login(email_, password_);
 END //
 DELIMITER ;
 
@@ -120,7 +119,7 @@ DELIMITER //
 CREATE PROCEDURE google_login ( IN username_ VARCHAR(50), email_ VARCHAR(50) )
 BEGIN
     IF NOT EXISTS (SELECT * FROM User WHERE email = email_) THEN
-        INSERT INTO User (username, email, password) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', 'strong_default_password', 'LT'), 256)));
+        INSERT INTO User (username, email, password, isRegistered) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', 'strong_default_password', 'LT'), 256)), true);
     END IF;
     SELECT * FROM User WHERE email = email_;
 END //
@@ -170,9 +169,9 @@ DELIMITER ;
 
 
 DELIMITER //
-CREATE PROCEDURE change_email(IN user_id_ INT, old_email_ VARCHAR(50), new_email_ VARCHAR(50))
+CREATE PROCEDURE change_email(IN user_id_ INT, new_email_ VARCHAR(50))
 BEGIN
-    UPDATE User SET email = new_email_ WHERE user_id_ = user_id AND email = old_email_;
+    UPDATE User SET email = new_email_ WHERE user_id_ = user_id;
 END //
 DELIMITER ;
 
@@ -223,7 +222,10 @@ CREATE PROCEDURE edit_event(
     hold_location_ VARCHAR(300),
     due_date_ TIMESTAMP,
     note_ VARCHAR(500),
-    isOnline_ BOOLEAN
+    isOnline_ BOOLEAN,
+    duration_ SMALLINT(4),
+    time_zone_ VARCHAR(50),
+    share_link_ VARCHAR(300)
 )
 BEGIN
     UPDATE Event SET
@@ -231,7 +233,10 @@ BEGIN
         hold_location = hold_location_,
         due_date = due_date_,
         note = note_,
-        isOnline = isOnline_
+        isOnline = isOnline_,
+        duration = duration_,
+        time_zone = time_zone_,
+        share_link = share_link_
         WHERE event_id = event_id_ AND creator_id = creator_id_;
 END //
 DELIMITER ;
@@ -239,7 +244,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE delete_event(IN event_id_ INT, user_id_ INT)
 BEGIN
-    DELETE FROM Event WHERE event_id = event_id_ AND user_id = user_id_;
+    DELETE FROM Event WHERE event_id = event_id_ AND creator_id = user_id_;
 END //
 DELIMITER ;
 
@@ -253,20 +258,155 @@ BEGIN
 END //
 DELIMITER ;
 
+/* Unregistered account for tourists */
+DELIMITER //
+CREATE PROCEDURE tourist_signup(IN email_ VARCHAR(50))
+BEGIN
+    INSERT INTO User (username, email, password, isRegistered) VALUES ('tourist', email_, UNHEX(SHA2(CONCAT('SA', 'LT'), 256)), false);
+    CALL login(email_, '');
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE change_finalise_time(IN event_id_ INT, due_date_ TIMESTAMP)
+BEGIN
+    UPDATE Event SET due_date = due_date_ WHERE event_id = event_id_;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE change_notification(
+    IN
+    user_id_ INT,
+    user_respond_ BOOLEAN,
+    avail_confirm_ BOOLEAN,
+    event_finalize_ BOOLEAN,
+    event_cancel_ BOOLEAN
+)
+BEGIN
+    UPDATE Email_preference SET
+    user_respond = user_respond_,
+    avail_confirm = avail_confirm_,
+    event_finalize = event_finalize_,
+    event_cancel = event_cancel_
+    WHERE user_id = user_id_;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE admin_modify_user_info(
+    IN
+    admin_id_ INT,
+    user_id_ INT,
+    username_ VARCHAR(50),
+    email_ VARCHAR(50),
+    password_ VARCHAR(30),
+    isAdmin_ BOOLEAN
+)
+BEGIN
+    IF EXISTS (SELECT * FROM User WHERE user_id = admin_id_ AND isAdmin = true) THEN
+        UPDATE User SET
+        username = username_,
+        email = email_,
+        password = UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256)),
+        isAdmin = isAdmin_
+        WHERE user_id = user_id_;
+    END IF;
+END //
+DELIMITER ;
 
 
-/* Havent dont list
-Event Search
-Finalise an event
-Change Finalise Time
-Set email notifications
-Modify user information. (System Admin)
-Delete users. (System Admin)
-Modify event information. (System Admin)
-Delete Events. (System Admin)
-Sign-up other Admins. (System Admin)
-Add new Users. (System Admin)
-*/
+DELIMITER //
+CREATE PROCEDURE admin_delete_user(IN admin_id_ INT, user_id_ INT)
+BEGIN
+    IF EXISTS (SELECT * FROM User WHERE user_id = admin_id_ AND isAdmin = true) THEN
+        DELETE FROM User WHERE user_id = user_id_;
+    END IF;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE admin_modify_event_info(
+    IN
+    admin_id_ INT,
+    event_id_ INT,
+
+    event_name_ VARCHAR(100),
+    date_ DATE,
+    duration_ SMALLINT(4),
+    time_zone_ VARCHAR(50),
+    hold_location_ VARCHAR(300),
+    due_date_ TIMESTAMP,
+    note_ VARCHAR(500),
+    share_link_ VARCHAR(300),
+    isFinalised_ BOOLEAN,
+    isOnline_ BOOLEAN
+)
+BEGIN
+    IF EXISTS (SELECT * FROM User WHERE user_id = admin_id_ AND isAdmin = true) THEN
+        UPDATE Event SET
+            event_name = event_name_,
+            date = date_,
+            duration = duration_,
+            time_zone = time_zone_,
+            hold_location = hold_location_,
+            due_date = due_date_,
+            note = note_,
+            share_link = share_link_,
+            isFinalised = isFinalised_,
+            isOnline = isOnline_
+        WHERE event_id = event_id_;
+    END IF;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE admin_delete_event(IN admin_id_ INT, event_id_ INT)
+BEGIN
+    IF EXISTS (SELECT * FROM User WHERE user_id = admin_id_ AND isAdmin = true) THEN
+        DELETE FROM Event WHERE event_id = event_id_;
+    END IF;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE admin_add_event(
+    IN
+    admin_id_ INT,
+    creator_id_ INT,
+    event_name_ VARCHAR(100),
+    date_ DATE,
+    duration_ SMALLINT(4),
+    time_zone_ VARCHAR(50),
+    hold_location_ VARCHAR(300),
+    due_date_ TIMESTAMP,
+    note_ VARCHAR(500),
+    share_link_ VARCHAR(300),
+    isOnline_ BOOLEAN
+)
+BEGIN
+    IF EXISTS (SELECT * FROM User WHERE user_id = admin_id_ AND isAdmin = true) THEN
+        INSERT INTO Event(creator_id, event_name, date, duration, time_zone, hold_location, due_date, note, share_link, isOnline)
+            VALUES (creator_id_, event_name_, date_, duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
+        CALL join_event((SELECT MAX(event_id) FROM Event), creator_id_);
+        SELECT MAX(event_id) FROM Event;
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE admin_add_user (
+    IN username_ VARCHAR(50), email_ VARCHAR(50), password_ VARCHAR(30), isAdmin_ BOOLEAN
+)
+BEGIN
+    INSERT INTO User (username, email, password, isAdmin, isRegistered) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256)), isAdmin_, true);
+END //
+DELIMITER ;
+
+/* Havent dont list: Finalise an event*/
 
 CALL sign_up('zonghan', 'a1@gmail.com', '123123');
 CALL sign_up('nam', 'a2@gmail.com', '123123');
