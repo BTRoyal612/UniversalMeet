@@ -292,7 +292,7 @@ router.post('/showAvailability', function(req, res, next) {
     }
 
     var query = "SELECT avail_time FROM Event_availability WHERE event_id = ?;";
-    connection.query(query, [req.session.even[0].event_id],function(err, rows, fields) {
+    connection.query(query, [req.body.event_id],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
