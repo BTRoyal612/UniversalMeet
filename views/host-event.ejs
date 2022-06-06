@@ -20,22 +20,22 @@
     <div class="event-info event-info-response">
       <h1 class="event-info-header">Event Information</h1>
       <label>Event Name</label>
-      <div id="event-name" class="event-input response-info-input">Web Meeting</div>
+      <div id="event-name" class="event-input host-info-input">Web Meeting</div>
       <label>Date</label>
-      <div id="event-date" class="event-input response-info-input"></div>
+      <div id="event-date" class="event-input host-info-input"></div>
       <label>Duration (in minute)</label>
-      <div id="event-duration" class="event-input response-info-input">150</div>
+      <div id="event-duration" class="event-input host-info-input">150</div>
       <label>Time Zones</label>
-      <div id="event-timezone" class="event-input response-info-input">(GMT-12:00) International Date Line West</div>
+      <div id="event-timezone" class="event-input host-info-input">(GMT-12:00) International Date Line West</div>
       <label>Online/Offline</label>
-      <div id="event-status" class="event-input response-info-input">Online</div>
+      <div id="event-status" class="event-input host-info-input">Online</div>
       <label>Due Date</label>
-      <div id="event-duedate" class="event-input response-info-input"></div>
+      <div id="event-duedate" class="event-input host-info-input"></div>
       <label id="link">Link/Location</label>
-      <div id="event-link" class="event-input response-info-input">Link</div>
+      <div id="event-link" class="event-input host-info-input">Link</div>
     </div>
     <div class="avail-ctn-box event-info-response">
-      <h1 class="avail-header">Choose Availablities</h1>
+      <h1 class="avail-header">Number of Availablities</h1>
       <div class="avail-ctn response-avail-ctn">
       </div>
     </div>
@@ -86,12 +86,11 @@
         if (this.readyState == 4 && this.status == 200) {
           let avails = JSON.parse(this.responseText);
           cur_avails = [...avails]
-          console.log(avails)
           var ctn = document.getElementsByClassName('response-avail-ctn')[0];
           for (let i in avails) {
             var tfDIV = document.createElement('div');
             tfDIV.classList.add('event-input');
-            tfDIV.classList.add('response-info-tf-input');
+            tfDIV.classList.add('host-info-input');
             tfDIV.id = i
             tfDIV.innerText = 'From ' + avails[i]['avail_time'];
             ctn.appendChild(tfDIV);
