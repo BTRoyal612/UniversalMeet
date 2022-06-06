@@ -359,11 +359,11 @@ router.post('/event-info', function(req, res, next) {
 })
 
 router.post('/availability', function(req, res, next) {
-  res.render('availability', {event_id: req.session.event[0].event_id});
+  res.render('availability');
 })
 
 router.get('/invitation', function(req, res, next) {
-  res.render('invitation');
+  res.render('invitation', {event_id: req.session.event[0].event_id});
 })
 
 router.get('/pending-events', function(req, res, next) {
