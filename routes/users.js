@@ -370,6 +370,6 @@ router.get('/pending-events', function(req, res, next) {
 })
 
 router.get('/invite-response', function(req, res, next) {
-  res.render('invite-response');
+  res.render('invite-response', {eventId: eventId});
 })
 module.exports = router;
