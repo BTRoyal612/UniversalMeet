@@ -131,19 +131,25 @@
 
         // add chosen time
 
-        var xhttp = new XMLHttpRequest();
+        for (let i = 0; i < tfArr.length; i++) {
+          tf = tfArr[i].value;
+          addAvailability(tf)
+        }
 
+      }
+
+      function addChosenTime(chosen_time) {
+        var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
-
           }
         }
 
         xhttp.open("POST", "/users/addChosenTime", true);
         xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify({ event_id: event_id }));
-
+        xhttp.send(JSON.stringify({ chosen_time: chosen_time }));
       }
+
     </script>
 </body>
 
