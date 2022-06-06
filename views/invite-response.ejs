@@ -41,10 +41,9 @@
     </div>
   </div>
   <script>
-    var eventId = <%=eventId%>
+    var event_id = <%=eventId%>
     var duration;
-    $(document).ready(function (eventId) {
-      console.log(eventId)
+    $(document).ready(function () {
       var xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function () {
@@ -76,7 +75,7 @@
 
       xhttp.open("POST", "/users/getEvent", true);
       xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(JSON.stringify({ event_id: eventId }));
+      xhttp.send(JSON.stringify({ event_id: event_id }));
     })
   </script>
 </body>
