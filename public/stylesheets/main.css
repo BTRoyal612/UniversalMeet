@@ -605,7 +605,6 @@ background-color: #ee1505;
 
 #avail-select-btn {
   font-weight: 300;
-  line-height: 1.5;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
@@ -614,8 +613,8 @@ background-color: #ee1505;
   -moz-user-select: none;
   user-select: none;
   color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: #ee1505;
+  border-color: #ee1505;
   border: 1px solid transparent;
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
