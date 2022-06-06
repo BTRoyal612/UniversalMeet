@@ -21,17 +21,17 @@
     <div class="event-info event-info-response">
       <h1 class="event-info-header">Event Information</h1>
       <label>Event Name</label>
-      <div class="event-input response-info-input">Web Meeting</div>
+      <div id="event-name" class="event-input response-info-input">Web Meeting</div>
       <label>Duration (in minute)</label>
-      <div class="event-input response-info-input">150</div>
+      <div id="event-duration" class="event-input response-info-input">150</div>
       <label>Time Zones</label>
-      <div class="event-input response-info-input">(GMT-12:00) International Date Line West</div>
+      <div id="event-status" class="event-input response-info-input">(GMT-12:00) International Date Line West</div>
       <label>Online/Offline</label>
-      <div class="event-input response-info-input">Online</div>
+      <div id="event-duedate" class="event-input response-info-input">Online</div>
       <label>Due Date</label>
-      <div class="event-input response-info-input">23/7/2022</div>
+      <div id="event-date" class="event-input response-info-input"></div>
       <label id="link">Link/Location</label>
-      <div class="event-input response-info-input">Link</div>
+      <div id="event-link" class="event-input response-info-input">Link</div>
     </div>
     <div class="avail-ctn-box event-info-response">
       <h1 class="avail-header">Choose Availabilities</h1>
@@ -40,13 +40,13 @@
     </div>
   </div>
   <script>
-    $(document).ready(function (<%=eventId%>) {
+    var eventId = <%=eventId%>
+    var duration;
+    $(document).ready(function (eventId) {
       var xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          let eventId = document.getElementById("event-id");
-          eventId.value = event_id;
           let cur_event = JSON.parse(this.responseText)[0];
           let event_name = document.getElementById("event-name");
           event_name.innerText = cur_event["event_name"]
@@ -54,6 +54,7 @@
           event_date.innerText = cur_event["date"]
           let event_duration = document.getElementById("event-duration");
           event_duration.innerText = cur_event["duration"]
+          duration = cur_event["duration"]
           let event_timezone = document.getElementById("event-timezone");
           event_timezone.innerText = cur_event["time_zone"]
           let event_status = document.getElementById("event-status");
@@ -73,7 +74,7 @@
 
       xhttp.open("POST", "/users/getEvent", true);
       xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(JSON.stringify({ event_id: event_id }));
+      xhttp.send(JSON.stringify({ event_id: eventId }));
     })
   </script>
 </body>
