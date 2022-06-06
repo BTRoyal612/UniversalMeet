@@ -604,7 +604,7 @@ background-color: #ee1505;
 }
 
 #avail-select-btn {
-  font-weight: 300;
+  float: right;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
@@ -614,7 +614,7 @@ background-color: #ee1505;
   user-select: none;
   color: #ee1505;
   background-color: white;
-  border: 2px solid #ee1505;
+  border: 3px solid #ee1505;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   font-size: 1.25rem;
