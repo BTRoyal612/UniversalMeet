@@ -23,14 +23,16 @@
       <h1 class="event-info-header">Event Information</h1>
       <label>Event Name</label>
       <div id="event-name" class="event-input response-info-input">Web Meeting</div>
+      <label>Date</label>
+      <div id="event-date" class="event-input response-info-input"></div>
       <label>Duration (in minute)</label>
       <div id="event-duration" class="event-input response-info-input">150</div>
       <label>Time Zones</label>
-      <div id="event-status" class="event-input response-info-input">(GMT-12:00) International Date Line West</div>
+      <div id="event-timezone" class="event-input response-info-input">(GMT-12:00) International Date Line West</div>
       <label>Online/Offline</label>
-      <div id="event-duedate" class="event-input response-info-input">Online</div>
+      <div id="event-status" class="event-input response-info-input">Online</div>
       <label>Due Date</label>
-      <div id="event-date" class="event-input response-info-input"></div>
+      <div id="event-duedate" class="event-input response-info-input"></div>
       <label id="link">Link/Location</label>
       <div id="event-link" class="event-input response-info-input">Link</div>
     </div>
@@ -41,42 +43,42 @@
     </div>
   </div>
   <script>
-    var event_id = <%=eventId%>
-    var duration;
-    $(document).ready(function () {
-      var xhttp = new XMLHttpRequest();
+    // var event_id = <%=eventId%>
+    // var duration;
+    // $(document).ready(function () {
+    //   var xhttp = new XMLHttpRequest();
 
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          let cur_event = JSON.parse(this.responseText)[0];
-          let event_name = document.getElementById("event-name");
-          event_name.innerText = cur_event["event_name"]
-          let event_date = document.getElementById("event-date")
-          event_date.innerText = cur_event["date"]
-          let event_duration = document.getElementById("event-duration");
-          event_duration.innerText = cur_event["duration"]
-          duration = cur_event["duration"]
-          let event_timezone = document.getElementById("event-timezone");
-          event_timezone.innerText = cur_event["time_zone"]
-          let event_status = document.getElementById("event-status");
-          if (cur_event["isOnline"] == 0)
-          {
-            event_status.innerText = "Offline"
-          }
-          else {
-            event_status.innerText = "Online"
-          }
-          let event_duedate = document.getElementById("event-duedate");
-          event_duedate.innerText = cur_event["due_date"]
-          let event_link = document.getElementById("event-link");
-          event_link.innerText = cur_event["hold_location"]
-        }
-      }
+    //   xhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //       let cur_event = JSON.parse(this.responseText)[0];
+    //       let event_name = document.getElementById("event-name");
+    //       event_name.innerText = cur_event["event_name"]
+    //       let event_date = document.getElementById("event-date")
+    //       event_date.innerText = cur_event["date"]
+    //       let event_duration = document.getElementById("event-duration");
+    //       event_duration.innerText = cur_event["duration"]
+    //       duration = cur_event["duration"]
+    //       let event_timezone = document.getElementById("event-timezone");
+    //       event_timezone.innerText = cur_event["time_zone"]
+    //       let event_status = document.getElementById("event-status");
+    //       if (cur_event["isOnline"] == 0)
+    //       {
+    //         event_status.innerText = "Offline"
+    //       }
+    //       else {
+    //         event_status.innerText = "Online"
+    //       }
+    //       let event_duedate = document.getElementById("event-duedate");
+    //       event_duedate.innerText = cur_event["due_date"]
+    //       let event_link = document.getElementById("event-link");
+    //       event_link.innerText = cur_event["hold_location"]
+    //     }
+    //   }
 
-      xhttp.open("POST", "/users/getEvent", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(JSON.stringify({ event_id: event_id }));
-    })
+    //   xhttp.open("POST", "/users/getEvent", true);
+    //   xhttp.setRequestHeader("Content-type", "application/json");
+    //   xhttp.send(JSON.stringify({ event_id: event_id }));
+    // })
   </script>
 </body>
 
