@@ -9,10 +9,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* POST login. */
 router.get('/login', function(req, res, next) {
   res.render('login');
 });
-/* POST login. */
+
 router.post('/login', function(req, res, next) {
   if ('email' in req.body && 'password' in req.body) {
     // Connect to the database
@@ -119,6 +120,10 @@ router.post('/googleLogin', function(req, res, next) {
 
 
 /* POST sign up. */
+router.get('/signup', function(req, res, next) {
+  res.render('signup');
+});
+
 router.post('/signup', function(req, res, next) {
   if ('username' in req.body && 'email' in req.body && 'password' in req.body) {
     // Connect to the database
@@ -163,7 +168,7 @@ router.get('/home', function(req, res) {
 
 // GET invitation link
 router.get('/invitation/:id', function(req, res, next) {
-  let deserializedID = deserialize(req.params.id); 
+  let deserializedID = deserialize(req.params.id);
   res.redirect('/invitation/' + deserializedID);
 });
 

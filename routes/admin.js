@@ -5,7 +5,10 @@ var router = express.Router();
 var admin;
 router.get('/', function(req, res, next) {
   console.log(req.session);
-  admin = req.session.user;
+  if (req.session.user[0].isAdmin) {
+    admin = req.session.user;
+  }
+  console.log(admin);
   res.send('respond with a resource');
 });
 
@@ -38,7 +41,7 @@ router.post('/addAdmin', function(req, res, next) {
 /* POST get user list admin. */
 router.post('/getUserList', function(req, res, next) {
   //Determinate if this user isAdmin or not first
-  
+
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
@@ -221,11 +224,11 @@ router.post('/updateEmailPreference', function(req, res, next) {
 })
 
 router.post('/getAdminUser', function(req, res, next) {
-  res.send();
+  res.send('admin-user');
 })
 
 router.post('/getAdminEvent', function(req, res, next) {
-  res.send();
+  res.send('admin-event');
 })
 
 

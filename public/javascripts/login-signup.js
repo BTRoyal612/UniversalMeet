@@ -1,24 +1,3 @@
-function validateUsername(username) {
-  if (username.length < 8) {
-    notice.innerHTML = "Username need at least 8 characters.";
-    notice.removeAttribute("hidden");
-    return;
-  }
-}
-
-function validatePassword(password) {
-
-}
-
-function validateEmail(mail) {
- if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value))
-  {
-    return (true)
-  }
-    alert("You have entered an invalid email address!")
-    return (false)
-}
-
 function getUser() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -54,7 +33,7 @@ function login() {
           let user = JSON.parse(this.responseText)[0];
           if (user.isAdmin) {
             getAdmin();
-            window.location = './admin-user.html';
+            window.location = '/admin/admin-user';
           } else {
             getUser();
             window.location = '/users/profile'
@@ -103,10 +82,10 @@ function signup() {
             let user = JSON.parse(this.responseText)[0];
             if (user.isAdmin) {
               getAdmin();
-              window.location = './admin-user.html'
+              window.location = '/admin/admin-user'
             } else {
               getUser();
-              window.location = './profile.html'
+              window.location = '/admin/profile'
             }
         }
     }

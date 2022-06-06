@@ -399,3 +399,4 @@ router.get('/invitation-response/:id', function(req, res, next) {
   res.render('invitation-response');
 })
 module.exports = router;
+

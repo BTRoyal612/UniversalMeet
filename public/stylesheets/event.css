@@ -278,6 +278,7 @@ body {
   width: 50%;
   background-color: var(--light-main);
   border-radius: 30px;
+  margin: auto;
   padding: 20px;
   position: relative;
   overflow: hidden;
