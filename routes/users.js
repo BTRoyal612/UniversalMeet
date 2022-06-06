@@ -44,8 +44,8 @@ router.post('/updatePassword', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "UPDATE User SET password = ? WHERE user_id = ?";
-    connection.query(query, [req.body.new_password, user.user_id], function(err, rows, fields) {
+    var query = "CALL change_password(?, ?)";
+    connection.query(query, [user.user_id, req.body.new_password], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -116,7 +116,7 @@ router.post('/addEvent', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    
+
     var query = "CALL create_event (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     connection.query(query, [user.user_id, req.body.event_name, dateEvent, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline], function(err, rows, fields) {
       connection.release(); // release connection

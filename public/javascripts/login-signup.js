@@ -38,6 +38,8 @@ function login() {
             getUser();
             window.location = './profile.html';
           }
+        }else if(this.readyState == 4 && this.status >= 400){
+          alert("Login Failed! Username or Email incorrect.");
         }
 
     }
@@ -91,6 +93,7 @@ function onSignIn(googleUser) {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
+
         if(this.readyState == 4 && this.status == 200){
             let user = JSON.parse(this.responseText)[0];
             if (user.isAdmin) {
@@ -100,17 +103,23 @@ function onSignIn(googleUser) {
               getUser();
               window.location = './profile.html'
             }
-        }
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+              console.log('Google User disconnect.');
+            });
+        }// else if(this.readyState == 4 && this.status >= 400){
+        //   alert("Login Failed! Google login incorrect.");
+        // }
     };
 
     var id_token = googleUser.getAuthResponse().id_token;  //Token from Google side
 
     //I dont know if u guys want to do login like this. This is just a tmp mock one to show u guys how openID work
 
-    xhttp.open("POST", "/googleLogin"); //An unique request for openID login
+    xhttp.open("POST", "googleLogin/"); //An unique request for openID login
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify({
-      token: id_token //id_token is the var from line 19
+      token: id_token
     }));
 
     //So generally it will get a id token from Google side and send it to our server in JSON format. Just adjust anything here as we need.

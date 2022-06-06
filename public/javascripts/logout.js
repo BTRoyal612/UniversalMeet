@@ -2,6 +2,13 @@ function logout() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            // mGoogleSignInClient.signOut()
+            // .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            //     @Override
+            //     public void onComplete(@NonNull Task<Void> task) {
+            //         // ...
+            //     }
+            // });
         }
     }
 

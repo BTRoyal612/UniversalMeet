@@ -119,7 +119,9 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE google_login ( IN username_ VARCHAR(50), email_ VARCHAR(50) )
 BEGIN
-    INSERT INTO User (username, email, password) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', 'strong_default_password', 'LT'), 256)));
+    IF NOT EXISTS (SELECT * FROM User WHERE email = email_) THEN
+        INSERT INTO User (username, email, password) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', 'strong_default_password', 'LT'), 256)));
+    END IF;
     SELECT * FROM User WHERE email = email_;
 END //
 DELIMITER ;
@@ -145,15 +147,16 @@ CREATE PROCEDURE create_event(
 BEGIN
     INSERT INTO Event(creator_id, event_name, date, /*time_begin, time_end,*/ duration, time_zone, hold_location, due_date, note, share_link, isOnline)
         VALUES (creator_id_, event_name_, date_, /*time_begin_, time_end_,*/ duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
-    SELECT event_id FROM Event ORDER BY event_id DESC LIMIT 1;
+    CALL join_event((SELECT MAX(event_id) FROM Event), creator_id_);
+    SELECT MAX(event_id) FROM Event;
 END //
 DELIMITER ;
 
 
 DELIMITER //
-CREATE PROCEDURE change_password(IN user_id_ INT, old_password_ VARCHAR(30), new_password_ VARCHAR(30))
+CREATE PROCEDURE change_password(IN user_id_ INT, new_password_ VARCHAR(30))
 BEGIN
-    UPDATE User SET password = UNHEX(SHA2(CONCAT('SA', new_password_, 'LT'), 256)) WHERE user_id_ = user_id AND password = UNHEX(SHA2(CONCAT('SA', old_password_, 'LT'), 256));
+    UPDATE User SET password = UNHEX(SHA2(CONCAT('SA', new_password_, 'LT'), 256)) WHERE user_id_ = user_id;
 END //
 DELIMITER ;
 
