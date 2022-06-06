@@ -95,7 +95,7 @@ router.post('/getEvent', function(req, res, next) {
         return;
       }
       req.session.event = rows[0];
-      // console.log(req.session.event.event_id);
+      // console.log(req.session.event[0].event_id);
       res.json(rows); //send response
     });
   });
@@ -141,7 +141,7 @@ router.post('/deleteEvent', function(req, res, next) {
     }
 
     var query = "CALL delete_event(?, ?)";
-    connection.query(query, [req.session.event.event_id, user.user_id],function(err, rows, fields) {
+    connection.query(query, [req.session.event[0].event_id, user.user_id],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -161,8 +161,8 @@ router.post('/updateEvent', function(req, res, next) {
       return;
     }
 
-    var query = "CALL edit_event(?, ?, ?, ?, ?, ?, ?)";
-    connection.query(query, [req.session.event.event_id, user.user_id, req.body.event_name, req.body.hold_location, req.body.due_date, req.body.note, req.body.isOnline, req.body.duration, req.body.time_zone, req.body.share_link], function(err, rows, fields) {
+    var query = "UPDATE Event SET event_name = ?, duration = ?, time_zone = ?, hold_location = ?, due_date = ?, note = ?, share_link = ?, isOnline = ? WHERE event_id = ?";
+    connection.query(query, [req.body.event_name, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline, req.session.event[0].event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -184,8 +184,8 @@ router.post('/addChosenTime', function(req, res, next) {
 
     var query = "CALL choose_time(?, ?, ?);";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
-    /* Im not sure if this format is right [req.session.event.event_id, user.user_id, req.body.chosen_time] */
-    connection.query(query, [req.session.event.event_id, user.user_id, req.body.chosen_time],function(err, rows, fields) {
+    /* Im not sure if this format is right [req.session.event[0].event_id, user.user_id, req.body.chosen_time] */
+    connection.query(query, [req.session.event[0].event_id, user.user_id, req.body.chosen_time],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -208,7 +208,7 @@ router.post('/deleteChosenTime', function(req, res, next) {
     var query = "CALL delete_time(?, ?, ?);";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right */
-    connection.query(query, [req.session.event.event_id, user.user_id, req.body.chosen_time],function(err, rows, fields) {
+    connection.query(query, [req.session.event[0].event_id, user.user_id, req.body.chosen_time],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -231,7 +231,7 @@ router.post('/countChosenTime', function(req, res, next) {
     var query = "SELECT * FROM Pp_number WHERE event_id = ? AND chosen_time = ?;";
       /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
       /* Im not sure if this format is right */
-    connection.query(query, [req.session.event.event_id, req.body.chosen_time],function(err, rows, fields) {
+    connection.query(query, [req.session.event[0].event_id, req.body.chosen_time],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -254,7 +254,7 @@ router.post('/addAvailability', function(req, res, next) {
     var query = "CALL add_availability(?, ?, ?)";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right */
-    connection.query(query, [req.session.event.event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
+    connection.query(query, [req.session.event[0].event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -276,7 +276,7 @@ router.post('/showAvailability', function(req, res, next) {
     }
 
     var query = "SELECT avail_time FROM Event_availability WHERE event_id = ?;";
-    connection.query(query, [req.session.event.event_id],function(err, rows, fields) {
+    connection.query(query, [req.session.event[0].event_id],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
