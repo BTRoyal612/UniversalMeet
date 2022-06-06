@@ -35,7 +35,7 @@ function addEvent() {
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         id_input = document.getElementById('event_id');
-        id_input.value = 
+        id_input.value = JSON.parse(this.responseText);
       }
   }
 
