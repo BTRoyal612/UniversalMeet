@@ -85,8 +85,10 @@
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          let avail = JSON.parse(this.responseText);
-          console.log(avail)
+          let avails = JSON.parse(this.responseText);
+          for (let avail of avails) {
+            
+          }
 
         }
       }
