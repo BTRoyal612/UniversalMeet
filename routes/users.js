@@ -383,4 +383,20 @@ router.post('/host-event', function(req, res, next) {
   res.render('host-event', {eventId: eventId});
 })
 
+router.get('/invitation-response/:id', function(req, res, next) {
+  
+  function deserialize(id) {
+    res = 0;
+    for (let i = 0; i < id.length; i++) {
+      res = res + (id.charCodeAt(i) - 65) * (26 ** (id.length - 1 - i));
+    }
+    return res;
+  }
+  let id = deserialize(req.params.id);
+
+  // query to get time frames from id
+  
+
+  res.render('invitation-response');
+})
 module.exports = router;
