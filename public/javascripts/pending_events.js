@@ -61,12 +61,14 @@ var vueinst = new Vue({
 
           let button = document.getElementById("avail-select-btn");
           if (isHost) {
+            button.classList.remove('attandee-btn')
             button.classList.add('host-btn');
-            button.innerText = 'Select Your Availablity'
+            button.innerText = 'Show Availablities'
           }
           else {
+            button.classList.remove('host-btn')
             button.classList.add('attandee-btn');
-            button.innerText = 'Show Availablities'
+            button.innerText = 'Select Your Availablity'
           }
         }
       }

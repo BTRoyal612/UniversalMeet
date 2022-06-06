@@ -612,9 +612,9 @@ background-color: #ee1505;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  color: #ee1505;
+  /* color: #ee1505; */
   background-color: white;
-  border: 3px solid #ee1505;
+  /* border: 3px solid #ee1505; */
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   font-size: 1.25rem;
