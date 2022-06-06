@@ -191,10 +191,10 @@ END //
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE delete_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
+CREATE PROCEDURE delete_time(IN event_id_ INT, user_id_ INT)
 BEGIN
     DELETE FROM Event_chosen_time WHERE
-        event_id = event_id_ AND user_id = user_id_ AND chosen_time = chosen_time_;
+        event_id = event_id_ AND user_id = user_id_;
     IF EXISTS (SELECT * FROM Event_chosen_time WHERE event_id = event_id_ AND user_id = user_id_) = false THEN
         UPDATE Event_pending SET isPending = true WHERE event_id = event_id_ AND user_id = user_id_;
     END IF;
