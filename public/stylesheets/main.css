@@ -612,12 +612,17 @@ background-color: #ee1505;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  color: #fff;
-  background-color: #ee1505;
-  border-color: #ee1505;
-  border: 1px solid transparent;
+  color: #ee1505;
+  background-color: white;
+  border: 2px solid #ee1505;
   padding: 0.5rem 1rem;
+  margin-top: 1rem;
   font-size: 1.25rem;
   border-radius: 0.3rem;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#avail-select-btn:hover {
+  background-color: #ee1505;
+  color: white;
 }
