@@ -15,7 +15,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  if ('username' in req.body && 'password' in req.body) {
+  if ('email' in req.body && 'password' in req.body) {
     // Connect to the database
     req.pool.getConnection(function(err, connection) {
       if (err) {
@@ -24,7 +24,7 @@ router.post('/login', function(req, res, next) {
         return;
       }
       var query = "CALL login(?, ?)";
-      connection.query(query, [req.body.username, req.body.password], function(err, rows, fields) {
+      connection.query(query, [req.body.email, req.body.password], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
           console.log(err);
@@ -125,7 +125,7 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-  if ('username' in req.body && 'password' in req.body) {
+  if ('username' in req.body && 'email' in req.body && 'password' in req.body) {
     // Connect to the database
     req.pool.getConnection(function(err, connection) {
       if (err) {
