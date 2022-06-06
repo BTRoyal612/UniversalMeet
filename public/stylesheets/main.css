@@ -559,7 +559,7 @@ background-color: #ee1505;
 }
 
 .response-info-input {
-  background-color: var(--red);
+  background-color: #ee1505;
   color: white;
   text-align: center;
   font-weight: 700;
@@ -601,4 +601,8 @@ background-color: #ee1505;
 
 #event-id {
   display: none;
+}
+
+#avail-select-btn {
+  outline: none;
 }
