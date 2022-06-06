@@ -375,4 +375,9 @@ router.post('/invite-response', function(req, res, next) {
   res.render('invite-response', {eventId: eventId});
 })
 
+router.post('/host-event', function(req, res, next) {
+  eventId = req.body.eventId;
+  res.render('host-event', {eventId: eventId});
+})
+
 module.exports = router;
