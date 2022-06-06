@@ -57,7 +57,7 @@ function login() {
             window.location = './admin-user.html';
           } else {
             getUser();
-            window.location = './profile.html';
+            window.location = '/users/profile'
           }
         }else if(this.readyState == 4 && this.status >= 400){
           alert("Login Failed! Username or Email incorrect.");

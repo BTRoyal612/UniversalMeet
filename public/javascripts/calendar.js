@@ -4,6 +4,8 @@ var dateEvent;
 
 const chooseDate = (id) => {
   dateEvent = id.toString();
+  let dateInput = document.getElementById('date-input');
+  dateInput.value = dateEvent;
   var days = document.getElementsByClassName('calendar-day-hover');
   var chosenEl = document.querySelector(".chosen");
   for (let i = 0; i < days.length; i++) {
@@ -20,7 +22,6 @@ const chooseDate = (id) => {
   if (dateChosenCount % 2 == 0) {
     dateChosen = "";
   }
-  console.log(dateEvent);
 }
 
 // CHECK LEAP YEAR
@@ -103,15 +104,15 @@ let curr_year = { value: currDate.getFullYear() }
 
 generateCalendar(curr_month.value, curr_year.value)
 
-function passDate() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        window.location = './event-information.html'
-      }
-  }
+// function passDate() {
+//   var xhttp = new XMLHttpRequest();
+//   xhttp.onreadystatechange = function() {
+//       if (this.readyState == 4 && this.status == 200) {
+//         window.location = './event-information.html'
+//       }
+//   }
 
-  xhttp.open("POST", "/users/passDate", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ dateEvent:dateEvent }));
-};
+//   xhttp.open("POST", "/users/passDate", true);
+//   xhttp.setRequestHeader("Content-type", "application/json");
+//   xhttp.send(JSON.stringify({ dateEvent:dateEvent }));
+// };

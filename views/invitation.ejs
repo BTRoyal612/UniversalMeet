@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="/stylesheets/event.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d20e5bcc.js" crossorigin="anonymous"></script>
+  <title>Get Link</title>
+</head>
+
+<body>
+  <%=event_id%>
+  <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
+  <div class="arrow next"><i class="arrow-icon fa-solid fa-angle-right"></i></div>
+  <div class="link-ctn-box">
+    <h1 class="link-header">How would you like to send your invitation?</h1>
+    <div class="copy-text">
+      <input type="text" class="text" value=<%=event_id%>>
+      <button class="copy-button">
+        <i class="fa-solid fa-clone"></i>
+      </button>
+    </div>
+    <div class="link-ctn">
+      <div class="link-box" id="meetingID"><i class="fa-solid fa-id-badge"></i><span>Meeting ID Link</span></div>
+      <div class="link-box"><i class="fa-solid fa-envelope"></i><span>Mail Invitation</span></div>
+      <div class="link-box"><i class="fa-brands fa-facebook"></i><span>Facebook Invitation</span></div>
+    </div>
+  </div>
+  <script src="/javascripts/invitation.js"></script>
+</body>
+
+</html>

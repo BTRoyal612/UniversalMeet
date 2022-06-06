@@ -565,7 +565,7 @@ background-color: #ee1505;
 }
 
 .response-info-input {
-  background-color: var(--red);
+  background-color: #ee1505;
   color: white;
   text-align: center;
   font-weight: 700;
@@ -603,4 +603,47 @@ background-color: #ee1505;
 .close-modal-btn-custom {
   background-color: #ee1505 !important;
   color: white !important;
+}
+
+#event-id {
+  display: none;
+}
+
+#avail-select-btn {
+  float: right;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  /* color: #ee1505; */
+  /* background-color: white; */
+  /* border: 3px solid #ee1505; */
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.attandee-btn {
+  border: 3px solid #ee1505;
+  color: #ee1505;
+}
+
+.attandee-btn:hover {
+  background-color: #ee1505;
+  color: white;
+}
+
+..host-btn {
+  border: 3px solid blue;
+  color: blue;
+}
+
+.host-btn:hover {
+  background-color: blue;
+  color: white;
 }

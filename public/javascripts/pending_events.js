@@ -30,11 +30,13 @@ var vueinst = new Vue({
     p_event: PENDING_EVENTS,
   },
   methods: {
-    getClickEvent: function (event_id) {
+    getClickEvent: function (event_id, isHost) {
       var xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+          let eventId = document.getElementById("event-id");
+          eventId.value = event_id;
           let cur_event = JSON.parse(this.responseText)[0];
           let event_name = document.getElementById("event-name");
           event_name.innerText = cur_event["event_name"]
@@ -56,6 +58,21 @@ var vueinst = new Vue({
           event_duedate.innerText = cur_event["due_date"]
           let event_link = document.getElementById("event-link");
           event_link.innerText = cur_event["hold_location"]
+
+          let button = document.getElementById("avail-select-btn");
+          let form = document.getElementById("modal-form");
+          if (isHost) {
+            button.classList.remove('host-btn');
+            button.classList.add('host-btn');
+            button.innerText = 'Show Availablities';
+            form.action = '/users/host-event'
+          }
+          else {
+            button.classList.remove('host-btn');
+            button.classList.add('attandee-btn');
+            button.innerText = 'Select Your Availablity';
+            form.action = '/users/invite-response';
+          }
         }
       }
 

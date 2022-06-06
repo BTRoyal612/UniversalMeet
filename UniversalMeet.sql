@@ -194,10 +194,10 @@ END //
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE delete_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
+CREATE PROCEDURE delete_time(IN event_id_ INT, user_id_ INT)
 BEGIN
     DELETE FROM Event_chosen_time WHERE
-        event_id = event_id_ AND user_id = user_id_ AND chosen_time = chosen_time_;
+        event_id = event_id_ AND user_id = user_id_;
     IF EXISTS (SELECT * FROM Event_chosen_time WHERE event_id = event_id_ AND user_id = user_id_) = false THEN
         UPDATE Event_pending SET isPending = true WHERE event_id = event_id_ AND user_id = user_id_;
     END IF;
@@ -285,10 +285,11 @@ CALL create_event(5, 'event02', '2020-06-10', 30, '-04:30', 'online', '2022-06-3
 CALL create_event(7, 'event03', '2020-06-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
 CALL create_event(9, 'event04', '2020-06-10', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
 
-CALL add_availability(4, 7, '17:00:00');
-CALL add_availability(4, 7, '19:00:00');
-CALL add_availability(4, 7, '21:00:00');
+CALL add_availability(5, 9, '17:00:00');
+CALL add_availability(5, 9, '19:00:00');
+CALL add_availability(5, 9, '21:00:00');
 
+CALL join_event(1,1);
 CALL join_event(1,3);
 CALL join_event(1,4);
 CALL join_event(1,8);
@@ -325,4 +326,3 @@ INSERT INTO Email_preference VALUES (1, false, false, false, false),
 (9, false, true, false, false),
 (10, false, false, false, false);
 COMMIT;
-

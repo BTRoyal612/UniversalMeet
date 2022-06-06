@@ -512,6 +512,15 @@ body {
   user-select: none;
 }
 
+.host-info-input {
+  background-color: blue;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
+
 .response-info-tf-input {
   background-color: grey;
   color: white;
@@ -525,4 +534,8 @@ body {
 .chosen-tf {
   background-color: #05ee0d;
   color: black;
+}
+
+#date-input {
+  display: none;
 }
