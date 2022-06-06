@@ -86,6 +86,7 @@
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
             let avails = JSON.parse(this.responseText);
+            cur_avails = [...avails]
             console.log(avails)
             var ctn = document.getElementsByClassName('response-avail-ctn')[0];
             for (let i in avails) {
