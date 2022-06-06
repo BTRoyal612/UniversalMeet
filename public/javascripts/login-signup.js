@@ -1,3 +1,24 @@
+function validateUsername(username) {
+  if (username.length < 8) {
+    notice.innerHTML = "Username need at least 8 characters.";
+    notice.removeAttribute("hidden");
+    return;
+  }
+}
+
+function validatePassword(password) {
+
+}
+
+function validateEmail(mail) {
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value))
+  {
+    return (true)
+  }
+    alert("You have entered an invalid email address!")
+    return (false)
+}
+
 function getUser() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -48,16 +69,31 @@ function login() {
 };
 
 function signup() {
+    let notice = document.getElementById('notice');
     let password = document.getElementById('password').value;
     let confirmedPassword = document.getElementById('password').value;
 
     if (password != confirmedPassword) {
-        alert("Please reenter password!");
-        return;
+      notice.innerHTML = "Please reenter password!";
+      notice.removeAttribute("hidden");
+      return;
     }
 
     let username = document.getElementById('username').value;
     let email = document.getElementById('email').value;
+
+    if (username.length < 8) {
+      notice.innerHTML = "Username need at least 8 characters.";
+      notice.removeAttribute("hidden");
+      return;
+    }
+
+    var pass_required = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    if (password.match(pass_required)) {
+      otice.innerHTML = "Password must be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character";
+      notice.removeAttribute("hidden");
+      return;
+    }
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
