@@ -360,6 +360,7 @@ router.post('/event-info', function(req, res, next) {
 
 router.post('/availability', function(req, res, next) {
   event_id = req.body.event_id;
+  console.log(event_id)
   res.render('availability', {event_id: event_id});
 })
 
