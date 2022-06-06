@@ -14,8 +14,9 @@
 </head>
 
 <body>
-  <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
-  <div class="arrow next" onclick="sendTimeFrames()"><i class="fa-solid fa-check"></i></div>
+  <form action="/users/pending-events" method="get">
+    <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
+  </form>
   <div class="reponse_ctn">
     <div class="event-info event-info-response">
       <h1 class="event-info-header">Event Information</h1>
@@ -43,6 +44,7 @@
 
   <script>
     var event_id = <%=eventId%>
+    console.log(event_id);
     var duration;
     var cur_avails = [];
     $(document).ready(function () {
@@ -89,11 +91,19 @@
           var ctn = document.getElementsByClassName('response-avail-ctn')[0];
           for (let i in avails) {
             var tfDIV = document.createElement('div');
+            var count = document.createElement('p');
+            count.id = avails[i]['avail_time'];
+            getCount(avails[i]['avail_time']);
+
             tfDIV.classList.add('event-input');
             tfDIV.classList.add('host-info-input');
             tfDIV.id = i
             tfDIV.innerText = 'From ' + avails[i]['avail_time'];
+
+            tfDIV.appendChild(count);
             ctn.appendChild(tfDIV);
+
+
           }
 
         }
@@ -103,5 +113,24 @@
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id }));
     })
+
+    function getCount(chosen_time) {
+      // get Availablity
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let count = JSON.parse(this.responseText);
+          let chosen;
+          if (count.length == 0) chosen = 0;
+          else chosen = count[0]['COUNT(*)'];
+          document.getElementById(chosen_time).innerHTML = chosen;
+        }
+      }
+
+      xhttp.open("POST", "/users/countChosenTime", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
+    }
   </script>
 </body>
