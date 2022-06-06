@@ -60,15 +60,18 @@ var vueinst = new Vue({
           event_link.innerText = cur_event["hold_location"]
 
           let button = document.getElementById("avail-select-btn");
+          let form = document.getElementById("modal-form");
           if (isHost) {
-            button.classList.remove('attandee-btn')
+            button.classList.remove('host-btn');
             button.classList.add('host-btn');
-            button.innerText = 'Show Availablities'
+            button.innerText = 'Show Availablities';
+            form.action = '/users/host-event'
           }
           else {
-            button.classList.remove('host-btn')
+            button.classList.remove('host-btn');
             button.classList.add('attandee-btn');
-            button.innerText = 'Select Your Availablity'
+            button.innerText = 'Select Your Availablity';
+            form.action = '/users/invite-response';
           }
         }
       }
