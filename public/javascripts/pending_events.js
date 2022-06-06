@@ -58,6 +58,16 @@ var vueinst = new Vue({
           event_duedate.innerText = cur_event["due_date"]
           let event_link = document.getElementById("event-link");
           event_link.innerText = cur_event["hold_location"]
+
+          let button = document.getElementById("avail-select-btn");
+          if (isHost) {
+            button.classList.add('host-btn');
+            button.innerText = 'Select Your Availablity'
+          }
+          else {
+            button.classList.add('attandee-btn');
+            button.
+          }
         }
       }
 
