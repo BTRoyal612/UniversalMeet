@@ -359,9 +359,7 @@ router.post('/event-info', function(req, res, next) {
 })
 
 router.post('/availability', function(req, res, next) {
-  event_id = req.body.event_id;
-  console.log('a');
-  res.render('availability', {event_id: event_id});
+  res.render('availability', {event_id: req.session.event[0].event_id});
 })
 
 router.get('/invitation', function(req, res, next) {
