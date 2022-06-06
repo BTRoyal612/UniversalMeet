@@ -100,13 +100,6 @@ router.post('/getEvent', function(req, res, next) {
 })
 
 /* POST add event. */
-var dateEvent;
-router.post('/passDate', function(req, res, next) {
-  dateEvent = req.body.dateEvent;
-  console.log(dateEvent);
-  res.send();
-})
-
 router.post('/addEvent', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
@@ -366,7 +359,7 @@ router.post('/availability', function(req, res, next) {
 })
 
 router.post('/invitation', function(req, res, next) {
-  res.render('invitation', {event_id: req.session.event[0].event_id});
+  res.render('invitation', {event_id: req.session.event.event_id});
 })
 
 router.get('/pending-events', function(req, res, next) {

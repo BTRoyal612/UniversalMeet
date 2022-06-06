@@ -29,7 +29,6 @@ const updateEvent = () => {
 }
 
 function addEvent() {
-  console.log('here')
   var xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {

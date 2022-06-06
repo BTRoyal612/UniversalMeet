@@ -289,7 +289,6 @@ CALL add_availability(5, 9, '17:00:00');
 CALL add_availability(5, 9, '19:00:00');
 CALL add_availability(5, 9, '21:00:00');
 
-CALL join_event(1,1);
 CALL join_event(1,3);
 CALL join_event(1,4);
 CALL join_event(1,8);
@@ -310,9 +309,6 @@ CALL choose_time(1, 8, '12:30:01');
 CALL choose_time(2, 1, '12:00:01');
 CALL choose_time(2, 7, '12:00:01');
 CALL choose_time(3, 2, '12:00:01');
-
-
-
 
 SET AUTOCOMMIT=0;
 INSERT INTO Email_preference VALUES (1, false, false, false, false),
