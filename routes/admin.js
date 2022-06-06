@@ -38,6 +38,7 @@ router.post('/addAdmin', function(req, res, next) {
 /* POST get user list admin. */
 router.post('/getUserList', function(req, res, next) {
   //Determinate if this user isAdmin or not first
+  
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {

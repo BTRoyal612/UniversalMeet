@@ -149,8 +149,7 @@ router.post('/signup', function(req, res, next) {
 /* GET logout. */
 router.get('/logout', function(req, res, next) {
   if ('user' in req.session) {
-    delete req.session.
-    user;
+    delete req.session.user;
   }
   res.end();
 })

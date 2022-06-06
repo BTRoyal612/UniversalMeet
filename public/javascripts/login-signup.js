@@ -116,7 +116,7 @@ function onSignIn(googleUser) {
 
     //I dont know if u guys want to do login like this. This is just a tmp mock one to show u guys how openID work
 
-    xhttp.open("POST", "googleLogin/"); //An unique request for openID login
+    xhttp.open("POST", "/googleLogin"); //An unique request for openID login
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify({
       token: id_token
