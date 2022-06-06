@@ -14,8 +14,12 @@
 </head>
 
 <body>
-    <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
-    <div class="arrow next" onclick="sendTimeFrames()"><i class="fa-solid fa-check"></i></div>
+    <form action="/users/pending-events" method="get">
+      <button class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></button>
+    </form>
+    <form action="/users/pending-events" method="get">
+      <button class="arrow next" onclick="sendTimeFrames()"><i class="fa-solid fa-check"></i></button>
+    </form>
     <div class="reponse_ctn">
       <div class="event-info event-info-response">
         <h1 class="event-info-header">Event Information</h1>

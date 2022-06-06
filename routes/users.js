@@ -123,6 +123,7 @@ router.post('/addEvent', function(req, res, next) {
         return;
       }
       req.session.event = rows[0];
+      console.log(req.session.event);
       res.json(rows); //send response
     });
   });
@@ -229,13 +230,13 @@ router.post('/countChosenTime', function(req, res, next) {
     var query = "SELECT * FROM Pp_number WHERE event_id = ? AND chosen_time = ?;";
       /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
       /* Im not sure if this format is right */
-    connection.query(query, [req.session.event[0].event_id, req.body.chosen_time],function(err, rows, fields) {
+    connection.query(query, [req.body.event_id, req.body.chosen_time],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); //send response
+      res.send(rows);
     });
   });
 })
@@ -383,7 +384,7 @@ router.post('/host-event', function(req, res, next) {
   res.render('host-event', {eventId: eventId});
 })
 router.get('/invitation-response/:id', function(req, res, next) {
-  
+
   function deserialize(id) {
     res = 0;
     for (let i = 0; i < id.length; i++) {
@@ -394,7 +395,7 @@ router.get('/invitation-response/:id', function(req, res, next) {
   let id = deserialize(req.params.id);
 
   // query to get time frames from id
-  
+
 
   res.render('invitation-response');
 })

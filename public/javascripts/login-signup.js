@@ -25,6 +25,7 @@ function getAdmin() {
 function login() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
+    console.log("login function");
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -46,7 +47,7 @@ function login() {
 
     xhttp.open("POST", "/login", true);
     xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify({ username:username , password:password }));
+    xhttp.send(JSON.stringify({ email:username , password:password }));
 };
 
 function signup() {
