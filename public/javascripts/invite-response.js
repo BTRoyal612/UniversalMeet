@@ -26,11 +26,3 @@ let timeframes = [
 //   }
 // }
 
-const sendTimeFrames = () => {
-  let chosenTF = document.getElementsByClassName("chosen-tf");
-  let tfArr = [];
-  for (tf of chosenTF) {
-    tfArr.push(timeframes[tf.id])
-  }
-  console.log(tfArr)
-}

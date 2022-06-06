@@ -44,7 +44,8 @@
     </div>
     <script>
       var event_id = <%=eventId%>
-    var duration;
+      var duration;
+      var cur_avails = [];
       $(document).ready(function () {
         var xhttp = new XMLHttpRequest();
 
@@ -106,6 +107,15 @@
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify({ event_id: event_id }));
       })
+
+      const sendTimeFrames = () => {
+        let chosenTF = document.getElementsByClassName("chosen-tf");
+        let tfArr = [];
+        for (tf of chosenTF) {
+          tfArr.push(cur_avails[tf.id])
+        }
+        console.log(tfArr)
+      }
     </script>
 </body>
 
