@@ -368,4 +368,8 @@ router.get('/invitation', function(req, res, next) {
 router.get('/pending-events', function(req, res, next) {
   res.render('pending-events');
 })
+
+router.get('/invite-response', function(req, res, next) {
+  res.render('invite-response');
+})
 module.exports = router;
