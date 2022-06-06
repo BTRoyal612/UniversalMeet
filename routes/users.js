@@ -372,4 +372,5 @@ router.get('/pending-events', function(req, res, next) {
 router.post('/invite-response', function(req, res, next) {
   res.render('invite-response', {eventId: eventId});
 })
+
 module.exports = router;
