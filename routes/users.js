@@ -204,6 +204,7 @@ router.post('/addChosenTime', function(req, res, next) {
     connection.query(query, [req.body.event_id, user.user_id, req.body.chosen_time],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
+        console.log(err)
         res.sendStatus(500);
         return;
       }
