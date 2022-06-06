@@ -370,6 +370,7 @@ router.get('/pending-events', function(req, res, next) {
 })
 
 router.post('/invite-response', function(req, res, next) {
+  eventId = req.body.eventId;
   res.render('invite-response', {eventId: eventId});
 })
 
