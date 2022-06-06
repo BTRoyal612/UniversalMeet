@@ -115,7 +115,34 @@
         for (tf of chosenTF) {
           tfArr.push(cur_avails[tf.id])
         }
-        console.log(tfArr)
+
+        // delete chosen time
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+
+          }
+        }
+
+        xhttp.open("POST", "/users/deleteChosenTime", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ event_id: event_id }));
+
+        // add chosen time
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+
+          }
+        }
+
+        xhttp.open("POST", "/users/addChosenTime", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ event_id: event_id }));
+
       }
     </script>
 </body>
