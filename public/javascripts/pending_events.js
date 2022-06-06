@@ -66,7 +66,7 @@ var vueinst = new Vue({
           }
           else {
             button.classList.add('attandee-btn');
-            button.
+            button.innerText = 'Show Availablities'
           }
         }
       }
