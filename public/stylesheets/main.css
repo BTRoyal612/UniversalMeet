@@ -598,3 +598,7 @@ background-color: #ee1505;
   background-color: #ee1505 !important;
   color: white !important;
 }
+
+#event-id {
+  display: none;
+}
