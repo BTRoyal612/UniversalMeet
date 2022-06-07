@@ -12,21 +12,13 @@ function serialize(id) {
   while (id != 0) {
     let remainder = id % 26;
     id = Math.floor(id / 26);
-    res = res + String.fromCharCode(remainder + 65);
+    res = res + String.fromCharCode(remainder + 97);
   }
   console.log(res)
   while (res.length < 6) {
-    res = res + 'A';
+    res = res + 'a';
   }
   return res.split("").reverse().join("");
-}
-
-function deserialize(id) {
-  res = 0;
-  for (let i = 0; i < id.length; i++) {
-    res = res + (id.charCodeAt(i) - 65) * (26 ** (id.length - 1 - i));
-  }
-  return res;
 }
 
 function getId() {
