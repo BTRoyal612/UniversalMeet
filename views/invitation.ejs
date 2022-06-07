@@ -39,7 +39,7 @@
       }, 1000)
     })
 
-    let path = "localhost:3000/invitation-response"
+    let path = <%=url%>+'/users/invitation-response';
     function serialize(id) {
       let res = "";
       while (id != 0) {
