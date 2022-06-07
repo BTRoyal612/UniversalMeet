@@ -648,12 +648,12 @@ background-color: #ee1505;
 }
 
 .host-btn {
-  border: 3px solid blue;
-  color: blue;
+  border: 3px solid #5800FF;
+  color: #5800FF;
 }
 
 .host-btn:hover {
-  background-color: blue;
+  background-color: #5800FF;
   color: white;
 }
 
