@@ -15,6 +15,11 @@ router.get('/logout', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+/* GET username. */
+router.get('/getUsername', function(req, res, next) {
+  res.send(user.username);
+});
+
 /* POST update user session. */
 router.post('/updateSession', function(req, res, next) {
   // Connect to the database
@@ -78,6 +83,28 @@ router.post('/getEventList', function(req, res, next) {
   });
 })
 
+/* POST get user finalized event for calender. */
+router.post('/getEventCalender', function(req, res, next) {
+  console.log(user);
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "CALL get_events_on_calender(3)";
+    connection.query(query, [], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
+})
+
 /* POST get event. */
 router.post('/getEvent', function(req, res, next) {
   // Connect to the database
@@ -99,14 +126,28 @@ router.post('/getEvent', function(req, res, next) {
   });
 })
 
-/* POST add event. */
-var dateEvent;
-router.post('/passDate', function(req, res, next) {
-  dateEvent = req.body.dateEvent;
-  console.log(dateEvent);
-  res.send();
+/* POST get users email in event. */
+router.post('/getUsersInEvent', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT user_id from Event_pending WHERE event_id = ?";
+    connection.query(query, [req.body.event_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
 })
 
+/* POST add event. */
 router.post('/addEvent', function(req, res, next) {
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
@@ -123,7 +164,7 @@ router.post('/addEvent', function(req, res, next) {
         return;
       }
       req.session.event = rows[0];
-      console.log(req.session.event);
+      console.log(req.session.event[0].event_id);
       res.json(rows); //send response
     });
   });
@@ -160,7 +201,7 @@ router.post('/updateEvent', function(req, res, next) {
     }
 
     var query = "CALL edit_event(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    connection.query(query, [req.session.event.event_id, user.user_id, req.body.event_name, req.body.hold_location, req.body.due_date, req.body.note, req.body.isOnline, req.body.duration, req.body.time_zone, req.body.share_link], function(err, rows, fields) {
+    connection.query(query, [req.session.event[0].event_id, user.user_id, req.body.event_name, req.body.hold_location, req.body.due_date, req.body.note, req.body.isOnline, req.body.duration, req.body.time_zone, req.body.share_link], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -253,7 +294,7 @@ router.post('/addAvailability', function(req, res, next) {
     var query = "CALL add_availability(?, ?, ?)";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right */
-    connection.query(query, [req.session.event.event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
+    connection.query(query, [req.session.event[0].event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -288,23 +329,7 @@ router.post('/showAvailability', function(req, res, next) {
 
 /* POST get email. */
 router.get('/getEmail', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-
-    var query = "SELECT email FROM User WHERE user_id = ?";
-    connection.query(query, [user.user_id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.send(user.email); //send response
-    });
-  });
+  res.send(user.email); //send response
 })
 
 /* POST update email. */
@@ -324,6 +349,27 @@ router.post('/updateEmail', function(req, res, next) {
         return;
       }
       res.send(); //send response
+    });
+  });
+})
+
+/* POST get preference about event cancel and event finalize. */
+router.post('/getFCPreference', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    var query = "SELECT event_cancel, event_finalize, email FROM Email_preference INNER JOIN User ON User.user_id = Email_preference.user_id WHERE Email_preference.user_id = ?";
+    connection.query(query, [req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
     });
   });
 })
@@ -393,6 +439,10 @@ router.post('/finalizeEvent', function(req, res, next) {
 
 router.get('/profile', function(req, res, next) {
   res.render('profile');
+})
+
+router.get('/noti_preferences', function(req, res, next) {
+  res.render('noti_preferences');
 })
 
 router.post('/calendar', function(req, res, next) {
