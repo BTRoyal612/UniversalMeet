@@ -519,8 +519,20 @@ body {
   border: none;
 }
 
+.login-btn-ctn {
+  text-align: center;
+  margin: 15px;
+}
+
 .response-login-btn {
   width: 70%;
+  background-color: #FFC600 !important;
+  color: black;
+}
+
+.response-login-btn:hover {
+  background-color: var(--red) !important;
+  color: white;
 }
 
 .host-info-input {
