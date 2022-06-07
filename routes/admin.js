@@ -231,5 +231,13 @@ router.post('/getAdminEvent', function(req, res, next) {
   res.send('admin-event');
 })
 
+router.get('/admin-user', function(req, res, next) {
+  res.render('admin-user');
+})
+
+router.get('/admin-event', function(req, res, next) {
+  res.render('admin-event');
+})
+
 
 module.exports = router;

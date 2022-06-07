@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./stylesheets/preferences.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="./javascripts/preferences.js" defer></script>
+
+  <title>Document</title>
+</head>
+<body>
+  <div class="main-box">
+    <h1 class="pref-header">Email Preferences</h1>
+
+    <div class="checkbox-ctn">
+      <div class="form-check form-switch">
+        <input id="user_respond" class="form-check-input flexSwitchCheckChecked" type="checkbox" checked>
+        <label class="form-check-label">Notify user respond</label>
+      </div>
+
+      <div class="form-check form-switch">
+        <input id="avail_confirm" class="form-check-input flexSwitchCheckChecked" type="checkbox" checked>
+        <label class="form-check-label">Notify availability is confirmed</label>
+      </div>
+
+      <div class="form-check form-switch">
+        <input id="event_finalize" class="form-check-input flexSwitchCheckChecked" type="checkbox" checked>
+        <label class="form-check-label">Notify event is finalized</label>
+      </div>
+
+      <div class="form-check form-switch">
+        <input id="event_cancel" class="form-check-input flexSwitchCheckChecked" type="checkbox" checked>
+        <label class="form-check-label">Notify event is cancelled</label>
+      </div>
+
+    </div>
+
+    <button type="button" onclick="updateEmailPreference();">Click Me!</button>
+  </div>
+</body>
+</html>

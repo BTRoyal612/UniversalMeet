@@ -18,7 +18,7 @@
 
 <body>
   <form action="/users/pending-events" method="get">
-    <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
+    <button class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></button>
   </form>
   <div class="reponse_ctn">
     <div class="event-info event-info-response">
@@ -37,7 +37,7 @@
       <div id="event-duedate" class="event-input host-info-input"></div>
       <label id="link">Link/Location</label>
       <div id="event-link" class="event-input host-info-input">Link</div>
-      <button onclick="deleteEvent();">Delete</button><button onclick="finalizeEvent();">Finalize</button>
+      <button id="delete_event" onclick="deleteEvent();">Delete</button><button id="finalize_event" onclick="finalizeEvent();">Finalize</button>
     </div>
     <div class="avail-ctn-box event-info-response">
       <h1 class="avail-header">Number of Availablities</h1>
@@ -51,6 +51,13 @@
     console.log(event_id);
     var duration;
     var cur_avails = [];
+    var creator_id;
+    var name;
+    var date;
+
+    var user_emails_cancel  = [];
+    var user_emails_finalize = [];
+
     $(document).ready(function () {
       var xhttp = new XMLHttpRequest();
 
@@ -76,7 +83,13 @@
           let event_duedate = document.getElementById("event-duedate");
           event_duedate.innerText = cur_event["due_date"]
           let event_link = document.getElementById("event-link");
-          event_link.innerText = cur_event["hold_location"]
+          event_link.innerText = cur_event["hold_location"];
+
+          document.getElementById("finalize_event").hidden = cur_event["isFinalised"];
+
+          name = cur_event["event_name"];
+          date = cur_event["date"];
+          creator_id = cur_event["creator_id"];
         }
       }
 
@@ -114,10 +127,28 @@
       xhttp.open("POST", "/users/showAvailability", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id }));
+
+
+      // get user emails participate in event
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let users_list = JSON.parse(this.responseText);
+          for (let i in users_list) {
+            // if (users_list[i]['user_id'] != creator_id)
+            getFCPreference(users_list[i]['user_id']);
+            console.log(users_list[i]['user_id']);
+          }
+        }
+      }
+
+      xhttp.open("POST", "/users/getUsersInEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
     });
 
     function getCount(chosen_time) {
-      // get Availablity
       var xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function () {
@@ -135,13 +166,36 @@
       xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
     };
 
-    function deleteEvent() {
-      // get Availablity
+    function getFCPreference(user_id) {
       var xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          window.location = "/users/pending-event";
+          let preference = JSON.parse(this.responseText)[0];
+          let email = preference['email'];
+          if (preference['event_finalize']) user_emails_finalize.push(email);
+          if (preference['event_cancel']) user_emails_cancel.push(email);
+          // console.log(user_emails_cancel);
+          // console.log(user_emails_finalize);
+        }
+      }
+
+      xhttp.open("POST", "/users/getFCPreference", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ user_id:user_id }));
+    };
+
+    function deleteEvent() {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let subject = "An event on UniversalMeet is CANCELLED!!!";
+          let body = name + " that will happen on the " + date + " is cancelled. You can make other plans now ^^!"
+          // console.log(user_emails_cancel);
+          sendEmails(subject, body, user_emails_cancel);
+
+          window.location = "/users/pending-events";
         }
       }
 
@@ -151,12 +205,16 @@
     };
 
     function finalizeEvent() {
-      // get Availablity
       var xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          window.location = "/users/pending-event";
+          let subject = "An event on UniversalMeet is FINALIZED!!!";
+          let body = name + " that will happen on the " + date + " is finalized. Don't bamboozle others and be there on time ^^!"
+          // console.log(user_emails_finalize);
+          sendEmails(subject, body, user_emails_finalize);
+
+          window.location = "/users/pending-events";
         }
       }
 
@@ -164,5 +222,25 @@
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id }));
     };
+
+    function sendEmails(subject, body, recipients) {
+      for (let email of recipients) {
+        sendEmail(subject, body, email);
+      }
+    };
+
+    function sendEmail(subject, body, user) {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      }
+
+      xhttp.open("POST", "/sendEmail", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
+    };
+
   </script>
 </body>

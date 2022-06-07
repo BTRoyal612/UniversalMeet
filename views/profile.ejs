@@ -34,7 +34,7 @@
 <body id="app" class="profile_body">
   <div class="profile_header">
     <div class="welcome-line">
-      <i>Hello</i>
+      <i>Hello <span id="username"></span></i>
     </div>
     <div class="setting_btn_ctn">
       <button class="setting_btn" data-toggle="modal" data-target="#settings">
@@ -97,7 +97,10 @@
         <div class="modal-body modal-body-custom">
           <button class="modal-btn-custom" data-toggle="modal" data-target="#updateEmail" data-dismiss="modal" onclick="getEmail();">Update Email</button>
           <button class="modal-btn-custom" data-toggle="modal" data-target="#updatePassword" data-dismiss="modal">Update Password</button>
-          <button class="modal-btn-custom">Email Preferences</button>
+          <form action="/users/noti_preferences" method="get">
+            <button class="modal-btn-custom"><span>Email Preferences</span></button>
+          </form>
+
         </div>
         <div class="modal-footer modal-footer-custom">
           <button type="button" class="btn close-modal-btn-custom" data-dismiss="modal">Close</button>
@@ -157,19 +160,33 @@
   </div>
   <script src="/javascripts/profile.js"></script>
   <script>
+    var calender_events;
     $(document).ready(function (){
+      // GET username
       var xhttp = new XMLHttpRequest();
 
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(JSON.parse(this.responseText))
-      var events = JSON.parse(this.responseText);
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("username").innerHTML = this.responseText;
+        }
+      }
 
-    }
-  }
+      xhttp.open("GET", "/users/getUsername", true);
+      xhttp.send();
 
-  xhttp.open("POST", "/users/getEventList", true);
-  xhttp.send();
+      // POST get user finalized events for calender
+
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(JSON.parse(this.responseText)[0])
+          calender_events = JSON.parse(this.responseText)[0];
+        }
+      }
+
+      xhttp.open("POST", "/users/getEventCalender", true);
+      xhttp.send();
     })
   </script>
 </body>

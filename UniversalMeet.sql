@@ -229,10 +229,19 @@ BEGIN
         VALUES (creator_id_, event_name_, date_, /*time_begin_, time_end_,*/ duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
     CALL join_event((SELECT MAX(event_id) FROM Event), creator_id_);
     UPDATE Event_pending SET isPending = false WHERE event_id = ((SELECT MAX(event_id) FROM Event)) AND user_id = creator_id_;
-    SELECT MAX(event_id) as event_id FROM Event;
+    SELECT * from Event WHERE event_id = (SELECT MAX(event_id) FROM Event);
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE get_events_on_calender(IN user_id_ INT)
+BEGIN
+    SELECT Event_pending.event_id, event_name, date, duration FROM Event_pending
+    INNER JOIN Event ON Event.event_id = Event_pending.event_id
+    INNER JOIN User On User.user_id = Event_pending.user_id
+    WHERE Event_pending.user_id = user_id_ AND Event.isFinalised = true AND date >= CURRENT_TIMESTAMP() ;
+END //
+DELIMITER ;
 
 /* Creator add availability */
 DELIMITER //
