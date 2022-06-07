@@ -6,7 +6,7 @@ const client = new OAuth2Client('110103062531-ujd4r0sb2khv4rueml1fuunk2f5roddc.a
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('home', { title: 'Express' });
 });
 
 /* POST login. */
