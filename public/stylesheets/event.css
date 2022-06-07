@@ -11,8 +11,8 @@
   --light-main: rgba(21,25,34,1);
   --light-second: #c3c2c8;
   --light-hover: #edf0f5;
-  --light-text: #151426;
-  --red: #ee1505;
+  --light-text: white;
+  --red: #5800FF;
   --white: #fff;
   --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -91,7 +91,6 @@ body {
   padding: 20px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow);
 }
 
 .calendar-header {
@@ -117,6 +116,7 @@ body {
 
 .calendar-week-day > div {
   text-align: center;
+  color: white;
 }
 
 .calendar-days {
