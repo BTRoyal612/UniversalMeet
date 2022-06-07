@@ -384,15 +384,18 @@ router.post('/host-event', function(req, res, next) {
   eventId = req.body.eventId;
   res.render('host-event', {eventId: eventId});
 })
+
+function deserialize(id) {
+  res = 0;
+  for (let i = 0; i < id.length; i++) {
+    res = res + (id.charCodeAt(i) - 65) * (26 ** (id.length - 1 - i));
+  }
+  return res;
+}
+
 router.get('/invitation-response/:id', function(req, res, next) {
 
-  function deserialize(id) {
-    res = 0;
-    for (let i = 0; i < id.length; i++) {
-      res = res + (id.charCodeAt(i) - 65) * (26 ** (id.length - 1 - i));
-    }
-    return res;
-  }
+
   let id = deserialize(req.params.id);
 
   res.render('invitation-response', {eventId: id});
