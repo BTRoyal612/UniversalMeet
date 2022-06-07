@@ -56,7 +56,7 @@ var vueinst = new Vue({
             event_link.innerText = cur_event["share_link"]
           }
           let event_duedate = document.getElementById("event-duedate");
-          cur_event["due_date"].substring(0,10) + " (" + cur_event["due_date"].substring(12,19) + ")";
+          event_duedate = cur_event["due_date"].substring(0,10) + " (" + cur_event["due_date"].substring(12,19) + ")";
           let button = document.getElementById("avail-select-btn");
           let form = document.getElementById("modal-form");
           if (isHost) {
