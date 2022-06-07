@@ -462,6 +462,10 @@ background-color: #ee1505;
   color: white;
 }
 
+.logout_btn_ctn {
+  padding: 0 10px;
+}
+
 @media only screen and (max-width: 780px) {
   .profile_main {
     display: unset;
