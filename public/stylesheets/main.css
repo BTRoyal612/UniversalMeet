@@ -647,7 +647,7 @@ background-color: #ee1505;
   color: white;
 }
 
-..host-btn {
+.host-btn {
   border: 3px solid blue;
   color: blue;
 }
