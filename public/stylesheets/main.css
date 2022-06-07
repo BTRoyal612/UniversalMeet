@@ -463,7 +463,9 @@ background-color: #ee1505;
 }
 
 .logout_btn_ctn {
+  width: 15vw;
   padding: 0 10px;
+  margin: auto;
 }
 
 @media only screen and (max-width: 780px) {
