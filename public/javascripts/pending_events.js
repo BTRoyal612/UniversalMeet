@@ -1,13 +1,11 @@
 var PENDING_EVENTS = [];
 
 $(document).ready(function () {
-  console.log("pass event list");
   var xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       vueinst.p_event.splice(0);
-      console.log(JSON.parse(this.responseText))
       var events = JSON.parse(this.responseText);
       for (let event of events) {
         var isHost;
@@ -41,24 +39,24 @@ var vueinst = new Vue({
           let event_name = document.getElementById("event-name");
           event_name.innerText = cur_event["event_name"]
           let event_date = document.getElementById("event-date")
-          event_date.innerText = cur_event["date"]
+          event_date.innerText = cur_event["date"].substring(0, 10)
           let event_duration = document.getElementById("event-duration");
           event_duration.innerText = cur_event["duration"]
           let event_timezone = document.getElementById("event-timezone");
           event_timezone.innerText = cur_event["time_zone"]
           let event_status = document.getElementById("event-status");
+          let event_link = document.getElementById("event-link");
           if (cur_event["isOnline"] == 0)
           {
             event_status.innerText = "Offline"
+            event_link.innerText = cur_event["hold_location"]
           }
           else {
             event_status.innerText = "Online"
+            event_link.innerText = cur_event["share_link"]
           }
           let event_duedate = document.getElementById("event-duedate");
-          event_duedate.innerText = cur_event["due_date"]
-          let event_link = document.getElementById("event-link");
-          event_link.innerText = cur_event["hold_location"]
-
+          event_duedate.innerText = cur_event["due_date"].substring(0,10) + " (" + cur_event["due_date"].substring(12,19) + ")";
           let button = document.getElementById("avail-select-btn");
           let form = document.getElementById("modal-form");
           if (isHost) {

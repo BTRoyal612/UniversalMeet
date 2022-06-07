@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
 * {
   padding: 0;
   margin: 0;
@@ -461,6 +462,12 @@ background-color: #ee1505;
   color: white;
 }
 
+.logout_btn_ctn {
+  width: 15vw;
+  padding: 0 10px;
+  margin: auto;
+}
+
 @media only screen and (max-width: 780px) {
   .profile_main {
     display: unset;
@@ -490,8 +497,11 @@ background-color: #ee1505;
 
 /*************************** PENDING EVENTS ****************************/
 .pending_events_header {
-  font-size: 50px;
+  font-size: 70px;
   text-align: center;
+  font-family: 'Proza Libre', sans-serif;
+  font-weight: bolder;
+  color: white;
 }
 
 .pending_event {
@@ -515,13 +525,13 @@ background-color: #ee1505;
 }
 
 .pending_event_ctn {
-  background-color: #fff;
+  background-color: rgba(21,25,34,1);
   border-radius: 7px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
-  margin: 10% 50px 0;
+  margin: 5% 50px 0;
   padding: 40px 0;
   height: 70vh;
 }
@@ -539,17 +549,22 @@ background-color: #ee1505;
 
 .pending_event_body {
   min-height: 100vh;
-  background-color: #92B4EC;
+  background-color: #0e1016;
 }
 
 .member_event {
-  background-color: #0000ff;
+  background-color: #5800FF;
   color: white;
 }
 
 .host_event {
-  background-color: #ee1505;
-  color: white;
+  background-color: #FFC600;
+  color: black;
+}
+
+.member_event, .host_event {
+  font-family: 'Poppins', sans-serif;
+  font-size: 30px;
 }
 
 .event-input {
@@ -638,12 +653,27 @@ background-color: #ee1505;
   color: white;
 }
 
-..host-btn {
-  border: 3px solid blue;
-  color: blue;
+.host-btn {
+  border: 3px solid #5800FF;
+  color: #5800FF;
 }
 
 .host-btn:hover {
-  background-color: blue;
+  background-color: #5800FF;
   color: white;
+}
+
+.home {
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  width: 5rem;
+  height: 5rem;
+  font-size: 3rem;
+  position: absolute;
+  background-color: transparent;
+  top: 1rem;
+  left: 1rem;
+  cursor: pointer;
 }

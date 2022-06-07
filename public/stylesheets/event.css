@@ -7,12 +7,12 @@
   --dark-hover: #323048;
   --dark-text: #f8fbff;
 
-  --light-body: #f3f8fe;
-  --light-main: #fdfdfd;
+  --light-body: #0e1016;
+  --light-main: rgba(21,25,34,1);
   --light-second: #c3c2c8;
   --light-hover: #edf0f5;
-  --light-text: #151426;
-  --red: #ee1505;
+  --light-text: white;
+  --red: #5800FF;
   --white: #fff;
   --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -67,6 +67,8 @@ body {
   z-index: 2;
   cursor: pointer;
   color: white;
+  border: none;
+  outline: none;
 }
 
 .prev {
@@ -78,7 +80,7 @@ body {
 }
 
 .prev:hover, .next:hover {
-  background-color: #af150a;
+  background-color: #FFC600;
 }
 
 .box {
@@ -89,7 +91,6 @@ body {
   padding: 20px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow);
 }
 
 .calendar-header {
@@ -115,6 +116,7 @@ body {
 
 .calendar-week-day > div {
   text-align: center;
+  color: white;
 }
 
 .calendar-days {
@@ -282,7 +284,10 @@ body {
   padding: 20px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow);
+}
+
+.event-info > label {
+  color: white;
 }
 
 .event-info-header, .link-header, .avail-header {
@@ -329,14 +334,13 @@ body {
   border-radius: 30px;
   padding: 40px;
   overflow: hidden;
-  box-shadow: var(--shadow);
   text-align: center;
   align-items: center;
   position: absolute;
 }
 
 .copy-text {
-  width: 50%;
+  width: 70%;
   position: relative;
   padding: 10px;
   background: #fff;
@@ -368,11 +372,11 @@ body {
 }
 
 .copy-text button:hover {
-  background-color: #af150a;
+  background-color: #FFC600;
 }
 
 .copy-text button:active {
-  background-color: #00a6ff;
+  background-color: #FFC600;
 }
 
 .copy-text button::before {
@@ -380,7 +384,7 @@ body {
   position: absolute;
   top: 12px;
   right: -80px;
-  background-color: #00a6ff;
+  background-color: #FFC600;
   padding: 8px 10px;
   border-radius: 20px;
   font-size: 15px;
@@ -407,7 +411,7 @@ body {
 }
 
 .link-box:hover {
-  background-color: #af150a;
+  background-color: #FFC600;
 }
 
 @media only screen and (min-width: 600px) {
@@ -438,7 +442,6 @@ body {
   border-radius: 30px;
   padding: 40px;
   overflow: hidden;
-  box-shadow: var(--shadow);
   align-items: center;
 }
 
@@ -511,6 +514,24 @@ body {
   font-weight: 700;
   cursor: pointer;
   user-select: none;
+  outline: none;
+  border: none;
+}
+
+.login-btn-ctn {
+  text-align: center;
+  margin: 15px;
+}
+
+.response-login-btn {
+  width: 70%;
+  background-color: #FFC600 !important;
+  color: black;
+}
+
+.response-login-btn:hover {
+  background-color: var(--red) !important;
+  color: white;
 }
 
 .host-info-input {
@@ -539,4 +560,27 @@ body {
 
 #date-input {
   display: none;
+}
+
+.home {
+  color: var(--red);
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  width: 5rem;
+  height: 5rem;
+  font-size: 3rem;
+  position: absolute;
+  background-color: transparent;
+  top: 1rem;
+  left: 1rem;
+}
+
+.hidden-url {
+  display: none;
+}
+
+.response-login-btn {
+  width: 5wh;
+  background-color: var(--red);
 }

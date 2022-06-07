@@ -9,34 +9,119 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="/stylesheets/event.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a2d20e5bcc.js" crossorigin="anonymous"></script>
-  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
+  <title>Add Your Availablity</title>
 </head>
 
 <body>
-  <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
-  <div class="arrow next" onclick="sendTimeFrames()"><i class="fa-solid fa-check"></i></div>
+  <form action="/users/profile" method="get" class="home-ctn">
+    <button class="home"><i class="fa-solid fa-house"></i></i></button>
+  </form>
   <div class="reponse_ctn">
     <div class="event-info event-info-response">
       <h1 class="event-info-header">Event Information</h1>
+      <form action="/login" method="get" class="login-btn-ctn">
+        <button class="event-input response-info-input response-login-btn">Login to add availablities</button>
+      </form>
       <label>Event Name</label>
-      <div class="event-input response-info-input">Web Meeting</div>
+      <div id="event-name" class="event-input response-info-input">Web Meeting</div>
+      <label>Date</label>
+      <div id="event-date" class="event-input response-info-input"></div>
       <label>Duration (in minute)</label>
-      <div class="event-input response-info-input">150</div>
+      <div id="event-duration" class="event-input response-info-input">150</div>
       <label>Time Zones</label>
-      <div class="event-input response-info-input">(GMT-12:00) International Date Line West</div>
+      <div id="event-timezone" class="event-input response-info-input">(GMT-12:00) International Date Line West</div>
       <label>Online/Offline</label>
-      <div class="event-input response-info-input">Online</div>
+      <div id="event-status" class="event-input response-info-input">Online</div>
       <label>Due Date</label>
-      <div class="event-input response-info-input">23/7/2022</div>
+      <div id="event-duedate" class="event-input response-info-input"></div>
       <label id="link">Link/Location</label>
-      <div class="event-input response-info-input">Link</div>
+      <div id="event-link" class="event-input response-info-input">Link</div>
     </div>
-    <div class="avail-ctn-box event-info-response">
-      <h1 class="avail-header">Choose Availabilities</h1>
-      <div class="avail-ctn response-avail-ctn">
-      </div>
-    </div>
+
   </div>
+  <script>
+    var event_id = <%=event_id%>
+      var duration;
+    var cur_avails = [];
+    $(document).ready(function () {
+      var xhttp = new XMLHttpRequest();
+      console.log(event_id)
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let cur_event = JSON.parse(this.responseText)[0];
+          let event_name = document.getElementById("event-name");
+          event_name.innerText = cur_event["event_name"]
+          let event_date = document.getElementById("event-date")
+          event_date.innerText = cur_event["date"].substring(0, 10)
+          let event_duration = document.getElementById("event-duration");
+          event_duration.innerText = cur_event["duration"]
+          duration = cur_event["duration"]
+          let event_timezone = document.getElementById("event-timezone");
+          event_timezone.innerText = cur_event["time_zone"]
+          let event_status = document.getElementById("event-status");
+          let event_link = document.getElementById("event-link");
+          if (cur_event["isOnline"] == 0) {
+            event_status.innerText = "Offline"
+            event_link.innerText = cur_event["hold_location"]
+          }
+          else {
+            event_status.innerText = "Online"
+            event_link.innerText = cur_event["share_link"]
+          }
+          let event_duedate = document.getElementById("event-duedate");
+          event_duedate.innerText = cur_event["due_date"].substring(0,10) + " (" + cur_event["due_date"].substring(12,19) + ")";
+        }
+      }
+
+      xhttp.open("POST", "/users/getEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+    })
+
+    const sendTimeFrames = () => {
+      let chosenTF = document.getElementsByClassName("chosen-tf");
+      let tfArr = [];
+      for (tf of chosenTF) {
+        tfArr.push(cur_avails[tf.id])
+      }
+      console.log(tfArr)
+
+      // delete chosen time
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+        }
+      }
+
+      xhttp.open("POST", "/users/deleteChosenTime", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+
+      // add chosen time
+
+      for (let i = 0; i < tfArr.length; i++) {
+        tf = tfArr[i]["avail_time"];
+        addChosenTime(tf)
+      }
+
+    }
+
+    function addChosenTime(chosen_time) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      }
+
+      xhttp.open("POST", "/users/addChosenTime", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
+    }
+
+  </script>
 </body>
 
 </html>
