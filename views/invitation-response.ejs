@@ -17,12 +17,12 @@
   <form action="/users/profile" method="get" class="home-ctn">
     <button class="home"><i class="fa-solid fa-house"></i></i></button>
   </form>
-  <form action="/login" method="get">
-    <button class="response-login-btn" onclick="sendTimeFrames()">Login to add availablities</button>
-  </form>
   <div class="reponse_ctn">
     <div class="event-info event-info-response">
       <h1 class="event-info-header">Event Information</h1>
+      <form action="/login" method="get">
+        <button class="event-input response-info-input">Login to add availablities</button>
+      </form>
       <label>Event Name</label>
       <div id="event-name" class="event-input response-info-input">Web Meeting</div>
       <label>Date</label>
