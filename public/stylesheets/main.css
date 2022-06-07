@@ -647,3 +647,17 @@ background-color: #ee1505;
   background-color: blue;
   color: white;
 }
+
+.home {
+  color: var(--red);
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  width: 5rem;
+  height: 5rem;
+  font-size: 3rem;
+  position: absolute;
+  background-color: transparent;
+  top: 1rem;
+  left: 1rem;
+}
