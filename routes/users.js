@@ -139,7 +139,7 @@ router.post('/deleteEvent', function(req, res, next) {
     }
 
     var query = "CALL delete_event(?, ?)";
-    connection.query(query, [req.session.event[0].event_id, user.user_id],function(err, rows, fields) {
+    connection.query(query, [req.body.event_id, user.user_id],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -359,7 +359,7 @@ router.post('/finalizeEvent', function(req, res, next) {
     }
 
     var query = "CALL finalise_event(?, true)";
-    connection.query(query, [req.session.event[0].event_id], function(err, rows, fields) {
+    connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);

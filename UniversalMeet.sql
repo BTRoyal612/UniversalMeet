@@ -493,12 +493,12 @@ Procedure Function List
 
 /* Mock database */
 CALL sign_up('john', 'liu1021119271@gmail.com', 'zonghan180');
-CALL sign_up('nam', 'a1807377@student.adelaide.edu.au', 'nam1807');
-CALL sign_up('bao', 'hoangnamtrinh15@gmail.com', 'baobill222');
+CALL sign_up('nam', 'hoangnamtrinh15@student.adelaide.edu.au', 'nam1807');
+CALL sign_up('bao', 'gb.hoang02@gmail.com', 'baobill222');
 CALL sign_up('MarcusHoang', 'hoangnghia0403@gmail.com', '314marcusH');
 CALL sign_up('jason', 'a1806320@student.adelaide.edu.au', 'Jason180');
 CALL sign_up('vill', 'asdas123@gmail.com', 'whoisme123');
-CALL sign_up('MarcusHoang', ' a1814303@student.adelaide.edu.au', 'why2Marcus');
+CALL sign_up('MarcusHoang', 'a1814303@student.adelaide.edu.au', 'why2Marcus');
 CALL sign_up('marry', 'marry123@gmail.com', 'Marry_a777');
 CALL sign_up('loser', 'loser123@gmail.com', 'Loser0000');
 CALL sign_up('biaaatch', 'biaaatch1@gmail.com', 'BCH_27111a');
