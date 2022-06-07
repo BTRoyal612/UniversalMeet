@@ -287,6 +287,10 @@ body {
   box-shadow: var(--shadow);
 }
 
+.event-info > label {
+  color: white;
+}
+
 .event-info-header, .link-header, .avail-header {
   text-align: center;
   font-weight: bold;
