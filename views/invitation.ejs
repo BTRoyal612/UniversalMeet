@@ -31,7 +31,7 @@
     </div>
   </div>
   <script>
-    var url = document.getElementById("url").value;
+    var url = document.getElementById("url").textContent;
     let copyText = document.querySelector(".copy-text");
     copyText.querySelector("button").addEventListener("click", function(){
       copyText.classList.add("active")
