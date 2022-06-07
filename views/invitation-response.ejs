@@ -13,6 +13,7 @@
 </head>
 
 <body>
+  <%=event_id%>
   <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
   <div class="arrow next" onclick="sendTimeFrames()"><i class="fa-solid fa-check"></i></div>
   <div class="reponse_ctn">
@@ -38,7 +39,7 @@
     </div>
   </div>
   <script>
-    var event_id = <%=eventId%>
+    var event_id = <%=event_id%>
     var duration;
     var cur_avails = [];
     $(document).ready(function () {

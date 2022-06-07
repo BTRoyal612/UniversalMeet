@@ -397,8 +397,8 @@ router.get('/invitation-response/:id', function(req, res, next) {
 
 
   let id = deserialize(req.params.id);
-
-  res.render('invitation-response', {eventId: id});
+  console.log(id)
+  res.render('invitation-response', {event_id: id});
 })
 module.exports = router;
 
