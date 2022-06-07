@@ -253,7 +253,7 @@ router.post('/addAvailability', function(req, res, next) {
     var query = "CALL add_availability(?, ?, ?)";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right */
-    connection.query(query, [req.session.event[0].event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
+    connection.query(query, [req.session.event.event_id, user.user_id, req.body.time_frame] ,function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -324,6 +324,27 @@ router.post('/updateEmail', function(req, res, next) {
         return;
       }
       res.send(); //send response
+    });
+  });
+})
+
+/* POST get email preference. */
+router.post('/getEmailPreference', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    var query = "SELECT * FROM Email_preference WHERE user_id = ?";
+    connection.query(query, [user.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
     });
   });
 })

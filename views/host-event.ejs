@@ -37,7 +37,7 @@
       <div id="event-duedate" class="event-input host-info-input"></div>
       <label id="link">Link/Location</label>
       <div id="event-link" class="event-input host-info-input">Link</div>
-      <button>Delete</button><button>Finalize</button>
+      <button onclick="deleteEvent();">Delete</button><button onclick="finalizeEvent();">Finalize</button>
     </div>
     <div class="avail-ctn-box event-info-response">
       <h1 class="avail-header">Number of Availablities</h1>
@@ -141,6 +141,7 @@
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+          window.location = "/users/pending-event";
         }
       }
 
@@ -155,6 +156,7 @@
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+          window.location = "/users/pending-event";
         }
       }
 

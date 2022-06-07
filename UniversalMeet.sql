@@ -196,6 +196,7 @@ CREATE PROCEDURE change_notification(
     event_cancel_ BOOLEAN
 )
 BEGIN
+    INSERT INTO Email_preference VALUES (user_id_, false, false, false, false);
     UPDATE Email_preference SET
     user_respond = user_respond_,
     avail_confirm = avail_confirm_,
