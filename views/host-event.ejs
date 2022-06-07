@@ -5,11 +5,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="/stylesheets/event.css" rel="stylesheet">
+
   <script src="https://kit.fontawesome.com/a2d20e5bcc.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
+
   <title>Add Your Availablity</title>
 </head>
 
@@ -34,6 +37,7 @@
       <div id="event-duedate" class="event-input host-info-input"></div>
       <label id="link">Link/Location</label>
       <div id="event-link" class="event-input host-info-input">Link</div>
+      <button>Delete</button><button>Finalize</button>
     </div>
     <div class="avail-ctn-box event-info-response">
       <h1 class="avail-header">Number of Availablities</h1>
@@ -102,8 +106,6 @@
 
             tfDIV.appendChild(count);
             ctn.appendChild(tfDIV);
-
-
           }
 
         }
@@ -112,7 +114,7 @@
       xhttp.open("POST", "/users/showAvailability", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id }));
-    })
+    });
 
     function getCount(chosen_time) {
       // get Availablity
@@ -131,6 +133,34 @@
       xhttp.open("POST", "/users/countChosenTime", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
-    }
+    };
+
+    function deleteEvent() {
+      // get Availablity
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      }
+
+      xhttp.open("POST", "/users/deleteEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+    };
+
+    function finalizeEvent() {
+      // get Availablity
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      }
+
+      xhttp.open("POST", "/users/finalizeEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+    };
   </script>
 </body>

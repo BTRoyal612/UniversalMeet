@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require("nodemailer");
 
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client('110103062531-ujd4r0sb2khv4rueml1fuunk2f5roddc.apps.googleusercontent.com');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home', { title: 'Express' });
+  res.render('index', { title: 'Express' });
 });
 
 /* POST login. */
@@ -170,6 +171,32 @@ router.get('/home', function(req, res) {
 router.get('/invitation/:id', function(req, res, next) {
   let deserializedID = deserialize(req.params.id);
   res.redirect('/invitation/' + deserializedID);
+});
+
+/* POST send email. */
+function sendEmail(subject, body, user) {
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: "meet.universal@gmail.com", // generated ethereal user
+      pass: "ddbhooarlbmejpwc", // generated ethereal password
+    },
+  });
+
+  // send mail with defined transport object
+  let info = transporter.sendMail({
+    from: 'meet.universal@gmail.com', // sender address
+    to: user, // list of receivers
+    subject: subject, // Subject line
+    html: body, // html body
+  });
+}
+
+router.post('/sendEmail', function(req, res, next) {
+  sendEmail(req.body.subject, req.body.body, req.body.user);
+  res.send('send email');
 });
 
 // var nodemailer = require("nodemailer");

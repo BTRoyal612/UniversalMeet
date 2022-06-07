@@ -139,7 +139,7 @@ router.post('/deleteEvent', function(req, res, next) {
     }
 
     var query = "CALL delete_event(?, ?)";
-    connection.query(query, [req.session.event[0].event_id, user.user_id],function(err, rows, fields) {
+    connection.query(query, [req.body.event_id, user.user_id],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
@@ -203,10 +203,10 @@ router.post('/deleteChosenTime', function(req, res, next) {
       return;
     }
 
-    var query = "CALL delete_time(?, ?);";
+    var query = "CALL delete_time(?, ?, ?);";
     /* Since the req.body.chosen_time is an array, we need to call choose_time several times for each chosen_time */
     /* Im not sure if this format is right */
-    connection.query(query, [req.body.event_id, user.user_id],function(err, rows, fields) {
+    connection.query(query, [req.body.event_id, user.user_id, req.body.chosen_time],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         console.log(err)
@@ -339,6 +339,27 @@ router.post('/updateEmailPreference', function(req, res, next) {
 
     var query = "CALL change_notification(?, ?, ?, ?, ?)";
     connection.query(query, [user.user_id, req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
+    });
+  });
+})
+
+/* POST finalize event. */
+router.post('/finalizeEvent', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    var query = "CALL finalise_event(?, true)";
+    connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
