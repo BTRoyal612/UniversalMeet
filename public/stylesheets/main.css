@@ -519,13 +519,13 @@ background-color: #ee1505;
 }
 
 .pending_event_ctn {
-  background-color: #fff;
+  background-color: rgba(21,25,34,1);
   border-radius: 7px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
-  margin: 10% 50px 0;
+  margin: 5% 50px 0;
   padding: 40px 0;
   height: 70vh;
 }
