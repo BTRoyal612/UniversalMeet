@@ -373,7 +373,7 @@ body {
 }
 
 .copy-text button:hover {
-  background-color: #af150a;
+  background-color: #FFC600;
 }
 
 .copy-text button:active {
@@ -412,7 +412,7 @@ body {
 }
 
 .link-box:hover {
-  background-color: #af150a;
+  background-color: #FFC600;
 }
 
 @media only screen and (min-width: 600px) {
