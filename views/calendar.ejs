@@ -16,7 +16,7 @@
   <form action="/users/profile" method="get" class="home-ctn">
     <button class="home"><i class="fa-solid fa-house"></i></i></button>
   </form>
-  <form action="/users/event-info" method="post">
+  <form onsubmit="submitForm(event)" action="/users/event-info" method="post">
     <button class="arrow next"><i class="arrow-icon fa-solid fa-angle-right"></i></button>
     <input id="date-input" name="eventDate">
   </form>
@@ -68,9 +68,9 @@
   <script>
     function submitForm(event){
       date = document.getElementById("date-input").value;
-      if (date.)
-    event.preventDefault();
-    window.history.back();
+      console.log(date, typeof(date))
+    // event.preventDefault();
+    // window.history.back();
   }
   </script>
 </body>
