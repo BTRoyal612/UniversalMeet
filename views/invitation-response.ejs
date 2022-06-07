@@ -61,16 +61,19 @@
           let event_timezone = document.getElementById("event-timezone");
           event_timezone.innerText = cur_event["time_zone"]
           let event_status = document.getElementById("event-status");
+          let event_link = document.getElementById("event-link");
           if (cur_event["isOnline"] == 0) {
             event_status.innerText = "Offline"
+            event_link.innerText = cur_event["hold_location"]
           }
           else {
             event_status.innerText = "Online"
+            event_link.innerText = cur_event["share_link"]
           }
           let event_duedate = document.getElementById("event-duedate");
           event_duedate.innerText = cur_event["due_date"]
-          let event_link = document.getElementById("event-link");
-          event_link.innerText = cur_event["hold_location"]
+
+
         }
       }
 
