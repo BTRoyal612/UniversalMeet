@@ -183,12 +183,18 @@ BEGIN
 END //
 DELIMITER ;
 
-
+/* In router, check the return isFinalised value. If false then all good. If true then tell user this event is finalised */
 DELIMITER //
 CREATE PROCEDURE choose_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
 BEGIN
-    INSERT INTO Event_chosen_time VALUES (event_id_, user_id_, chosen_time_);
-    UPDATE Event_pending SET isPending = false WHERE event_id = event_id_ AND user_id = user_id_;
+    UPDATE Event SET isFinalised = true WHERE due_date <= CURRENT_TIMESTAMP();
+    IF EXISTS(SELECT * FROM Event WHERE event_id = event_id_ AND isFinalised = false) THEN
+        INSERT INTO Event_chosen_time VALUES (event_id_, user_id_, chosen_time_);
+        UPDATE Event_pending SET isPending = false WHERE event_id = event_id_ AND user_id = user_id_;
+        SELECT false AS isFinalised;
+    ELSE
+        SELECT true AS isFinalised;
+    END IF;
 END //
 DELIMITER ;
 
@@ -262,8 +268,10 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE guest_signup(IN email_ VARCHAR(50))
 BEGIN
-    INSERT INTO User (username, email, password, isRegistered) VALUES ('tourist', email_, UNHEX(SHA2(CONCAT('SA', 'LT'), 256)), false);
-    CALL login(email_, '');
+    IF NOT EXISTS (SELECT * FROM User WHERE email = email_) THEN
+        INSERT INTO User (username, email, password, isRegistered) VALUES ('tourist', email_, UNHEX(SHA2(CONCAT('SA', 'LT'), 256)), false);
+    END IF;
+    SELECT * FROM User WHERE email = email_;
 END //
 DELIMITER ;
 
@@ -403,6 +411,13 @@ CREATE PROCEDURE admin_add_user (
 )
 BEGIN
     INSERT INTO User (username, email, password, isAdmin, isRegistered) VALUES (username_, email_, UNHEX(SHA2(CONCAT('SA', password_, 'LT'), 256)), isAdmin_, true);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE finalise_event(IN event_id_ INT, isFinalised_ BOOLEAN)
+BEGIN
+    UPDATE Event SET isFinalised = isFinalised_ WHERE event_id = event_id_;
 END //
 DELIMITER ;
 
