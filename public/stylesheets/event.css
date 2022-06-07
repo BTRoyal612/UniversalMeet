@@ -334,7 +334,6 @@ body {
   border-radius: 30px;
   padding: 40px;
   overflow: hidden;
-  box-shadow: var(--shadow);
   text-align: center;
   align-items: center;
   position: absolute;
