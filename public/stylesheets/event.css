@@ -80,7 +80,7 @@ body {
 }
 
 .prev:hover, .next:hover {
-  background-color: #af150a;
+  background-color: #0e1016;
 }
 
 .box {
@@ -284,7 +284,6 @@ body {
   padding: 20px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow);
 }
 
 .event-info > label {
@@ -444,7 +443,6 @@ body {
   border-radius: 30px;
   padding: 40px;
   overflow: hidden;
-  box-shadow: var(--shadow);
   align-items: center;
 }
 
