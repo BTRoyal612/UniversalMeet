@@ -67,6 +67,8 @@ body {
   z-index: 2;
   cursor: pointer;
   color: white;
+  border: none;
+  outline: none;
 }
 
 .prev {
