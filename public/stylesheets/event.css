@@ -519,6 +519,10 @@ body {
   border: none;
 }
 
+.response-login-btn {
+  width: 70%;
+}
+
 .host-info-input {
   background-color: blue;
   color: white;
