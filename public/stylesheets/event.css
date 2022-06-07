@@ -542,12 +542,15 @@ body {
 }
 
 .home {
-  background-color: var(--red);
-  color: white;
+  color: var(--red);
   outline: none;
   border: none;
   border-radius: 100%;
   width: 5rem;
   height: 5rem;
   font-size: 3rem;
+  position: absolute;
+  background-color: transparent;
+  top: 1rem;
+  left: 1rem;
 }
