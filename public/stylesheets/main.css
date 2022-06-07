@@ -543,6 +543,7 @@ background-color: #ee1505;
 
 .pending_event_body {
   min-height: 100vh;
+  background-color: #0e1016;
 }
 
 .member_event {
