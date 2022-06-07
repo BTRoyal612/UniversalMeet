@@ -547,13 +547,17 @@ background-color: #ee1505;
 }
 
 .member_event {
-  background-color: white;
-  color: black;
+  background-color: #5800FF;
+  color: white;
 }
 
 .host_event {
   background-color: #FFC600;
   color: black;
+}
+
+.member_event, .host_event {
+  font-family:
 }
 
 .event-input {
