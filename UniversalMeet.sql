@@ -227,6 +227,7 @@ BEGIN
     INSERT INTO Event(creator_id, event_name, date, /*time_begin, time_end,*/ duration, time_zone, hold_location, due_date, note, share_link, isOnline)
         VALUES (creator_id_, event_name_, date_, /*time_begin_, time_end_,*/ duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
     CALL join_event((SELECT MAX(event_id) FROM Event), creator_id_);
+    UPDATE Event_pending SET isPending = false WHERE event_id = ((SELECT MAX(event_id) FROM Event)) AND user_id = creator_id_;
     SELECT MAX(event_id) as event_id FROM Event;
 END //
 DELIMITER ;
@@ -317,7 +318,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE choose_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
 BEGIN
-    UPDATE Event SET isFinalised = true WHERE due_date <= CURRENT_TIMESTAMP();
+    UPDATE Event SET isFinalised = true WHERE due_date <= CURRENT_TIMESTAMP() AND event_id = event_id_;
     IF EXISTS(SELECT * FROM Event WHERE event_id = event_id_ AND isFinalised = false) THEN
         INSERT INTO Event_chosen_time VALUES (event_id_, user_id_, chosen_time_);
         UPDATE Event_pending SET isPending = false WHERE event_id = event_id_ AND user_id = user_id_;
@@ -330,10 +331,10 @@ DELIMITER ;
 
 
 DELIMITER //
-CREATE PROCEDURE delete_time(IN event_id_ INT, user_id_ INT)
+CREATE PROCEDURE delete_time(IN event_id_ INT, user_id_ INT, chosen_time_ TIME)
 BEGIN
     DELETE FROM Event_chosen_time WHERE
-        event_id = event_id_ AND user_id = user_id_;
+        event_id = event_id_ AND user_id = user_id_ AND chosen_time = chosen_time_;
     IF EXISTS (SELECT * FROM Event_chosen_time WHERE event_id = event_id_ AND user_id = user_id_) = false THEN
         UPDATE Event_pending SET isPending = true WHERE event_id = event_id_ AND user_id = user_id_;
     END IF;
@@ -404,6 +405,7 @@ BEGIN
         INSERT INTO Event(creator_id, event_name, date, duration, time_zone, hold_location, due_date, note, share_link, isOnline)
             VALUES (creator_id_, event_name_, date_, duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
         CALL join_event((SELECT MAX(event_id) FROM Event), creator_id_);
+        UPDATE Event_pending SET isPending = false WHERE event_id = ((SELECT MAX(event_id) FROM Event)) AND user_id = creator_id_;
         SELECT MAX(event_id) FROM Event;
     END IF;
 END //
@@ -490,57 +492,131 @@ Procedure Function List
 
 
 /* Mock database */
-CALL sign_up('zonghan', 'a1@gmail.com', '123123');
-CALL sign_up('nam', 'a2@gmail.com', '123123');
-CALL sign_up('bao', 'a3@gmail.com', '123123');
-CALL sign_up('marcus', 'a4@gmail.com', '123123');
-CALL sign_up('jason', 'a5@gmail.com', '123123');
-CALL sign_up('vill', 'a6@gmail.com', '123123');
-CALL sign_up('maria', 'a7@gmail.com', '123123');
-CALL sign_up('marry', 'a8@gmail.com', '123123');
-CALL sign_up('loser', 'a9@gmail.com', '123123');
-CALL sign_up('biaaatch', 'a10@gmail.com', '123123');
+CALL sign_up('john', 'liu1021119271@gmail.com', 'zonghan180');
+CALL sign_up('nam', 'a1807377@student.adelaide.edu.au', 'nam1807');
+CALL sign_up('bao', 'hoangnamtrinh15@gmail.com', 'baobill222');
+CALL sign_up('MarcusHoang', 'hoangnghia0403@gmail.com', '314marcusH');
+CALL sign_up('jason', 'a1806320@student.adelaide.edu.au', 'Jason180');
+CALL sign_up('vill', 'asdas123@gmail.com', 'whoisme123');
+CALL sign_up('MarcusHoang', ' a1814303@student.adelaide.edu.au', 'why2Marcus');
+CALL sign_up('marry', 'marry123@gmail.com', 'Marry_a777');
+CALL sign_up('loser', 'loser123@gmail.com', 'Loser0000');
+CALL sign_up('biaaatch', 'biaaatch1@gmail.com', 'BCH_27111a');
 
-CALL create_event(1, 'event00', '2020-06-10', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'hotpot', 'none', false);
-CALL create_event(3, 'event01', '2020-06-10', 90, '+06:00', '378 house', '2018-07-25 18:34:33', '9/1', 'none', false);
-CALL create_event(5, 'event02', '2020-06-10', 30, '-04:30', 'online', '2022-06-30 10:30:12', 'volunteer', 'zoom', true);
-CALL create_event(7, 'event03', '2020-06-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'Thai', 'none', false);
-CALL create_event(9, 'event04', '2020-06-10', 45, '-08:00', 'University', '2022-05-14 14:30:25', 'WEB project', 'discord', false);
+CALL change_password(1, 'Zonghan_Liu123');
+CALL change_password(2, 'Nam_666');
+CALL change_password(4, 'MarcusH314');
+CALL change_password(7, 'why2Marcus');
 
-CALL add_availability(5, 9, '17:00:00');
-CALL add_availability(5, 9, '19:00:00');
-CALL add_availability(5, 9, '21:00:00');
+CALL change_notification (1, false, false, false, false);
+CALL change_notification (2, false, false, false, false);
+CALL change_notification (3, false, false, true, false);
+CALL change_notification (4, false, false, false, false);
+CALL change_notification (5, true, false, false, true);
+CALL change_notification (6, false, false, false, false);
+CALL change_notification (7, true, true, true, true);
+CALL change_notification (8, false, false, false, false);
+CALL change_notification (9, false, true, false, false);
+CALL change_notification (10, false, false, false, false);
+
+CALL create_event(1, 'VR project', '2022-06-10', 60, '+02:30', '161 house', '2022-05-20 04:34:33', 'John has no time to do his VR project now. Come to laugh at him!', 'no share link', false);
+CALL create_event(3, 'Bao farewell party', '2022-07-10', 90, '+06:00', '378 house', '2022-07-01 18:34:33', 'Bao will back to Vietnam, a perfect chance to punch him! ', 'no share link', false);
+CALL create_event(5, 'Jason Project', '2022-06-10', 30, '-04:30', 'online', '2022-05-30 10:30:12', 'Jason has almost done his project. Can we find a way to steal it?', 'zoom share link', true);
+CALL create_event(7, 'this is event4', '2022-07-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'some note here :)', 'no share link', false);
+CALL create_event(9, 'Hahahahahhahah, Ian wont pity you!', '2022-06-10', 45, '-08:00', 'University', '2022-06-15 14:30:25', 'WEB project gonna due soooooon. Try your best to survive. GLHF!', 'discord share link', false);
+CALL create_event(6, 'event6: this event will be deleted soon', '2022-07-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'this event will be deleted soon', 'no share link', false);
+
+CALL add_availability(1, 1, '17:20:00');
+CALL add_availability(1, 1, '06:00:00');
+CALL add_availability(1, 1, '21:07:00');
+
+CALL add_availability(2, 3, '17:20:00');
+CALL add_availability(2, 3, '06:00:00');
+CALL add_availability(2, 3, '21:07:00');
+
+CALL add_availability(3, 5, '17:20:00');
+CALL add_availability(3, 5, '06:00:00');
+CALL add_availability(3, 5, '21:07:00');
+
+CALL add_availability(4, 7, '17:20:00');
+CALL add_availability(4, 7, '06:00:00');
+CALL add_availability(4, 7, '21:07:00');
+
+CALL add_availability(5, 9, '17:20:00');
+CALL add_availability(5, 9, '06:00:00');
+CALL add_availability(5, 9, '21:07:00');
+
+CALL edit_event(1, 1, 'VR project due', '161 house', '2022-05-20 04:34:33', 'John has no time to do his VR project now. HELP at him!', true, 60, '+02:30', 'google.com');
+CALL edit_event(3, 5, 'Jason Project', 'online', '2022-06-30 04:34:33', 'find a way to steal Jason WDC project', true, 30, '-04:30', 'discord share link');
+
+CALL finalise_event(5, true);
+CALL delete_event(6, 6);
 
 CALL join_event(1,3);
 CALL join_event(1,4);
 CALL join_event(1,8);
 CALL join_event(2,1);
 CALL join_event(2,7);
+CALL join_event(2,9);
 CALL join_event(3,2);
 CALL join_event(3,9);
+CALL join_event(3,4);
 CALL join_event(4,10);
 CALL join_event(4,3);
+CALL join_event(4,8);
 CALL join_event(5,1);
 CALL join_event(5,5);
+CALL join_event(5,10);
 
-CALL choose_time(5, 1, '17:00:00');
-CALL choose_time(5, 1, '19:00:00');
-CALL choose_time(5, 5, '17:00:00');
-CALL choose_time(1, 3, '12:30:01');
-CALL choose_time(1, 8, '12:30:01');
-CALL choose_time(2, 1, '12:00:01');
-CALL choose_time(2, 7, '12:00:01');
-CALL choose_time(3, 2, '12:00:01');
+CALL choose_time(1, 3, '17:20:00');
+CALL choose_time(1, 3, '06:00:00');
+CALL choose_time(1, 3, '21:07:00');
+CALL choose_time(1, 4, '21:07:00');
+CALL choose_time(1, 7, '21:07:00');
 
-SET AUTOCOMMIT=0;
-INSERT INTO Email_preference VALUES (1, false, false, false, false),
-(2, false, false, false, false),
-(3, false, false, true, false),
-(4, false, false, false, false),
-(5, true, false, false, true),
-(6, false, false, false, false),
-(7, true, true, true, true),
-(8, false, false, false, false),
-(9, false, true, false, false),
-(10, false, false, false, false);
-COMMIT;
+CALL choose_time(2, 1, '17:20:00');
+CALL choose_time(2, 1, '06:00:00');
+CALL choose_time(2, 1, '21:07:00');
+CALL choose_time(2, 7, '21:07:00');
+CALL choose_time(2, 7, '06:00:00');
+
+CALL choose_time(3, 2, '17:20:00');
+CALL choose_time(3, 2, '06:00:00');
+CALL choose_time(3, 2, '21:07:00');
+CALL choose_time(3, 9, '17:20:00');
+CALL choose_time(3, 9, '06:00:00');
+CALL choose_time(3, 9, '21:07:00');
+CALL choose_time(3, 4, '17:20:00');
+CALL choose_time(3, 4, '06:00:00');
+CALL choose_time(3, 4, '21:07:00');
+
+CALL choose_time(4, 10, '17:20:00');
+CALL choose_time(4, 3, '21:07:00');
+CALL choose_time(4, 8, '06:00:00');
+
+CALL delete_time(3, 9, '17:20:00');
+CALL delete_time(3, 9, '06:00:00');
+
+
+CALL admin_add_user('God' , 'God doesnt email' , 'God' , true); /* This one is an admin, user_id shoule be 11 */
+CALL admin_add_user('normal user' , 'saber1234@gmail.com' , 'Saber1234' , true);
+CALL guest_signup('smith1234@gmail.com');
+CALL admin_modify_user_info(11, 8, 'Marry(admin modified)', 'marry123@gmail.com', 'Marry_a777', false);
+/* CALL admin_delete_user(11, 10); */
+
+CALL admin_add_event(11, 6, 'event: this event will be deleted soon', '2022-07-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'this event will be deleted soon', 'no share link', false);
+CALL admin_add_event(11, 6, 'event: this event will be deleted soon', '2022-07-10', 15, '+07:00', '161 house', '2022-06-24 00:00:00', 'this event will be deleted soon', 'no share link', false);
+CALL admin_modify_event_info(11, 8, 'event: this event is edited by admin', '2022-07-10', 30, '-07:00', '262 house', '2022-06-28 00:07:00', 'no note', 'no share link', true, false);
+CALL admin_delete_event(11, 7);
+
+/*
+Run this in Terminal!
+
+SELECT * FROM User;
+SELECT * FROM Event;
+SELECT * FROM Event_availability;
+SELECT * FROM Event_pending;
+SELECT * FROM Event_chosen_time;
+SELECT * FROM Email_preference;
+SELECT * FROM Pp_number;
+*/
