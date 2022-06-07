@@ -377,7 +377,7 @@ body {
 }
 
 .copy-text button:active {
-  background-color: #00a6ff;
+  background-color: #FFC600;
 }
 
 .copy-text button::before {
@@ -385,7 +385,7 @@ body {
   position: absolute;
   top: 12px;
   right: -80px;
-  background-color: #00a6ff;
+  background-color: #FFC600;
   padding: 8px 10px;
   border-radius: 20px;
   font-size: 15px;

@@ -21,7 +21,7 @@
   <div class="link-ctn-box">
     <h1 class="link-header">How would you like to send your invitation?</h1>
     <div class="copy-text">
-      <input id="text" type="text" class="text" id="linkID" value=<%=event_id%>>
+      <input type="text" class="text" id="linkID" value=<%=event_id%>>
       <button class="copy-button" onclick="copy()">
         <i class="fa-solid fa-clone"></i>
       </button>
@@ -67,7 +67,7 @@
     };
 
     function copy() {
-      var input = document.getElementById("text");
+      var input = document.getElementById("linkID");
       input.select();
       document.execCommand("copy");
     }
