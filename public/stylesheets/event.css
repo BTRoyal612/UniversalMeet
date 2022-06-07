@@ -540,3 +540,11 @@ body {
 #date-input {
   display: none;
 }
+
+.home {
+  color: var(--red);
+  outline: none;
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+}
