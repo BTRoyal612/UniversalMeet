@@ -495,6 +495,7 @@ background-color: #ee1505;
   text-align: center;
   font-family: 'Proza Libre', sans-serif;
   font-weight: bolder;
+  color: white;
 }
 
 .pending_event {
@@ -547,12 +548,12 @@ background-color: #ee1505;
 
 .member_event {
   background-color: #b8b5f3;
-  color: white;
+  color: black;
 }
 
 .host_event {
   background-color: #BDF2D5;
-  color: white;
+  color: black;
 }
 
 .event-input {
