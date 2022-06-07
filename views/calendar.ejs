@@ -68,9 +68,10 @@
   <script>
     function submitForm(event){
       date = document.getElementById("date-input").value;
-      console.log(date, typeof(date))
-    // event.preventDefault();
-    // window.history.back();
+      if (date.length == 0) {
+        event.preventDefault();
+        window.history.back();
+      }
   }
   </script>
 </body>
