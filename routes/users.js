@@ -367,7 +367,8 @@ router.post('/availability', function(req, res, next) {
 })
 
 router.post('/invitation', function(req, res, next) {
-  res.render('invitation', {event_id: req.session.event[0].event_id});
+
+  res.render('invitation', {event_id: req.session.event[0].event_id, url:req.url});
 })
 
 router.get('/pending-events', function(req, res, next) {
@@ -394,10 +395,7 @@ router.get('/invitation-response/:id', function(req, res, next) {
   }
   let id = deserialize(req.params.id);
 
-  // query to get time frames from id
-
-
-  res.render('invitation-response');
+  res.render('invitation-response', {eventId: id});
 })
 module.exports = router;
 
