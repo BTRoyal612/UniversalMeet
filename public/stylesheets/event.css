@@ -547,4 +547,5 @@ body {
   border: none;
   background: transparent;
   font-size: 2rem;
+  position: relative;
 }
