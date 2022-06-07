@@ -50,7 +50,6 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           let cur_event = JSON.parse(this.responseText)[0];
-          console.log(JSON.parse(this.responseText))
           let event_name = document.getElementById("event-name");
           event_name.innerText = cur_event["event_name"]
           let event_date = document.getElementById("event-date")
@@ -71,9 +70,7 @@
             event_link.innerText = cur_event["share_link"]
           }
           let event_duedate = document.getElementById("event-duedate");
-          event_duedate.innerText = cur_event["due_date"].substring(0,10) + " (" + cur_event["due_date"].substring(12,19) + ")"
-
-
+          event_duedate.innerText = cur_event["due_date"].substring(0,10) + " (" + cur_event["due_date"].substring(12,19) + ")";
         }
       }
 
