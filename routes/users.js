@@ -367,7 +367,7 @@ router.post('/availability', function(req, res, next) {
 })
 
 router.post('/invitation', function(req, res, next) {
-  console.log(req)
+  console.log(req.protocol, req.originalUrl)
   res.render('invitation', {event_id: req.session.event[0].event_id, url:req.body.url});
 })
 
