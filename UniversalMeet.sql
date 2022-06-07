@@ -260,7 +260,7 @@ DELIMITER ;
 
 /* Unregistered account for tourists */
 DELIMITER //
-CREATE PROCEDURE tourist_signup(IN email_ VARCHAR(50))
+CREATE PROCEDURE guest_signup(IN email_ VARCHAR(50))
 BEGIN
     INSERT INTO User (username, email, password, isRegistered) VALUES ('tourist', email_, UNHEX(SHA2(CONCAT('SA', 'LT'), 256)), false);
     CALL login(email_, '');
