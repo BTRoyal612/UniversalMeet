@@ -541,6 +541,10 @@ body {
   display: none;
 }
 
+.home-ctn {
+  position: relative;
+}
+
 .home {
   color: var(--red);
   outline: none;
