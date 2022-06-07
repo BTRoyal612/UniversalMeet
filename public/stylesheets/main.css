@@ -495,7 +495,6 @@ background-color: #ee1505;
   text-align: center;
   font-family: 'Proza Libre', sans-serif;
   font-weight: bolder;
-  color: #ee1505;
 }
 
 .pending_event {
@@ -547,12 +546,12 @@ background-color: #ee1505;
 }
 
 .member_event {
-  background-color: #0000ff;
+  background-color: #b8b5f3;
   color: white;
 }
 
 .host_event {
-  background-color: #ee1505;
+  background-color: #BDF2D5;
   color: white;
 }
 
@@ -653,7 +652,7 @@ background-color: #ee1505;
 }
 
 .home {
-  color: var(--red);
+  color: white;
   outline: none;
   border: none;
   border-radius: 100%;
