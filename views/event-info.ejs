@@ -26,7 +26,7 @@
       <label>Event Name</label>
       <input id="event-name" type="text" placeholder="Event Name" name="event_name" class="event-input" required>
       <label>Duration (in minute)</label>
-      <input id="event-duration" type="number" class="event-input" name="event_duration">
+      <input id="event-duration" type="number" class="event-input" name="event_duration" required>
       <label>Time Zones</label>
       <select id="event-time-zone" class="event-input" name="event_timezone">
         <option value="-12:00">(GMT-12:00) International Date Line West</option>
@@ -112,18 +112,12 @@
         <option value="+12:00">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
         <option value="+13:00">(GMT+13:00) Nuku'alofa</option>
       </select>
-      <!-- <div id="event-status" class="status-option">
-      <input id="offline" type="radio" value="offline" name="event_status_offline" checked>
-      <label>Offline</label>
-      <input id="online" type="radio" value="online" name="event_status_online">
-      <label>Online</label>
-    </div> -->
       <select id="event-status" class="event-input" name="event_status">
         <option value="online">Online</option>
         <option value="offline">Offline</option>
       </select>
       <label>Due Date</label>
-      <input id="event-due-date" type="datetime-local" name="event_duedate" class="event-input">
+      <input id="event-due-date" type="datetime-local" name="event_duedate" class="event-input" required>
       <label id="link">Link/Location</label>
       <input id="event-link" type="text" placeholder="Link/Location" name="event_link" class="event-input">
     </div>
