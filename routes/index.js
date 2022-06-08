@@ -15,9 +15,9 @@ router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
-router.get('/pending-login', function(req, res, next) {
-  console.log(req.params)
-  res.render('pending-login');
+router.post('/pending-login', function(req, res, next) {
+  let serial = req.body.serial;
+  res.render('pending-login', {serial: serial});
 });
 
 router.post('/login', function(req, res, next) {
