@@ -209,8 +209,12 @@
               let minute = calendar_list[day][i]["duration"]%60;
               let hour_from_time = parseInt(calendar_list[day][i]["from"].substring(0,2));
               let minute_from_time = parseInt(calendar_list[day][i]["from"].substring(3,5));
-              let new_hour = (hour+hour_from_time);
-              let new_minute = minute+minute_from_time;
+              let end_hour = hour+hour_from_time;
+              let end_minute = minute+minute_from_time;
+              if (end_minute%60 != 0) {
+                
+              }
+              console.log(end_hour,end_minute)
 
 
             }
