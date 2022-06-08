@@ -50,6 +50,20 @@ function login() {
     xhttp.send(JSON.stringify({ email:username , password:password }));
 };
 
+function serialize(id) {
+  let res = "";
+  while (id != 0) {
+    let remainder = id % 26;
+    id = Math.floor(id / 26);
+    res = res + String.fromCharCode(remainder + 97);
+  }
+  console.log(res)
+  while (res.length < 6) {
+    res = res + 'a';
+  }
+  return res.split("").reverse().join("");
+}
+
 function pending_login(id) {
   let username = document.getElementById('username').value;
   let password = document.getElementById('password').value;
@@ -66,7 +80,7 @@ function pending_login(id) {
         } else {
           getUser();
           joinEvent(id);
-          window.location = '/users/invitation-response/'+id;
+          window.location = '/users/invitation-response/'+serialize(id);
         }
       }else if(this.readyState == 4 && this.status >= 400){
         alert("Login Failed! Username or Email incorrect.");
