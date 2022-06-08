@@ -539,7 +539,9 @@ body {
 }
 
 .host-info-input {
-  background-color: blue;
+  background-color: #5800FF;
+  outline: none;
+  border: none;
   color: white;
   text-align: center;
   font-weight: 700;
