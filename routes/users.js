@@ -64,6 +64,7 @@ router.post('/updatePassword', function(req, res, next) {
 /* POST join event. */
 router.post('/joinEvent', function(req, res, next) {
   // Connect to the database
+  console.log(user);
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);

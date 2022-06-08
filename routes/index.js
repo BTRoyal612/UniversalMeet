@@ -24,7 +24,7 @@ router.post('/login', function(req, res, next) {
   if ('email' in req.body && 'password' in req.body) {
     // Connect to the database
     req.pool.getConnection(function(err, connection) {
-      if (err) {
+      if (err) { 
         console.log(err);
         res.sendStatus(500);
         return;
