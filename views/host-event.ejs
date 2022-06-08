@@ -47,7 +47,7 @@
   </div>
 
   <script>
-    var event_id = <%=eventId%>
+    var event_id = <%=eventId%>;
     console.log(event_id);
     var duration;
     var cur_avails = [];
@@ -162,7 +162,7 @@
           let count = JSON.parse(this.responseText);
           let chosen;
           if (count.length == 0) chosen = 0;
-          else chosen = count[0]['COUNT(*)'];
+          else chosen = count[0]['count'];
           document.getElementById(chosen_time).innerHTML = chosen;
         }
       }
