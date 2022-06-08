@@ -547,23 +547,18 @@ body {
   font-weight: 700;
   cursor: pointer;
   user-select: none;
+  color: #FFC600;
 }
 
 .host-tf-input {
   display: flex;
   position: relative;
+  color: #FFC600;
 }
 
 .host-tf-count {
   position: absolute;
   right: 4px;
-  border-radius: 5px;
-  background-color: #FFC600;
-  color: black;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
 }
 
 .response-info-tf-input {
