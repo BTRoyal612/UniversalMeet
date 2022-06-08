@@ -549,6 +549,14 @@ body {
   user-select: none;
 }
 
+.host-tf-input {
+  display: flex;
+}
+
+.host-tf-count {
+  float: right;
+}
+
 .response-info-tf-input {
   background-color: grey;
   color: white;

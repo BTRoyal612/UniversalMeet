@@ -110,11 +110,13 @@
             var tfDIV = document.createElement('div');
             var from = document.createElement('div');
             var count = document.createElement('div');
+            count.classList.add('host-tf-count')
             count.id = avails[i]['avail_time'];
             getCount(avails[i]['avail_time']);
 
             tfDIV.classList.add('event-input');
             tfDIV.classList.add('host-info-input');
+            tfDIV.classList.add('host-tf-input');
             tfDIV.id = i
             from.innerText = 'From ' + avails[i]['avail_time'].substring(0,5);
 
