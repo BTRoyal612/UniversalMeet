@@ -22,7 +22,6 @@
 </head>
 
 <body>
-    <%=serial%>
   <form action="/login" method="POST" class="authCard">
     <h1 class="authTitle">LOG IN</h1>
     <label>Username</label>
@@ -31,7 +30,7 @@
     <input type="password" placeholder="&#xf084;   Password" id="password" class="authInput">
     <a href="./signup.html">Create account</a>
     <div class="authBtn">
-      <button type="submit" onclick="login();">Log In</button>
+      <button type="submit" onclick="pending_login(<%=serial%>);">Log In</button>
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
   </form>

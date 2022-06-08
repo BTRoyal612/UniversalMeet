@@ -50,7 +50,7 @@ function login() {
     xhttp.send(JSON.stringify({ email:username , password:password }));
 };
 
-function pending_login() {
+function pending_login(serial) {
   let username = document.getElementById('username').value;
   let password = document.getElementById('password').value;
   console.log("login function");
@@ -65,7 +65,7 @@ function pending_login() {
           window.location = '/admin/admin-user';
         } else {
           getUser();
-          window.location = '/users/invitation-response'
+          window.location = '/users/invitation-response/'+serial
         }
       }else if(this.readyState == 4 && this.status >= 400){
         alert("Login Failed! Username or Email incorrect.");
