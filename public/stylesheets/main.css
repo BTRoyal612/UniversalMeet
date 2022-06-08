@@ -547,6 +547,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 
   .profile_schedule {
     width: 80%;
+    height: 40vh;
   }
 
   .profile_btn_ctn {
@@ -559,6 +560,11 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   }
 
   .setting_btn_ctn {
+    margin: auto;
+  }
+
+  .setting_btn, .logout_btn {
+    width: 30vw;
     margin: auto;
   }
 }
