@@ -55,7 +55,7 @@ function serialize(id) {
   while (id != 0) {
     let remainder = id % 26;
     id = Math.floor(id / 26);
-    res = res + String.fromCharCode(remainder + 97);
+    res = res + String.fromCharCode(remainder + 65);
   }
   console.log(res)
   while (res.length < 6) {
@@ -81,7 +81,7 @@ function pending_login(id) {
         } else {
           getUser();
           joinEvent(id);
-          window.location = '/users/invite-response/'+id;
+          window.location = '/users/invite-response/'+serialize(id);
         }
       }else if(this.readyState == 4 && this.status >= 400){
         alert("Login Failed! Username or Email incorrect.");
