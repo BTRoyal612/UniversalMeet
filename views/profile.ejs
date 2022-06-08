@@ -205,9 +205,9 @@
               let day_event = document.createElement('div');
               let day_event_name = document.createElement('div');
               day_event_name.innerText = calendar_list[day][i]["name"];
-              let hour = Math.floor(calendar_list[day][i]["duration"],59);
-              console.log(hour)
-
+              let hour = Math.floor(calendar_list[day][i]["duration"]/60);
+              let minute = calendar_list[day][i]["duration"]%60;
+              let from_time = calendar_list[day][i]["from"];
             }
           }
 
