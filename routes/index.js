@@ -16,6 +16,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/pending-login', function(req, res, next) {
+  console.log(req.params)
   res.render('pending-login');
 });
 
