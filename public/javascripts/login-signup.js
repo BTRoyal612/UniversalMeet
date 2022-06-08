@@ -67,6 +67,7 @@ function pending_login(id) {
           getUser();
           window.location = '/users/invitation-response/'+id
         }
+        joinEvent(id);
       }else if(this.readyState == 4 && this.status >= 400){
         alert("Login Failed! Username or Email incorrect.");
       }
@@ -78,7 +79,7 @@ function pending_login(id) {
   xhttp.send(JSON.stringify({ email:username , password:password }));
 };
 
-function joinEvent() {
+function joinEvent(id) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
 
