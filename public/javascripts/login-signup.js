@@ -76,16 +76,31 @@ function pending_login(id) {
   xhttp.open("POST", "/login", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ email:username , password:password }));
+};
 
+function joinEvent() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
+
+      if (this.readyState == 4 && this.status == 200) {
+        let user = JSON.parse(this.responseText)[0];
+        if (user.isAdmin) {
+          getAdmin();
+          window.location = '/admin/admin-user';
+        } else {
+          getUser();
+          window.location = '/users/invitation-response/'+id
+        }
+      }else if(this.readyState == 4 && this.status >= 400){
+        alert("Login Failed! Username or Email incorrect.");
+      }
 
   }
 
   xhttp.open("POST", "/users/joinEvent", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ event_id: id }));
-};
+}
 
 function signup() {
     let notice = document.getElementById('notice');
