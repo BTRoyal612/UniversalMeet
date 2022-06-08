@@ -191,13 +191,22 @@
               calendar_list[day].push(calendar["event_name"]);
             }
             else {
-              calendar_list[day] = [calendar["event_name"]];
+              calendar_list[day] = [{name: calendar["event_name"], from: '10:00', duration: calendar["duration"]}];
             }
           }
 
           for (let day of calendar_list) {
-            let day_div = 
+            let day_div = document.createElement(div);
+            let day_title = document.createElement(div);
+            day_title.innerText = day;
+            day_div.appendChild(day_title);
+            let day_event_all = document.createElement(div);
             for (let i = 0; i < calendar_list.day.length; i++) {
+              let day_event = document.createElement(div);
+              let day_event_name = document.createElement(div);
+              day_event_name.innerText = calendar_list[day][name];
+              
+
 
             }
           }
