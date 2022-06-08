@@ -504,6 +504,11 @@ router.post('/invitation', function(req, res, next) {
   res.render('invitation', {event_id: req.session.event[0].event_id, url:req.rawHeaders[23]});
 })
 
+router.get('/invitation', function(req, res, next) {
+  // console.log(req.rawHeaders[23])
+  res.render('invitation', {event_id: 1, url:"http"});
+})
+
 router.get('/pending-events', function(req, res, next) {
   res.render('pending-events');
 })
