@@ -124,6 +124,11 @@ router.post('/googleLogin', function(req, res, next) {
 
 })
 
+/* POST pending sign up. */
+router.post('/pending-signup', function(req, res, next) {
+  let serial = req.body.serial;
+  res.render('pending-signup', {serial: serial});
+});
 
 /* POST sign up. */
 router.get('/signup', function(req, res, next) {

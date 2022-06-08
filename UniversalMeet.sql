@@ -67,7 +67,7 @@ CREATE TABLE Event_chosen_time(
 CREATE TABLE Email_preference(
     user_id INT NOT NULL,
     user_respond BOOLEAN NOT NULL DEFAULT false,
-    avail_confirm BOOLEAN NOT NULL DEFAULT false,
+    user_join BOOLEAN NOT NULL DEFAULT false,
     event_finalize BOOLEAN NOT NULL DEFAULT false,
     event_cancel BOOLEAN NOT NULL DEFAULT false,
 
@@ -190,7 +190,7 @@ CREATE PROCEDURE change_notification(
     IN
     user_id_ INT,
     user_respond_ BOOLEAN,
-    avail_confirm_ BOOLEAN,
+    user_join_ BOOLEAN,
     event_finalize_ BOOLEAN,
     event_cancel_ BOOLEAN
 )
@@ -200,7 +200,7 @@ BEGIN
     END IF;
     UPDATE Email_preference SET
     user_respond = user_respond_,
-    avail_confirm = avail_confirm_,
+    user_join = user_join,
     event_finalize = event_finalize_,
     event_cancel = event_cancel_
     WHERE user_id = user_id_;

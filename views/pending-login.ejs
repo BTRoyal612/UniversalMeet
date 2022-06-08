@@ -10,8 +10,9 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="/stylesheets/main.css" rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/5c7b331ea5.js" crossorigin="anonymous"></script>
-    <script src="/javascripts/login-signup.js" defer></script>
+    <script src="/javascripts/pending-login-signup.js" defer></script>
 
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -26,22 +27,24 @@
     <%=serial%>
     <form action="/login" method="POST" class="authCard">
         <h1 class="authTitle">LOG IN</h1>
-        <label>Username</label>
-        <input type="text" placeholder="&#xf406;   Username" id="username" class="authInput">
+        <label>Email</label>
+        <input type="text" placeholder="&#xf0e0;   Email" id="email" class="authInput">
         <label>Password</label>
         <input type="password" placeholder="&#xf084;   Password" id="password" class="authInput">
         <a href="./signup">Create account</a>
         <div class="authBtn">
-            <button type="submit" onclick="pendingLoginHandler();">Log In</button>
+            <button onclick="pendingLoginHandler();">Log In</button>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
     </form>
     <script>
         let serial = <%=serial%>;
+        $(document).ready(function () {
+          getSerial(serial);
+        })
         const pendingLoginHandler = () => {
             pending_login(serial);
         }
-
     </script>
 </body>
 
