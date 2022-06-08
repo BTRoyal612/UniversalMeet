@@ -496,15 +496,15 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   border-radius: 7px;
   cursor: pointer;
   font-size: 1rem;
-  background-color: rgba(21,25,34,1);;
-  border: 2px solid #ee1505;
-  color: #ee1505;
+  background-color: #0e1016;
+  border: 3px solid #5800FF;
+  color: #5800FF;
   transition: 0.3s;
   font-weight: bold;
 }
 
 .setting_btn:hover {
-  background-color: #ee1505;
+  background-color: #5800FF;
   color: white;
 }
 
