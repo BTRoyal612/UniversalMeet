@@ -467,14 +467,19 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 .profile_header {
   display: flex;
   padding-top: 20px;
+  color: white;
 }
 
 .welcome-line {
-  font-size: 2rem;
+  font-size: 2.5rem;
   width: 70%;
   padding-left: 20px;
-  color: #ee1505;
   font-weight: bold;
+}
+
+#username {
+  color: #FFC600;
+  font-size: 3rem;
 }
 
 .setting_btn_ctn {
