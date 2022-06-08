@@ -45,7 +45,7 @@
     </div>
   </div>
   <script>
-    var event_id = <%=eventId%>
+      var event_id = <%=eventId%>;
       var duration;
       var cur_avails = [];
 
@@ -54,6 +54,7 @@
       var name;
       var date;
       $(document).ready(function () {
+        console.log(event_id);
         var xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function () {
@@ -69,107 +70,133 @@
             let event_timezone = document.getElementById("event-timezone");
             event_timezone.innerText = cur_event["time_zone"]
             let event_status = document.getElementById("event-status");
-            if (cur_event["isOnline"] == 0) {
-              event_status.innerText = "Offline"
-            }
-            else {
-              event_status.innerText = "Online"
-            }
             let event_duedate = document.getElementById("event-duedate");
             event_duedate.innerText = cur_event["due_date"]
             let event_link = document.getElementById("event-link");
             event_link.innerText = cur_event["hold_location"]
 
+            if (cur_event["isOnline"] == 0) {
+              event_status.innerText = "Offline"
+            } else {
+              event_status.innerText = "Online"
+              event_link.innerText = cur_event["share_link"]
+            }
+
             creator_id = cur_event["creator_id"];
+            getURPreference(creator_id);
             name = cur_event["event_name"];
             date = cur_event["date"];
+
           }
-          else {
-            event_status.innerText = "Online"
-            event_link.innerText = cur_event["share_link"]
+        }
+
+        xhttp.open("POST", "/users/getEvent", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ event_id: event_id }));
+
+        // get Availablity
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            let avails = JSON.parse(this.responseText);
+            cur_avails = [...avails]
+            console.log(avails)
+            var ctn = document.getElementsByClassName('response-avail-ctn')[0];
+            for (let i in avails) {
+              var tfDIV = document.createElement('div');
+              tfDIV.classList.add('event-input');
+              tfDIV.classList.add('response-info-tf-input');
+              tfDIV.id = i
+              tfDIV.onclick = function () {
+                this.classList.toggle("chosen-tf")
+              };
+              tfDIV.innerText = 'From ' + avails[i]['avail_time'];
+              ctn.appendChild(tfDIV);
+            }
           }
-          let event_duedate = document.getElementById("event-duedate");
-          event_duedate.innerText = cur_event["due_date"].substring(0, 10) + " (" + cur_event["due_date"].substring(12, 19) + ")";
         }
-      }
 
-      xhttp.open("POST", "/users/getEvent", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(JSON.stringify({ event_id: event_id }));
+        xhttp.open("POST", "/users/showAvailability", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ event_id: event_id }));
+      })
 
+      const sendTimeFrames = () => {
+        let chosenTF = document.getElementsByClassName("chosen-tf");
+        let tfArr = [];
+        for (tf of chosenTF) {
+          tfArr.push(cur_avails[tf.id])
+        }
+        console.log(tfArr)
 
-      // get Availablity
-      var xhttp = new XMLHttpRequest();
+        // delete chosen time
+        var xhttp = new XMLHttpRequest();
 
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          let avails = JSON.parse(this.responseText);
-          cur_avails = [...avails]
-          console.log(avails)
-          var ctn = document.getElementsByClassName('response-avail-ctn')[0];
-          for (let i in avails) {
-            var tfDIV = document.createElement('div');
-            tfDIV.classList.add('event-input');
-            tfDIV.classList.add('response-info-tf-input');
-            tfDIV.id = i
-            tfDIV.onclick = function () {
-              this.classList.toggle("chosen-tf")
-            };
-            tfDIV.innerText = 'From ' + avails[i]['avail_time'];
-            ctn.appendChild(tfDIV);
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
           }
-
         }
-      }
 
-      xhttp.open("POST", "/users/showAvailability", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(JSON.stringify({ event_id: event_id }));
-    })
+        xhttp.open("POST", "/users/deleteChosenTime", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ event_id: event_id }));
 
-    const sendTimeFrames = () => {
-      let chosenTF = document.getElementsByClassName("chosen-tf");
-      let tfArr = [];
-      for (tf of chosenTF) {
-        tfArr.push(cur_avails[tf.id])
-      }
-      console.log(tfArr)
-
-      // delete chosen time
-      var xhttp = new XMLHttpRequest();
-
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-
+        // add chosen time
+        for (let i = 0; i < tfArr.length; i++) {
+          tf = tfArr[i]["avail_time"];
+          addChosenTime(tf)
         }
+
+        // send email based on host reference
+        if (creator_email) sendEmail(creator_email);
       }
 
-      xhttp.open("POST", "/users/deleteChosenTime", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(JSON.stringify({ event_id: event_id }));
-
-      // add chosen time
-
-      for (let i = 0; i < tfArr.length; i++) {
-        tf = tfArr[i]["avail_time"];
-        addChosenTime(tf)
-      }
-
-    }
-
-    function addChosenTime(chosen_time) {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+      function addChosenTime(chosen_time) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+          }
         }
+
+        xhttp.open("POST", "/users/addChosenTime", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
       }
 
-      xhttp.open("POST", "/users/addChosenTime", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
-    }
+      // get email based on host preference on user respond
+      function getURPreference(user_id) {
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            let preference = JSON.parse(this.responseText)[0];
+            if (preference['user_respond']) creator_email = preference['email'];
+          }
+        }
+
+        xhttp.open("POST", "/users/getURPreference", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ user_id: user_id }));
+      }
+
+      // send email
+      function sendEmail(user) {
+        let subject = "A user respond to YOUR EVENT!!!";
+        let body = "A user just update their chosen time for your event: " + name + " on " + date + ". Remember to be a good host!!!";
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+          }
+        }
+
+        xhttp.open("POST", "/sendEmail", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
+      };
 
   </script>
 </body>
-
 </html>

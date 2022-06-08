@@ -90,7 +90,7 @@ router.post('/getEventList', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT Event.event_id, Event.event_name, Event.creator_id, Event.user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?"; //mark
+    var query = "SELECT Event.event_id, Event.event_name, Event.creator_id, user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?"; //mark
     connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
@@ -112,8 +112,8 @@ router.post('/getEventCalender', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "CALL get_events_on_calender(3)";
-    connection.query(query, [], function(err, rows, fields) {
+    var query = "CALL get_events_on_calendar(?)";
+    connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         console.log(err);
@@ -510,6 +510,7 @@ router.get('/pending-events', function(req, res, next) {
 
 router.post('/invite-response', function(req, res, next) {
   eventId = req.body.eventId;
+  console.log(eventId);
   res.render('invite-response', {eventId: eventId});
 })
 
