@@ -70,7 +70,7 @@ router.post('/getEventList', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT Event.event_id, event_name, creator_id, user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?"; //mark
+    var query = "SELECT Event.event_id, Event.event_name, Event.creator_id, Event.user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?"; //mark
     connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
