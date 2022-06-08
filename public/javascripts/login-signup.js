@@ -73,6 +73,7 @@ function pending_login(id) {
   xhttp.onreadystatechange = function() {
 
       if (this.readyState == 4 && this.status == 200) {
+        console.log(id)
         let user = JSON.parse(this.responseText)[0];
         if (user.isAdmin) {
           getAdmin();
@@ -80,7 +81,7 @@ function pending_login(id) {
         } else {
           getUser();
           joinEvent(id);
-          window.location = '/users/invite-response/'+serialize(id);
+          window.location = '/users/invite-response/'+id;
         }
       }else if(this.readyState == 4 && this.status >= 400){
         alert("Login Failed! Username or Email incorrect.");
