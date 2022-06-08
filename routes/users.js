@@ -70,6 +70,7 @@ router.post('/joinEvent', function(req, res, next) {
       return;
     }
     var query = "CALL join_event (?, ?)";
+    console.log(req.body.event_id, user.user_id)
     connection.query(query, [req.body.event_id, user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
