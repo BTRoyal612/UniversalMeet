@@ -612,7 +612,6 @@ body {
   background-color: var(--red);
 }
 
-
 .delete_event_btn {
   float: right;
   text-align: center;
@@ -628,4 +627,6 @@ body {
   font-size: 1.25rem;
   border-radius: 0.3rem;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  border: 3px solid rgb(255, 198, 0);
+  color: rgb(255, 198, 0);
 }
