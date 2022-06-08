@@ -642,19 +642,19 @@ background-color: #ee1505;
 }
 
 .attandee-btn {
-  border: 3px solid #ee1505;
-  color: #ee1505;
+  border: 3px solid rgb(255, 198, 0);
+  color: rgb(255, 198, 0);
 
 }
 
 .attandee-btn:hover {
-  background-color: #ee1505;
-  color: white;
+  background-color: rgb(255, 198, 0) !important;
+  color: black;
 }
 
 .host-btn {
-  border: 3px solid rgb(255, 198, 0);
-  color: rgb(255, 198, 0);
+  border: 3px solid #5800FF;
+  color: #5800FF;
 }
 
 .host-btn:hover {
