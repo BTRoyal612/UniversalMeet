@@ -197,13 +197,18 @@
 
           for (let day in calendar_list) {
             let day_div = document.createElement('div');
+            day_div.classList.add("day");
             let day_title = document.createElement('div');
+            day_title.classList.add("day_title");
             day_title.innerText = day;
             day_div.appendChild(day_title);
             let day_event_all = document.createElement('div');
+            day_event_all.classList.add("day_event_all");
             for (let i = 0; i < calendar_list[day].length; i++) {
               let day_event = document.createElement('div');
+              day_event.classList.add("day_event");
               let day_event_name = document.createElement('div');
+              day_event_name.classList.add("day_event_name");
               day_event_name.innerText = calendar_list[day][i]["name"];
               let hour = Math.floor(calendar_list[day][i]["duration"]/60);
               let minute = calendar_list[day][i]["duration"]%60;
@@ -211,13 +216,24 @@
               let minute_from_time = parseInt(calendar_list[day][i]["from"].substring(3,5));
               let end_hour = hour+hour_from_time;
               let end_minute = minute+minute_from_time;
-              if (end_minute%60 != 0) {
-                
+              if (end_minute>60) {
+                end_hour+=1
+                end_minute-=60
               }
-              console.log(end_hour,end_minute)
-
-
+              end_hour = end_hour.toString();
+              end_minute = end_minute.toString();
+              if (end_minute.length < 2) {
+                end_minute = "0"+end_minute;
+              }
+              let day_event_time = document.createElement('div');
+              day_event_time.classList.add("day_event_time");
+              day_event_time.innerText = calendar_list[day][i]["from"] + "-" + end_hour+":"+end_minute;
+              day_event.appendChild(day_event_name);
+              day_event.appendChild(day_event_time);
+              day_event_all.appendChild(day_event);
             }
+            day_div.appendChild(day_event_all);
+            calendar_div.appendChild(day_div);
           }
 
         }
