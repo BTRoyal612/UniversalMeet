@@ -644,6 +644,7 @@ background-color: #ee1505;
 .attandee-btn {
   border: 3px solid #ee1505;
   color: #ee1505;
+
 }
 
 .attandee-btn:hover {
@@ -657,7 +658,7 @@ background-color: #ee1505;
 }
 
 .host-btn:hover {
-  background-color: #5800FF;
+  background-color: #5800FF !important;
   color: white;
 }
 
