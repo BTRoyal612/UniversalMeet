@@ -47,6 +47,7 @@
   <script>
     var event_id = <%=eventId%>
       var duration;
+<<<<<<< HEAD
     var cur_avails = [];
     $(document).ready(function () {
       var xhttp = new XMLHttpRequest();
@@ -67,7 +68,44 @@
           let event_link = document.getElementById("event-link");
           if (cur_event["isOnline"] == 0) {
             event_status.innerText = "Offline"
+=======
+      var cur_avails = [];
+
+      var creator_id;
+      var creator_email;
+      var name;
+      var date;
+      $(document).ready(function () {
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            let cur_event = JSON.parse(this.responseText)[0];
+            let event_name = document.getElementById("event-name");
+            event_name.innerText = cur_event["event_name"]
+            let event_date = document.getElementById("event-date")
+            event_date.innerText = cur_event["date"]
+            let event_duration = document.getElementById("event-duration");
+            event_duration.innerText = cur_event["duration"]
+            duration = cur_event["duration"]
+            let event_timezone = document.getElementById("event-timezone");
+            event_timezone.innerText = cur_event["time_zone"]
+            let event_status = document.getElementById("event-status");
+            if (cur_event["isOnline"] == 0) {
+              event_status.innerText = "Offline"
+            }
+            else {
+              event_status.innerText = "Online"
+            }
+            let event_duedate = document.getElementById("event-duedate");
+            event_duedate.innerText = cur_event["due_date"]
+            let event_link = document.getElementById("event-link");
+>>>>>>> origin/master
             event_link.innerText = cur_event["hold_location"]
+
+            creator_id = cur_event["creator_id"];
+            name = cur_event["event_name"];
+            date = cur_event["date"];
           }
           else {
             event_status.innerText = "Online"
@@ -135,9 +173,26 @@
 
       // add chosen time
 
+<<<<<<< HEAD
       for (let i = 0; i < tfArr.length; i++) {
         tf = tfArr[i]["avail_time"];
         addChosenTime(tf)
+=======
+        // // POST send email to notify host based on preference
+        // var xhttp = new XMLHttpRequest();
+
+        // xhttp.onreadystatechange = function () {
+        //   if (this.readyState == 4 && this.status == 200) {
+        //     let preference = JSON.parse(this.responseText)[0];
+        //     if (preference['user_respond']) sendEmail(preference['email']);
+        //   }
+        // }
+
+        // xhttp.open("POST", "/users/getURPreference", true);
+        // xhttp.setRequestHeader("Content-type", "application/json");
+        // xhttp.send(JSON.stringify({ creator_id: creator_id }));
+
+>>>>>>> origin/master
       }
 
     }
@@ -149,12 +204,31 @@
         }
       }
 
+<<<<<<< HEAD
       xhttp.open("POST", "/users/addChosenTime", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
     }
 
   </script>
+=======
+      function sendEmail(user) {
+        let subject = "A user just respond on YOUR EVENT!!!"
+        let body = "A user just choose their availability for " + name + " on " + date ". Remember to be a good host!!!"
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+          }
+        }
+
+        xhttp.open("POST", "/sendEmail", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
+      };
+
+    </script>
+>>>>>>> origin/master
 </body>
 
 </html>

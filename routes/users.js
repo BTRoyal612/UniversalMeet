@@ -90,7 +90,7 @@ router.post('/getEventList', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT Event.event_id, event_name, creator_id, user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?"; //mark
+    var query = "SELECT Event.event_id, Event.event_name, Event.creator_id, Event.user_id FROM Event INNER JOIN Event_pending ON Event.event_id = Event_pending.event_id WHERE user_id = ?"; //mark
     connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
@@ -347,7 +347,7 @@ router.post('/showAvailability', function(req, res, next) {
   });
 })
 
-/* POST get email. */
+/* GET get email. */
 router.get('/getEmail', function(req, res, next) {
   res.send(user.email); //send response
 })
@@ -369,6 +369,27 @@ router.post('/updateEmail', function(req, res, next) {
         return;
       }
       res.send(); //send response
+    });
+  });
+})
+
+/* POST get preference about user respond. */
+router.post('/getURPreference', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    var query = "SELECT user_respond, email FROM Email_preference INNER JOIN User ON User.user_id = Email_preference.user_id WHERE Email_preference.user_id = ?";
+    connection.query(query, [req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
     });
   });
 })
