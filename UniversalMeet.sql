@@ -77,10 +77,9 @@ CREATE TABLE Email_preference(
 
 /* A Virtual Table for counting how many people choose what timeframe of an event */
 CREATE VIEW Pp_number AS
-    SELECT event_id, chosen_time, COUNT(*) FROM Event_chosen_time
+    SELECT event_id, chosen_time, COUNT(*) AS count FROM Event_chosen_time
     GROUP BY event_id, chosen_time
     ORDER BY event_id ASC;
-
 
 
 /*
@@ -233,15 +232,6 @@ BEGIN
 END //
 DELIMITER ;
 
-DELIMITER //
-CREATE PROCEDURE get_events_on_calender(IN user_id_ INT)
-BEGIN
-    SELECT Event_pending.event_id, event_name, date, duration FROM Event_pending
-    INNER JOIN Event ON Event.event_id = Event_pending.event_id
-    INNER JOIN User On User.user_id = Event_pending.user_id
-    WHERE Event_pending.user_id = user_id_ AND Event.isFinalised = true AND date >= CURRENT_TIMESTAMP() ;
-END //
-DELIMITER ;
 
 /* Creator add availability */
 DELIMITER //
@@ -306,6 +296,28 @@ BEGIN
     DELETE FROM Event WHERE event_id = event_id_ AND creator_id = user_id_;
 END //
 DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE get_events(IN user_id_ INT)
+BEGIN
+    SELECT event_id FROM Event_pending WHERE user_id = user_id_;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE get_events_on_calendar(IN event_id_ INT)
+BEGIN
+    SELECT Event.event_id, Event.event_name, Event.date, Pp_number.chosen_time, Event.duration, Pp_number.count FROM Event
+    INNER JOIN Pp_number ON Event.event_id = Pp_number.event_id
+    WHERE Event.event_id = event_id_ AND (Event.isFinalised = true OR Event.due_date <= CURRENT_TIMESTAMP())
+    AND Pp_number.chosen_time = (SELECT MIN(chosen_time) FROM Pp_number WHERE count = (SELECT MAX(count) FROM Pp_number WHERE event_id = event_id_))
+    GROUP BY Event.event_id, Pp_number.chosen_time;
+
+END //
+DELIMITER ;
+
 
 
 /* If this user is not creator, this function will return NULL */
