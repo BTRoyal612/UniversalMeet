@@ -182,8 +182,18 @@
         if (this.readyState == 4 && this.status == 200) {
           console.log(JSON.parse(this.responseText)[0])
           calender_events = JSON.parse(this.responseText)[0];
-          var calendar_div = document.getElementByClassName("profile_schedule")[0];
-          
+          var calendar_div = document.getElementsByClassName("profile_schedule")[0];
+          calendar = {}
+          for (let calendar of calender_events) {
+            let day = calendar["date"].substring(5,7) + calendar["date"].substring(8,9);
+            if (day in calendar) {
+              calendar[day].push(calendar["event_name"]);
+            }
+            else {
+              calendar[day].push(calendar["event_name"]);
+            }
+          }
+          console.log(calendar)
         }
       }
 
