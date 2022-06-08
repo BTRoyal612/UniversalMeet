@@ -569,11 +569,16 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 
   .setting_btn_ctn {
     margin: auto;
-    display: unset;
+    display: block;
+    text-align: center;
   }
 
   .setting_btn, .logout_btn {
     width: 30vw;
+  }
+
+  .setting_btn {
+    margin-bottom: 25px;
   }
 }
 
