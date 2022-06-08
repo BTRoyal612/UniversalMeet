@@ -17,6 +17,7 @@ router.get('/login', function(req, res, next) {
 
 router.post('/pending-login', function(req, res, next) {
   let serial = req.body.serial;
+  console.log(typeof(serial))
   res.render('pending-login', {serial: serial});
 });
 
