@@ -30,7 +30,7 @@
     <input type="password" placeholder="&#xf084;   Password" id="password" class="authInput">
     <a href="./signup.html">Create account</a>
     <div class="authBtn">
-      <button type="submit" onclick="pending_login(<%=serial%>);">Log In</button>
+      <button type="submit" onclick="pending_login("+<%=serial%>+");">Log In</button>
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
   </form>
