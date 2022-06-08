@@ -104,6 +104,28 @@ router.post('/getEventList', function(req, res, next) {
   });
 })
 
+/* POST get user event pending list. */
+router.post('/getEvents', function(req, res, next) {
+  console.log(user);
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "CALL get_events(?)"; //mark
+    connection.query(query, [user.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
+})
+
 /* POST get user finalized event for calender. */
 router.post('/getEventCalender', function(req, res, next) {
   console.log(user);
@@ -114,7 +136,7 @@ router.post('/getEventCalender', function(req, res, next) {
       return;
     }
     var query = "CALL get_events_on_calendar(?)";
-    connection.query(query, [user.user_id], function(err, rows, fields) {
+    connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         console.log(err);
@@ -142,6 +164,26 @@ router.post('/getEvent', function(req, res, next) {
         return;
       }
       req.session.event = rows[0];
+      res.json(rows); //send response
+    });
+  });
+})
+
+/* POST get event creator. */
+router.post('/getEventCreator', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT creator_id from Event WHERE event_id = ?";
+    connection.query(query, [req.body.event_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
       res.json(rows); //send response
     });
   });
@@ -370,6 +412,27 @@ router.post('/updateEmail', function(req, res, next) {
         return;
       }
       res.send(); //send response
+    });
+  });
+})
+
+/* POST get preference about user join. */
+router.post('/getUJPreference', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    var query = "SELECT user_join, email FROM Email_preference INNER JOIN User ON User.user_id = Email_preference.user_id WHERE Email_preference.user_id = ?";
+    connection.query(query, [req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
     });
   });
 })

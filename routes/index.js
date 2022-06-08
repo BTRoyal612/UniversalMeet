@@ -24,7 +24,7 @@ router.post('/login', function(req, res, next) {
   if ('email' in req.body && 'password' in req.body) {
     // Connect to the database
     req.pool.getConnection(function(err, connection) {
-      if (err) { 
+      if (err) {
         console.log(err);
         res.sendStatus(500);
         return;
@@ -124,6 +124,11 @@ router.post('/googleLogin', function(req, res, next) {
 
 })
 
+/* POST pending sign up. */
+router.post('/pending-signup', function(req, res, next) {
+  let serial = req.body.serial;
+  res.render('pending-signup', {serial: serial});
+});
 
 /* POST sign up. */
 router.get('/signup', function(req, res, next) {
