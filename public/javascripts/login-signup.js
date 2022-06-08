@@ -80,7 +80,7 @@ function pending_login(id) {
         } else {
           getUser();
           joinEvent(id);
-          window.location = '/users/invitation-response/'+serialize(id);
+          window.location = '/users/invite-response/'+serialize(id);
         }
       }else if(this.readyState == 4 && this.status >= 400){
         alert("Login Failed! Username or Email incorrect.");
