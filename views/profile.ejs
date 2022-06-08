@@ -204,9 +204,9 @@
             for (let i = 0; i < calendar_list.day.length; i++) {
               let day_event = document.createElement(div);
               let day_event_name = document.createElement(div);
-              day_event_name.innerText = calendar_list[day][name];
-              
-
+              day_event_name.innerText = calendar_list[day]["name"];
+              let hour = parseInt(calendar_list[day]["name"])/60;
+              console.log(hour)
 
             }
           }
