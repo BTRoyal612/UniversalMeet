@@ -185,7 +185,7 @@
           var calendar_div = document.getElementsByClassName("profile_schedule")[0];
           calendar_list = {}
           for (let calendar of calendar_events) {
-            let day = calendar["date"].substring(5,7) + "-" + calendar["date"].substring(8,10);
+            let day = calendar["date"].substring(5,7) + "/" + calendar["date"].substring(8,10);
             console.log(day)
             if (day in calendar) {
               calendar_list[day].push(calendar["event_name"]);
