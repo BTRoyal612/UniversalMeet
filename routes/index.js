@@ -15,6 +15,10 @@ router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
+router.get('/pending-login', function(req, res, next) {
+  res.render('pending-login');
+});
+
 router.post('/login', function(req, res, next) {
   if ('email' in req.body && 'password' in req.body) {
     // Connect to the database
