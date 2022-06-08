@@ -411,10 +411,11 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 .day_title {
-  padding: 5px 10px;
-  font-size: 1.2rem;
-  background-color: #4B7BE5;
-  color: white;
+  padding: 10px 10px;
+  font-size: 1.4rem;
+  background-color: #FFC600;
+  color: black;
+  font-weight: bold;
 }
 
 .day_event {
