@@ -60,10 +60,8 @@
       var duration;
     var cur_avails = [];
     $(document).ready(function () {
-      let serial = serialize(event_id);
       let serial_input = document.getElementById("serial");
-      serial_input.value = serial;
-      console.log(serial)
+      serial_input.value = event_id;
       var xhttp = new XMLHttpRequest();
       console.log(event_id)
       xhttp.onreadystatechange = function () {
