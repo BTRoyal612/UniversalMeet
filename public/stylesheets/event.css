@@ -551,10 +551,12 @@ body {
 
 .host-tf-input {
   display: flex;
+  position: relative;
 }
 
 .host-tf-count {
-  float: right;
+  position: absolute;
+  right: 4px;
 }
 
 .response-info-tf-input {
