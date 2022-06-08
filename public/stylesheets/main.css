@@ -489,7 +489,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 .setting_btn {
-  height: 50px;
+  height: 6vh;
   width: 15vw;
   padding: 0 10px;
   margin: auto;
@@ -510,7 +510,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 .logout_btn {
-  height: 50px;
+  height: 6vh;
   width: 15vw;
   padding: 0 10px;
   margin: auto;
