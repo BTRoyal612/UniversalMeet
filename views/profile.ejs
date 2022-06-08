@@ -182,6 +182,8 @@
         if (this.readyState == 4 && this.status == 200) {
           console.log(JSON.parse(this.responseText)[0])
           calender_events = JSON.parse(this.responseText)[0];
+          var calendar_div = document.getElementByClassName("profile_schedule")[0];
+          
         }
       }
 
