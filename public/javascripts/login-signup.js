@@ -76,6 +76,15 @@ function pending_login(id) {
   xhttp.open("POST", "/login", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ email:username , password:password }));
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+
+  }
+
+  xhttp.open("POST", "/users/joinEvent", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ event_id: id }));
 };
 
 function signup() {
