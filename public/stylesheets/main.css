@@ -178,7 +178,7 @@
 /*************************** PROFILE ****************************/
 .profile_body {
   min-height: 100vh;
-  /* background-image: linear-gradient(to right, #06beb6, #48b1bf); */
+  background-color: #0e1016;
 }
 
 .profile_username {
