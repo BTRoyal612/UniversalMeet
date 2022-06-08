@@ -35,9 +35,9 @@
     </div>
   </form>
   <script>
-      let serial = String(<%=serial%>)
+      let serial = <%=serial%>
       const pendingLoginHandler = () => {
-        pending_login(serial);
+        console.log(serial);
       }
   </script>
 </body>
