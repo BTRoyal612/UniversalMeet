@@ -34,7 +34,7 @@
 <body id="app" class="profile_body">
   <div class="profile_header">
     <div class="welcome-line">
-      <i>Hello <span id="username"></span></i>
+      <i>Hello <span id="username_profile"></span></i>
     </div>
     <div class="setting_btn_ctn">
       <button class="setting_btn" data-toggle="modal" data-target="#settings">
@@ -167,7 +167,7 @@
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("username").innerHTML = this.responseText;
+          document.getElementById("username_profile").innerHTML = this.responseText;
         }
       }
 
