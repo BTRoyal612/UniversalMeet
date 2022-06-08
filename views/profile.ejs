@@ -183,17 +183,18 @@
           console.log(JSON.parse(this.responseText)[0])
           calender_events = JSON.parse(this.responseText)[0];
           var calendar_div = document.getElementsByClassName("profile_schedule")[0];
-          calendar = {}
+          calendar_list = {}
           for (let calendar of calender_events) {
-            let day = calendar["date"].substring(5,7) + calendar["date"].substring(8,9);
+            let day = calendar["date"].substring(5,7) + "-" + calendar["date"].substring(8,10);
+            console.log(day)
             if (day in calendar) {
-              calendar[day].push(calendar["event_name"]);
+              calendar_list[day].push(calendar["event_name"]);
             }
             else {
-              calendar[day] = [calendar["event_name"]];
+              calendar_list[day] = [calendar["event_name"]];
             }
           }
-          console.log(calendar)
+          
         }
       }
 
