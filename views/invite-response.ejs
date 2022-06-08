@@ -150,26 +150,9 @@
 
       // add chosen time
 
-<<<<<<< HEAD
       for (let i = 0; i < tfArr.length; i++) {
         tf = tfArr[i]["avail_time"];
         addChosenTime(tf)
-=======
-        // // POST send email to notify host based on preference
-        // var xhttp = new XMLHttpRequest();
-
-        // xhttp.onreadystatechange = function () {
-        //   if (this.readyState == 4 && this.status == 200) {
-        //     let preference = JSON.parse(this.responseText)[0];
-        //     if (preference['user_respond']) sendEmail(preference['email']);
-        //   }
-        // }
-
-        // xhttp.open("POST", "/users/getURPreference", true);
-        // xhttp.setRequestHeader("Content-type", "application/json");
-        // xhttp.send(JSON.stringify({ creator_id: creator_id }));
-
->>>>>>> origin/master
       }
 
     }
@@ -181,31 +164,12 @@
         }
       }
 
-<<<<<<< HEAD
       xhttp.open("POST", "/users/addChosenTime", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
     }
 
   </script>
-=======
-      function sendEmail(user) {
-        let subject = "A user just respond on YOUR EVENT!!!"
-        let body = "A user just choose their availability for " + name + " on " + date ". Remember to be a good host!!!"
-        var xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-          }
-        }
-
-        xhttp.open("POST", "/sendEmail", true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
-      };
-
-    </script>
->>>>>>> origin/master
 </body>
 
 </html>
