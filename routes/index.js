@@ -15,6 +15,11 @@ router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
+router.post('/pending-login', function(req, res, next) {
+  let serial = req.body.serial;
+  res.render('pending-login', {serial: serial});
+});
+
 router.post('/login', function(req, res, next) {
   if ('email' in req.body && 'password' in req.body) {
     // Connect to the database

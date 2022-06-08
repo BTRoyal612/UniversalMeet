@@ -17,6 +17,10 @@
   --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
 label {
   font-family: "Poppins", sans-serif;
 }
@@ -534,13 +538,36 @@ body {
   color: white;
 }
 
+.response-avail-ctn::-webkit-scrollbar {
+  display: none;
+}
+
+.response-avail-ctn {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .host-info-input {
-  background-color: blue;
+  background-color: #5800FF;
+  outline: none;
+  border: none;
   color: white;
   text-align: center;
   font-weight: 700;
   cursor: pointer;
   user-select: none;
+  color: #FFC600;
+}
+
+.host-tf-input {
+  display: flex;
+  position: relative;
+  color: #FFC600;
+}
+
+.host-tf-count {
+  position: absolute;
+  right: 15px;
 }
 
 .response-info-tf-input {
@@ -583,4 +610,33 @@ body {
 .response-login-btn {
   width: 5wh;
   background-color: var(--red);
+}
+
+.delete_event_btn {
+  float: right;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  border: 3px solid rgb(255, 198, 0);
+  color: rgb(255, 198, 0);
+}
+
+.delete_event_btn:hover {
+  background-color: rgb(255, 198, 0) !important;
+  color: black;
+}
+
+.hidden-input {
+  display: none;
 }

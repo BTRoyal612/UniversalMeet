@@ -20,7 +20,8 @@
   <div class="reponse_ctn">
     <div class="event-info event-info-response">
       <h1 class="event-info-header">Event Information</h1>
-      <form action="/login" method="get" class="login-btn-ctn">
+      <form action="/pending-login" method="post" class="login-btn-ctn">
+        <input name="serial" class="hidden_input" id="serial">
         <button class="event-input response-info-input response-login-btn">Login to add availablities</button>
       </form>
       <label>Event Name</label>
@@ -41,10 +42,25 @@
 
   </div>
   <script>
+    function serialize(id) {
+      let res = "";
+      while (id != 0) {
+        let remainder = id % 26;
+        id = Math.floor(id / 26);
+        res = res + String.fromCharCode(remainder + 97);
+      }
+      console.log(res)
+      while (res.length < 6) {
+        res = res + 'a';
+      }
+      return res.split("").reverse().join("");
+    }
     var event_id = <%=event_id%>
       var duration;
     var cur_avails = [];
     $(document).ready(function () {
+      let serial_input = document.getElementById("serial");
+      serial_input.value = event_id;
       var xhttp = new XMLHttpRequest();
       console.log(event_id)
       xhttp.onreadystatechange = function () {
@@ -120,6 +136,7 @@
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
     }
+
 
   </script>
 </body>

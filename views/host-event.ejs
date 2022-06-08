@@ -37,7 +37,7 @@
       <div id="event-duedate" class="event-input host-info-input"></div>
       <label id="link">Link/Location</label>
       <div id="event-link" class="event-input host-info-input">Link</div>
-      <button id="delete_event" onclick="deleteEvent();">Delete</button><button id="finalize_event" onclick="finalizeEvent();">Finalize</button>
+      <button class="delete_event_btn" id="delete_event" onclick="deleteEvent();">Delete</button><button class="delete_event_btn" id="finalize_event" onclick="finalizeEvent();">Finalize</button>
     </div>
     <div class="avail-ctn-box event-info-response">
       <h1 class="avail-header">Number of Availablities</h1>
@@ -67,23 +67,25 @@
           let event_name = document.getElementById("event-name");
           event_name.innerText = cur_event["event_name"]
           let event_date = document.getElementById("event-date")
-          event_date.innerText = cur_event["date"]
+          event_date.innerText = cur_event["date"].substring(0, 10)
           let event_duration = document.getElementById("event-duration");
           event_duration.innerText = cur_event["duration"]
           duration = cur_event["duration"]
           let event_timezone = document.getElementById("event-timezone");
           event_timezone.innerText = cur_event["time_zone"]
           let event_status = document.getElementById("event-status");
-          if (cur_event["isOnline"] == 0) {
+          let event_link = document.getElementById("event-link");
+          if (cur_event["isOnline"] == 0)
+          {
             event_status.innerText = "Offline"
+            event_link.innerText = cur_event["hold_location"]
           }
           else {
             event_status.innerText = "Online"
+            event_link.innerText = cur_event["share_link"]
           }
           let event_duedate = document.getElementById("event-duedate");
-          event_duedate.innerText = cur_event["due_date"]
-          let event_link = document.getElementById("event-link");
-          event_link.innerText = cur_event["hold_location"];
+          event_duedate.innerText = cur_event["due_date"].substring(0,10) + " (" + cur_event["due_date"].substring(12,19) + ")";
 
           document.getElementById("finalize_event").hidden = cur_event["isFinalised"];
 
@@ -108,15 +110,19 @@
           var ctn = document.getElementsByClassName('response-avail-ctn')[0];
           for (let i in avails) {
             var tfDIV = document.createElement('div');
-            var count = document.createElement('p');
+            var from = document.createElement('div');
+            var count = document.createElement('div');
+            count.classList.add('host-tf-count')
             count.id = avails[i]['avail_time'];
             getCount(avails[i]['avail_time']);
 
             tfDIV.classList.add('event-input');
             tfDIV.classList.add('host-info-input');
+            tfDIV.classList.add('host-tf-input');
             tfDIV.id = i
-            tfDIV.innerText = 'From ' + avails[i]['avail_time'];
+            from.innerText = 'From ' + avails[i]['avail_time'].substring(0,5);
 
+            tfDIV.appendChild(from);
             tfDIV.appendChild(count);
             ctn.appendChild(tfDIV);
           }

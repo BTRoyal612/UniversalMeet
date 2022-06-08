@@ -34,13 +34,13 @@
 <body id="app" class="profile_body">
   <div class="profile_header">
     <div class="welcome-line">
-      <i>Hello <span id="username"></span></i>
+      <i>Hello <span id="username_profile"></span></i>
     </div>
     <div class="setting_btn_ctn">
       <button class="setting_btn" data-toggle="modal" data-target="#settings">
         Settings
       </button>
-        <button class="setting_btn" onclick="userLogout();">
+        <button class="logout_btn" onclick="userLogout();">
           Log out
         </button>
 
@@ -50,7 +50,7 @@
   <div class="profile_main">
     <div class="profile_schedule_ctn">
       <div class="profile_schedule">
-        <div class="day">
+        <!-- <div class="day">
           <div class="day_title">Today</div>
           <div class="day_event_all">
             <div class="day_event">
@@ -72,7 +72,7 @@
               <div class="day_event_time">17:00-19:00</div>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -81,7 +81,7 @@
         <button class="custom-btn btn-7"><span>HOST YOUR EVENT</span></button>
       </form>
       <form action="/users/pending-events" method="get">
-        <button class="custom-btn btn-7"><span>PENDING EVENTS</span></button>
+        <button class="custom-btn btn-8"><span>PENDING EVENTS</span></button>
       </form>
     </div>
   </div>
@@ -167,7 +167,7 @@
 
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("username").innerHTML = this.responseText;
+          document.getElementById("username_profile").innerHTML = this.responseText;
         }
       }
 
@@ -181,7 +181,61 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           console.log(JSON.parse(this.responseText)[0])
-          calender_events = JSON.parse(this.responseText)[0];
+          calendar_events = JSON.parse(this.responseText)[0];
+          var calendar_div = document.getElementsByClassName("profile_schedule")[0];
+          calendar_list = {}
+          for (let calendar of calendar_events) {
+            let day = calendar["date"].substring(5,7) + "/" + calendar["date"].substring(8,10);
+            console.log(day)
+            if (day in calendar) {
+              calendar_list[day].push(calendar["event_name"]);
+            }
+            else {
+              calendar_list[day] = [{name: calendar["event_name"], from: '10:00', duration: calendar["duration"]}];
+            }
+          }
+
+          for (let day in calendar_list) {
+            let day_div = document.createElement('div');
+            day_div.classList.add("day");
+            let day_title = document.createElement('div');
+            day_title.classList.add("day_title");
+            day_title.innerText = day;
+            day_div.appendChild(day_title);
+            let day_event_all = document.createElement('div');
+            day_event_all.classList.add("day_event_all");
+            for (let i = 0; i < calendar_list[day].length; i++) {
+              let day_event = document.createElement('div');
+              day_event.classList.add("day_event");
+              let day_event_name = document.createElement('div');
+              day_event_name.classList.add("day_event_name");
+              day_event_name.innerText = calendar_list[day][i]["name"];
+              let hour = Math.floor(calendar_list[day][i]["duration"]/60);
+              let minute = calendar_list[day][i]["duration"]%60;
+              let hour_from_time = parseInt(calendar_list[day][i]["from"].substring(0,2));
+              let minute_from_time = parseInt(calendar_list[day][i]["from"].substring(3,5));
+              let end_hour = hour+hour_from_time;
+              let end_minute = minute+minute_from_time;
+              if (end_minute>60) {
+                end_hour+=1
+                end_minute-=60
+              }
+              end_hour = end_hour.toString();
+              end_minute = end_minute.toString();
+              if (end_minute.length < 2) {
+                end_minute = "0"+end_minute;
+              }
+              let day_event_time = document.createElement('div');
+              day_event_time.classList.add("day_event_time");
+              day_event_time.innerText = calendar_list[day][i]["from"] + "-" + end_hour+":"+end_minute;
+              day_event.appendChild(day_event_name);
+              day_event.appendChild(day_event_time);
+              day_event_all.appendChild(day_event);
+            }
+            day_div.appendChild(day_event_all);
+            calendar_div.appendChild(day_div);
+          }
+
         }
       }
 

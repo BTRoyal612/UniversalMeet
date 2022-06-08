@@ -50,6 +50,64 @@ function login() {
     xhttp.send(JSON.stringify({ email:username , password:password }));
 };
 
+function serialize(id) {
+  let res = "";
+  while (id != 0) {
+    let remainder = id % 26;
+    id = Math.floor(id / 26);
+    res = res + String.fromCharCode(remainder + 97);
+  }
+  while (res.length < 6) {
+    res = res + 'a';
+  }
+  return res.split("").reverse().join("");
+}
+
+function pending_login(id) {
+  console.log(id)
+  let username = document.getElementById('username').value;
+  let password = document.getElementById('password').value;
+  console.log("login function");
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(id)
+        let user = JSON.parse(this.responseText)[0];
+        if (user.isAdmin) {
+          getAdmin();
+          window.location = '/admin/admin-user';
+        } else {
+          getUser();
+          joinEvent(id);
+          window.location = '/users/invite-response/'+serialize(id);
+        }
+      }else if(this.readyState == 4 && this.status >= 400){
+        alert("Login Failed! Username or Email incorrect.");
+      }
+
+  }
+
+  xhttp.open("POST", "/login", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ email:username , password:password }));
+};
+
+function joinEvent(id) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+
+      if (this.readyState == 4 && this.status == 200) {
+      }
+
+  }
+
+  xhttp.open("POST", "/users/joinEvent", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ event_id: id }));
+}
+
 function signup() {
     let notice = document.getElementById('notice');
     let password = document.getElementById('password').value;
