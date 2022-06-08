@@ -108,15 +108,17 @@
           var ctn = document.getElementsByClassName('response-avail-ctn')[0];
           for (let i in avails) {
             var tfDIV = document.createElement('div');
-            var count = document.createElement('p');
+            var from = document.createElement('div');
+            var count = document.createElement('div');
             count.id = avails[i]['avail_time'];
             getCount(avails[i]['avail_time']);
 
             tfDIV.classList.add('event-input');
             tfDIV.classList.add('host-info-input');
             tfDIV.id = i
-            tfDIV.innerText = 'From ' + avails[i]['avail_time'];
+            from.innerText = 'From ' + avails[i]['avail_time'].substring(0,5);
 
+            tfDIV.appendChild(from);
             tfDIV.appendChild(count);
             ctn.appendChild(tfDIV);
           }
