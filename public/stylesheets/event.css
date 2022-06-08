@@ -636,3 +636,7 @@ body {
   background-color: rgb(255, 198, 0) !important;
   color: black;
 }
+
+.hidden-input {
+  display: none;
+}
