@@ -560,6 +560,8 @@ body {
   border-radius: 50%;
   background-color: #FFC600;
   color: black;
+  width: 25px;
+  height: 25px;
 }
 
 .response-info-tf-input {
