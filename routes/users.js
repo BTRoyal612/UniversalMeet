@@ -512,5 +512,13 @@ router.get('/invitation-response/:id', function(req, res, next) {
   console.log(id)
   res.render('invitation-response', {event_id: id});
 })
+
+router.get('/invite-response/:id', function(req, res, next) {
+
+
+  let id = deserialize(req.params.id);
+  console.log(id)
+  res.render('invite-response', {eventId: id});
+})
 module.exports = router;
 
