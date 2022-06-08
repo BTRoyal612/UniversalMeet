@@ -653,8 +653,8 @@ background-color: #ee1505;
 }
 
 .host-btn {
-  border: 3px solid #5800FF;
-  color: #5800FF;
+  border: 3px solid rgb(255, 198, 0);
+  color: rgb(255, 198, 0);
 }
 
 .host-btn:hover {
