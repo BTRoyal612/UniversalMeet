@@ -207,7 +207,12 @@
               day_event_name.innerText = calendar_list[day][i]["name"];
               let hour = Math.floor(calendar_list[day][i]["duration"]/60);
               let minute = calendar_list[day][i]["duration"]%60;
-              let from_time = calendar_list[day][i]["from"];
+              let hour_from_time = parseInt(calendar_list[day][i]["from"].substring(0,2));
+              let minute_from_time = parseInt(calendar_list[day][i]["from"].substring(3,5));
+              let new_hour = (hour+hour_from_time);
+              let new_minute = minute+minute_from_time;
+
+
             }
           }
 
