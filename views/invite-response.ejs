@@ -57,7 +57,7 @@
           let event_name = document.getElementById("event-name");
           event_name.innerText = cur_event["event_name"]
           let event_date = document.getElementById("event-date")
-          event_date.innerText = cur_event["date"]
+          event_date.innerText = cur_event["date"].substring(0, 10)
           let event_duration = document.getElementById("event-duration");
           event_duration.innerText = cur_event["duration"]
           duration = cur_event["duration"]
