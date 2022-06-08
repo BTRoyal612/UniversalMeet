@@ -195,17 +195,18 @@
             }
           }
 
-          for (let day of calendar_list) {
-            let day_div = document.createElement(div);
-            let day_title = document.createElement(div);
+          for (let day in calendar_list) {
+            let day_div = document.createElement('div');
+            let day_title = document.createElement('div');
             day_title.innerText = day;
             day_div.appendChild(day_title);
-            let day_event_all = document.createElement(div);
-            for (let i = 0; i < calendar_list.day.length; i++) {
-              let day_event = document.createElement(div);
-              let day_event_name = document.createElement(div);
+            let day_event_all = document.createElement('div');
+            for (let i = 0; i < calendar_list[day].length; i++) {
+              let day_event = document.createElement('div');
+              let day_event_name = document.createElement('div');
               day_event_name.innerText = calendar_list[day]["name"];
-              let hour = parseInt(calendar_list[day]["name"])/60;
+              
+              let hour = calendar_list[day];
               console.log(hour)
 
             }
