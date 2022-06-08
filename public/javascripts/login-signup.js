@@ -64,6 +64,7 @@ function serialize(id) {
 }
 
 function pending_login(id) {
+  console.log(id)
   let username = document.getElementById('username').value;
   let password = document.getElementById('password').value;
   console.log("login function");

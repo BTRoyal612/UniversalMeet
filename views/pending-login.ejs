@@ -46,6 +46,7 @@
             return res;
         }
         const pendingLoginHandler = () => {
+            console.log(serial, deserialize(serial))
             pending_login(deserialize(serial));
         }
 
