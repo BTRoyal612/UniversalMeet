@@ -55,9 +55,8 @@ function serialize(id) {
   while (id != 0) {
     let remainder = id % 26;
     id = Math.floor(id / 26);
-    res = res + String.fromCharCode(remainder + 65);
+    res = res + String.fromCharCode(remainder + 97);
   }
-  console.log(res)
   while (res.length < 6) {
     res = res + 'a';
   }
