@@ -61,6 +61,26 @@ router.post('/updatePassword', function(req, res, next) {
   });
 })
 
+/* POST join event. */
+router.post('/joinEvent', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "CALL join_event (?, ?)";
+    connection.query(query, [req.body.event_id, user.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.send(); //send response
+    });
+  });
+})
+
 /* POST get user event list. */
 router.post('/getEventList', function(req, res, next) {
   console.log(user);
