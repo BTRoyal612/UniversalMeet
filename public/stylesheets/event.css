@@ -538,6 +538,15 @@ body {
   color: white;
 }
 
+.response-avail-ctn::-webkit-scrollbar {
+  display: none;
+}
+
+.response-avail-ctn {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .host-info-input {
   background-color: #5800FF;
   outline: none;
@@ -558,7 +567,7 @@ body {
 
 .host-tf-count {
   position: absolute;
-  right: 4px;
+  right: 15px;
 }
 
 .response-info-tf-input {
