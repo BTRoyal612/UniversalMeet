@@ -65,9 +65,9 @@ function pending_login(id) {
           window.location = '/admin/admin-user';
         } else {
           getUser();
-          window.location = '/users/invitation-response/'+id
+          joinEvent(id);
+          window.location = '/users/invitation-response/'+id;
         }
-        joinEvent(id);
       }else if(this.readyState == 4 && this.status >= 400){
         alert("Login Failed! Username or Email incorrect.");
       }
@@ -84,16 +84,6 @@ function joinEvent(id) {
   xhttp.onreadystatechange = function() {
 
       if (this.readyState == 4 && this.status == 200) {
-        let user = JSON.parse(this.responseText)[0];
-        if (user.isAdmin) {
-          getAdmin();
-          window.location = '/admin/admin-user';
-        } else {
-          getUser();
-          window.location = '/users/invitation-response/'+id
-        }
-      }else if(this.readyState == 4 && this.status >= 400){
-        alert("Login Failed! Username or Email incorrect.");
       }
 
   }
