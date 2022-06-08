@@ -38,16 +38,8 @@
     </form>
     <script>
         let serial = <%=serial%>;
-        function deserialize(id) {
-            res = 0;
-            for (let i = 0; i < id.length; i++) {
-                res = res + (id.charCodeAt(i) - 97) * (26 ** (id.length - 1 - i));
-            }
-            return res;
-        }
         const pendingLoginHandler = () => {
-            console.log(serial, deserialize(serial))
-            pending_login(deserialize(serial));
+            pending_login(serial);
         }
 
     </script>
