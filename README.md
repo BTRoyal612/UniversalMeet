@@ -56,14 +56,21 @@ $ npm start
 
 ## Design
 
-	##Front-end
+* Front-end
+	- Use consistent color group for all pages: black, purple, and yellow.
+	- All forms and cards are in the middle and have 7px border radius to pop up from the background
+	- Buttons have different hover properties to easily identify.
+	- Use JavaScript to make sure users have to enter required inputs.
+	- All pages have home button to come back to profile.
 
+* Back-end
+	- Use NodeJS to structure the code. 
+	- Use router and AJAX functions to interact with the database. 
+	- Use router and view engines (EJS) to smoothly render and pass variables around pages.
+	- Integrated openID to use google sign in.
 
-	##Back-end
-
-
-	##Database
-	Table and Virtual Table are used. Also, to work better with the router, 26 Procedures have been added. Depending on the requirements, some derived data will be updated automatically when the base data changes, or through Procedures when needed.
+* Database
+	- Table and Virtual Table are used. Also, to work better with the router, 26 Procedures have been added. Depending on the requirements, some derived data will be updated automatically when the base data changes, or through Procedures when needed.
 	
 
 ## About
@@ -72,7 +79,7 @@ We are undergraduate Computer Science students from the University of Adelaide. 
 
 ## Contact Us
 Email: [gb.hoang02@gmail.com]
-Discord: [billtheroyal#9867]
+Discord: [billtheroyal](https://discord.gg/2Wcn7Bcw)
 
 
 ## License
