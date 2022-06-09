@@ -377,10 +377,12 @@ body {
 
 .copy-text button:hover {
   background-color: #FFC600;
+  color: black;
 }
 
 .copy-text button:active {
   background-color: #FFC600;
+  color: black;
 }
 
 .copy-text button::before {
@@ -447,7 +449,7 @@ body {
 
 .avail-ctn-box {
   height: 70%;
-  width: 600px;
+  max-width: 600px;
   background-color: var(--light-main);
   border-radius: 30px;
   padding: 40px;
