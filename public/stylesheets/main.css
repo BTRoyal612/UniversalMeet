@@ -797,3 +797,8 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 .close_btn:hover {
   color: white;
 }
+
+.btn-7-extra, .btn-8-extra {
+  line-height: unset !important;
+  font-size: 45px;
+}
