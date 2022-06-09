@@ -336,7 +336,7 @@ body {
   width: 60%;
   background-color: var(--light-main);
   border-radius: 30px;
-  padding: 40px;
+  padding: 80px 40px;
   overflow: hidden;
   text-align: center;
   align-items: center;
@@ -405,7 +405,7 @@ body {
 }
 
 .link-box {
-  width: 300px;
+  max-width: 300px;
   justify-content: center;
   background-color: var(--red);
   margin: auto;
