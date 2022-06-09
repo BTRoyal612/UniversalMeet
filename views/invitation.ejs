@@ -26,18 +26,10 @@
       </button>
     </div>
     <div class="link-ctn">
-      <div class="link-box" id="meetingID"><i class="fa-solid fa-id-badge"></i><span>Meeting ID Link</span></div>
       <div data-bs-toggle="modal" data-bs-target="#exampleModal" id="mail" class="link-box"><i class="fa-solid fa-envelope"></i><span>Mail Invitation</span></div>
-      <div class="link-box"><i class="fa-brands fa-facebook"></i><span>Facebook Invitation</span></div>
-    </div>  
+    </div>
   </div>
   <!-- Modal -->
-  <div class="avail-ctn-box">
-    <h1 class="avail-header">Your Availability</h1>
-    <div class="avail-ctn">
-    </div>
-    <div class="avail-add" onclick="addTimeFrame()">Add Time Frame</div>
-  </div>
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -104,10 +96,10 @@
       input.select();
       document.execCommand("copy");
     }
-    
+
     const recipient = document.getElementById("recipient-name");
     const msg = document.getElementById("message-text");
-  
+
     function send() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {

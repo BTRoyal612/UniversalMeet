@@ -7,17 +7,17 @@
   --dark-hover: #323048;
   --dark-text: #f8fbff;
 
-  --light-body: #f3f8fe;
-  --light-main: #fdfdfd;
+  --light-body: #0e1016;
+  --light-main: rgba(21,25,34,1);
   --light-second: #c3c2c8;
   --light-hover: #edf0f5;
-  --light-text: #151426;
-  --blue: #0000ff;
+  --light-text: white;
+  --red: #5800FF;
   --white: #fff;
   --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-label {
+* {
   font-family: "Poppins", sans-serif;
 }
 
@@ -60,12 +60,12 @@ body {
   background-color: var(--light-main);
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: var(--shadow);
   position: absolute;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  color: white;
 }
 
 .checkbox-ctn {
@@ -75,9 +75,9 @@ body {
 .pref-header {
   text-align: center;
   font-weight: bold;
-  color: var(--dark-text);
+  color: black;
   margin-bottom: 10px;
-  background-color: #0000ff;
+  background-color: rgb(255, 198, 0);
   padding: 10px 0;
 
 }
@@ -88,4 +88,42 @@ body {
 
 .form-check-input {
   cursor: pointer;
+}
+
+.preference_btn {
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  border: 3px solid rgb(255, 198, 0);
+  color: rgb(255, 198, 0);
+}
+
+.preference_btn:hover {
+  background-color: rgb(255, 198, 0) !important;
+  color: black;
+}
+
+.home {
+  color: black;
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  width: 5rem;
+  height: 5rem;
+  font-size: 3rem;
+  position: absolute;
+  background-color: white;
+  top: 1rem;
+  left: 1rem;
 }
