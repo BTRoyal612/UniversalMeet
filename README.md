@@ -1,5 +1,4 @@
-# UniversalMeet
-[Universal Meet]
+# Universal Meet
 
 #Introduction
 Universal Meet is social Web Application for multi-person event scheduling. It allows you to schedule events with other people in different regions using different time zones. In addition, you can also see the details of the parties/events you attended/created on your calendar (e.g. availability, selected time, number of attendees, etc.). You can use a Google account or a unique email to register as a Universal Meet user to use our service. We will notify you about the event by email. And of course, you can change your notification preferences in our application at anytime.
