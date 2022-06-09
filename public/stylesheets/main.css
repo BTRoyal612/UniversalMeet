@@ -720,7 +720,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  background-color: white;
+  background-color: transparent;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   font-size: 1.25rem;
@@ -774,4 +774,12 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 .modal_body {
   background-color: rgba(21,25,34,1);
   color: white;
+}
+
+.host_input {
+  color: #5800FF;
+}
+
+.attendee_input {
+  color: #FFC600;
 }
