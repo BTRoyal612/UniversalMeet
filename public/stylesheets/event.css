@@ -393,6 +393,7 @@ body {
   border-radius: 20px;
   font-size: 15px;
   display: none;
+  color: black;
 }
 
 .active button::before{
