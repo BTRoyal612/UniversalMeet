@@ -79,7 +79,7 @@ We are undergraduate Computer Science students from the University of Adelaide. 
 
 ## Contact Us
 Email: [gb.hoang02@gmail.com]
-Discord: [billtheroyal](https://discord.gg/2Wcn7Bcw)
+Discord: [WDC Project](https://discord.gg/2Wcn7Bcw)
 
 
 ## License
