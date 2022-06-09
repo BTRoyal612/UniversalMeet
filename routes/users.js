@@ -177,7 +177,7 @@ router.post('/getEventCreator', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT creator_id from Event WHERE event_id = ?";
+    var query = "SELECT creator_id, event_name, date from Event WHERE event_id = ?";
     connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {

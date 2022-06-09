@@ -85,7 +85,7 @@
             creator_id = cur_event["creator_id"];
             getURPreference(creator_id);
             name = cur_event["event_name"];
-            date = cur_event["date"];
+            date = cur_event["date"].substring(0,10);
 
           }
         }
