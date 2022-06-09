@@ -405,9 +405,9 @@ body {
 }
 
 .link-box {
-  width: 100%;
+  width: 50%;
   background-color: var(--red);
-  margin: 0 10px;
+  margin: auto;
   color: white;
   padding: 8px 10px;
   border-radius: 30px;
@@ -416,15 +416,6 @@ body {
 
 .link-box:hover {
   background-color: #FFC600;
-}
-
-@media only screen and (min-width: 600px) {
-  .link-ctn {
-    display: flex;
-  }
-  .link-box {
-    width: 30%;
-  }
 }
 
 .link-box > i {
