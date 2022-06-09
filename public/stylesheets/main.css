@@ -16,12 +16,8 @@
   margin: auto;
   width: 30%;
   padding: 40px 30px;
-  background-color: #fff;
+  background-color: rgba(21,25,34,1);
   border-radius: 7px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
   margin-top: 10%;
 }
 
@@ -29,7 +25,7 @@
   text-align: center;
   font-size: 2rem;
   font-weight: bolder;
-  color: #ee1505;
+  color: #5800FF;
   margin-bottom: 10px;
 }
 
@@ -55,7 +51,7 @@
 
 .authBtn button {
   width: 100%;
-  background-color: #ee1505;
+  background-color: #5800FF;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -65,7 +61,8 @@
 }
 
 .authBtn button:hover {
-  background-color: #af150a;
+  background-color: #FFC600;
+  color: black;
 }
 
 @media only screen and (max-width: 780px) {
@@ -78,13 +75,18 @@
 
 .home-page {
   text-align: center;
-  background-image: linear-gradient(to right, #06beb6, #48b1bf);
+  background-color: #0e1016;
   min-height: 100vh;
+}
+
+.login-page {
+  background-color: #0e1016;
 }
 
 .app-name {
   font-family: Arial;
-  font-size: 100px;
+  font-size: 3rem;
+  margin-bottom: 40px;
 }
 
 .home-btn-ctn {
@@ -487,6 +489,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 .setting_btn {
+  min-height: 50px;
   height: 6vh;
   width: 15vw;
   padding: 0 10px;
@@ -508,6 +511,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 .logout_btn {
+  min-height: 50px;
   height: 6vh;
   width: 15vw;
   padding: 0 10px;
@@ -535,6 +539,11 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 @media only screen and (max-width: 780px) {
+  .home-btn-ctn {
+    padding-top: 80px;
+    display: unset;
+  }
+
   .profile_main {
     display: unset;
   }
@@ -672,10 +681,13 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   font-weight: 700;
   cursor: pointer;
   user-select: none;
+  border: none;
+  outline: none;
 }
 
 .modal-body-custom {
-  background-color: #ee1505;
+  background-color: rgba(21,25,34,1);
+  color: black;
   text-align: center;
   /* border-bottom-left-radius: calc(0.3rem - 1px);
   border-bottom-right-radius: calc(0.3rem - 1px); */
@@ -688,22 +700,22 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   border-radius: 7px;
   cursor: pointer;
   font-size: 1.3rem;
-  background-color: white;
-  border: 2px solid #ee1505;
-  color: #ee1505;
+  background-color: transparent;
+  border: 2px solid #FFC600;
+  color: #FFC600;
   transition: 0.3s;
 }
 
 .modal-btn-custom:hover {
-  background-color: #ee1505;
-  border: 2px solid white;
-  color: white;
+  background-color: #FFC600;
+  border: 2px solid black;
+  color: black;
   transform: scale(1.05);
 }
 
 .close-modal-btn-custom {
-  background-color: #ee1505 !important;
-  color: white !important;
+  background-color: #FFC600 !important;
+  color: black !important;
 }
 
 #event-id {
@@ -719,7 +731,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  background-color: white;
+  background-color: transparent;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   font-size: 1.25rem;
@@ -760,4 +772,39 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   top: 1rem;
   left: 1rem;
   cursor: pointer;
+}
+
+.name_1 {
+  color: #5800FF;
+}
+
+.name_2 {
+  color: #FFC600;
+}
+
+.modal_body {
+  background-color: rgba(21,25,34,1) !important;
+  color: white;
+}
+
+.host_input {
+  background-color: #5800FF;
+}
+
+.attendee_input {
+  background-color: #FFC600;
+  color: black;
+}
+
+.close_btn {
+  color: white;
+}
+
+.close_btn:hover {
+  color: white;
+}
+
+.btn-7-extra, .btn-8-extra {
+  line-height: unset !important;
+  font-size: 45px;
 }

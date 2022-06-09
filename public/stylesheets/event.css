@@ -85,6 +85,7 @@ body {
 
 .prev:hover, .next:hover {
   background-color: #FFC600;
+  color: black;
 }
 
 .box {
@@ -420,6 +421,7 @@ body {
 
 .link-box:hover {
   background-color: #FFC600;
+  color: black;
 }
 
 .link-box > i {
@@ -443,9 +445,6 @@ body {
 .avail-ctn ::-webkit-scrollbar {
   display: none;
 }
-
-
-
 
 .avail-ctn-box {
   height: 70%;
@@ -647,4 +646,9 @@ body {
 
 .hidden-input {
   display: none;
+}
+
+.modal_body {
+  background-color: rgba(21,25,34,1);
+  color: white;
 }
