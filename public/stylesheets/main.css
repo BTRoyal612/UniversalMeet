@@ -82,6 +82,10 @@
   min-height: 100vh;
 }
 
+.login-page {
+  background-color: #0e1016;
+}
+
 .app-name {
   font-family: Arial;
   font-size: 100px;
