@@ -16,12 +16,8 @@
   margin: auto;
   width: 30%;
   padding: 40px 30px;
-  background-color: #fff;
+  background-color: rgba(21,25,34,1);
   border-radius: 7px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.15);
   margin-top: 10%;
 }
 
@@ -29,7 +25,7 @@
   text-align: center;
   font-size: 2rem;
   font-weight: bolder;
-  color: #ee1505;
+  color: #5800FF;
   margin-bottom: 10px;
 }
 
@@ -55,7 +51,7 @@
 
 .authBtn button {
   width: 100%;
-  background-color: #ee1505;
+  background-color: #5800FF;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -65,7 +61,8 @@
 }
 
 .authBtn button:hover {
-  background-color: #af150a;
+  background-color: #FFC600;
+  color: black;
 }
 
 @media only screen and (max-width: 780px) {
