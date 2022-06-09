@@ -678,7 +678,8 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 .modal-body-custom {
-  background-color: #ee1505;
+  background-color: rgba(21,25,34,1);
+  color: black;
   text-align: center;
   /* border-bottom-left-radius: calc(0.3rem - 1px);
   border-bottom-right-radius: calc(0.3rem - 1px); */
