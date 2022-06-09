@@ -1,12 +1,10 @@
 function updateEmailPreference() {
   console.log("button press");
   let user_respond = document.getElementById("user_respond").checked;
-  let avail_confirm = document.getElementById("avail_confirm").checked;
   let event_finalize = document.getElementById("event_finalize").checked;
   let event_cancel = document.getElementById("event_cancel").checked;
 
   console.log(user_respond);
-  console.log(avail_confirm);
   console.log(event_finalize);
   console.log(event_cancel);
 
@@ -19,5 +17,5 @@ function updateEmailPreference() {
 
   xhttp.open("POST", "/users/updateEmailPreference", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ user_respond:user_respond, avail_confirm:avail_confirm, event_finalize:event_finalize, event_cancel:event_cancel}));
+  xhttp.send(JSON.stringify({ user_respond:user_respond, user_join:false, event_finalize:event_finalize, event_cancel:event_cancel}));
 };
