@@ -574,6 +574,8 @@ CALL edit_event(1, 1, 'VR project due', '161 house', '2022-05-20 04:34:33', 'Joh
 CALL edit_event(3, 5, 'Jason Project', 'online', '2022-06-30 04:34:33', 'find a way to steal Jason WDC project', true, 30, '-04:30', 'discord share link');
 
 CALL finalise_event(5, true);
+CALL finalise_event(2, true);
+CALL finalise_event(4, true);
 CALL delete_event(6, 6);
 
 CALL join_event(1,3);
