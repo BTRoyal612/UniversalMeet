@@ -189,9 +189,9 @@ function getEventCreator(event_id) {
 
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      let creator_id = JSON.parse(this.responseText)[0]['creator_id'];
-      console.log(creator_id);
-      get
+      let event_info= JSON.parse(this.responseText)[0];
+      console.log(event_info);
+      getUJPreference(event_info['creator_id'], event_info['event_name'], event_info['date'].substring(0,10));
     }
   }
 
@@ -201,13 +201,13 @@ function getEventCreator(event_id) {
 }
 
 // get email based on host preference on user respond
-function getUJPreference(user_id) {
+function getUJPreference(user_id, name, date) {
   var xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let preference = JSON.parse(this.responseText)[0];
-      if (preference['user_join']) sendEmail(preference['email']);
+      if (preference['user_join']) sendEmail(preference['email'], name, date);
     }
   }
 
@@ -217,7 +217,7 @@ function getUJPreference(user_id) {
 }
 
 // send email
-function sendEmail(user) {
+function sendEmail(user, name, date) {
   let subject = "A NEW user respond to YOUR EVENT!!!";
   let body = "A new user have just joined your event: " + name + " on " + date + ". Remember to be a good host!!!";
 
