@@ -200,7 +200,7 @@ BEGIN
     END IF;
     UPDATE Email_preference SET
     user_respond = user_respond_,
-    user_join = user_join,
+    user_join = user_join_,
     event_finalize = event_finalize_,
     event_cancel = event_cancel_
     WHERE user_id = user_id_;

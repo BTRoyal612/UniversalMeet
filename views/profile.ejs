@@ -49,6 +49,7 @@
 
   <div class="profile_main">
     <div class="profile_schedule_ctn">
+      <center><h1 style="color: white;">Calendar</h1></center>
       <div class="profile_schedule">
         <!-- <div class="day">
           <div class="day_title">Today</div>
@@ -185,12 +186,8 @@
           let count = lists.length;
           console.log(count);
           for (let event of lists) {
-            getEventCalendar(event['event_id'], count);
-            count--;
-            console.log(count);
-            if (count == 0) {
-              console.log(calendar_list);
-            }
+            getEventCalendar(event['event_id']);
+            console.log(calendar_list);
           }
         }
       }
@@ -198,12 +195,12 @@
       xhttp.open("POST", "/users/getEvents", true);
       xhttp.send();
 
-      // window.setInterval('buildCalendar()', 30000);
+      window.setInterval('buildCalendar()', 100);
     });
 
 
     // POST get user finalized events for calender
-    function getEventCalendar (event_id, count) {
+    function getEventCalendar (event_id) {
       var xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function () {
@@ -222,7 +219,7 @@
             calendar_list[day] = [{name: calendar_event["event_name"], from: calendar_event["chosen_time"], duration: calendar_event["duration"]}];
           }
 
-          if (count == 1) setTimeout(buildCalendar(), 10000);
+
         }
       }
 

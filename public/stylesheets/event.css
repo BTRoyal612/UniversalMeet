@@ -467,10 +467,10 @@ body {
 }
 
 .avail-time-frame-input {
-  width: 40%;
+  width: 50%;
   display: inline-block;
   border: 1px solid #ccc;
-  padding: 0 40px;
+  padding: 0 15px;
   border-radius: 4px;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;

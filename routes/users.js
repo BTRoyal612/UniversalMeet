@@ -177,7 +177,7 @@ router.post('/getEventCreator', function(req, res, next) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT creator_id from Event WHERE event_id = ?";
+    var query = "SELECT creator_id, event_name, date from Event WHERE event_id = ?";
     connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
@@ -414,28 +414,7 @@ router.post('/updateEmail', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
-
-/* POST get preference about user join. */
-router.post('/getUJPreference', function(req, res, next) {
-  // Connect to the database
-  req.pool.getConnection(function(err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-
-    var query = "SELECT user_join, email FROM Email_preference INNER JOIN User ON User.user_id = Email_preference.user_id WHERE Email_preference.user_id = ?";
-    connection.query(query, [req.body.user_id], function(err, rows, fields) {
-      connection.release(); // release connection
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.json(rows); //send response
-    });
-  });
-})
+});
 
 /* POST get preference about user respond. */
 router.post('/getURPreference', function(req, res, next) {
@@ -510,7 +489,7 @@ router.post('/updateEmailPreference', function(req, res, next) {
     }
 
     var query = "CALL change_notification(?, ?, ?, ?, ?)";
-    connection.query(query, [user.user_id, req.body.user_respond, req.body.avail_confirm, req.body.event_finalize, req.body.event_cancel], function(err, rows, fields) {
+    connection.query(query, [user.user_id, req.body.user_respond, req.body.user_join, req.body.event_finalize, req.body.event_cancel], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
         res.sendStatus(500);
