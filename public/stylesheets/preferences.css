@@ -60,12 +60,12 @@ body {
   background-color: var(--light-main);
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: var(--shadow);
   position: absolute;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  color: white;
 }
 
 .checkbox-ctn {
@@ -110,18 +110,6 @@ body {
   color: rgb(255, 198, 0);
 }
 
-.home-btn {
-  width: 30%;
-  height: 30vh;
-  background-color: #ee1505;
-  color: white;
-  margin: 8px 50px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  font-size: 5rem;
-}
-
 .home {
   color: white;
   outline: none;
@@ -134,5 +122,4 @@ body {
   background-color: transparent;
   top: 1rem;
   left: 1rem;
-  cursor: pointer;
 }
