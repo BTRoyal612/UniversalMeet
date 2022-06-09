@@ -421,6 +421,7 @@ body {
 
 .link-box:hover {
   background-color: #FFC600;
+  color: black;
 }
 
 .link-box > i {
