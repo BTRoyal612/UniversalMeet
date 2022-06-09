@@ -109,6 +109,11 @@ body {
   color: rgb(255, 198, 0);
 }
 
+.preference_btn:hover {
+  background-color: rgb(255, 198, 0) !important;
+  color: black;
+}
+
 .home {
   color: #5800FF;
   outline: none;
