@@ -89,3 +89,34 @@ body {
 .form-check-input {
   cursor: pointer;
 }
+
+.preference_btn {
+
+}
+
+.home-btn {
+  width: 30%;
+  height: 30vh;
+  background-color: #ee1505;
+  color: white;
+  margin: 8px 50px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 5rem;
+}
+
+.home {
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  width: 5rem;
+  height: 5rem;
+  font-size: 3rem;
+  position: absolute;
+  background-color: transparent;
+  top: 1rem;
+  left: 1rem;
+  cursor: pointer;
+}
