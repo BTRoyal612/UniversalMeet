@@ -78,7 +78,7 @@
 
 .home-page {
   text-align: center;
-  background-image: linear-gradient(to right, #06beb6, #48b1bf);
+  background-color: #0e1016;
   min-height: 100vh;
 }
 
@@ -760,4 +760,12 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   top: 1rem;
   left: 1rem;
   cursor: pointer;
+}
+
+.name_1 {
+  color: #5800FF;
+}
+
+.name_2 {
+  color: #FFC600;
 }
