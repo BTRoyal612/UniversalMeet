@@ -91,7 +91,6 @@ body {
 }
 
 .preference_btn {
-  float: right;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
@@ -101,8 +100,8 @@ body {
   user-select: none;
   background-color: transparent;
   padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  margin-left: 1rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
   font-size: 1.25rem;
   border-radius: 0.3rem;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -111,7 +110,7 @@ body {
 }
 
 .home {
-  color: white;
+  color: #5800FF;
   outline: none;
   border: none;
   border-radius: 100%;
