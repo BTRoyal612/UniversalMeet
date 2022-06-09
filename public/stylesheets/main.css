@@ -770,3 +770,8 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 .name_2 {
   color: #FFC600;
 }
+
+.modal_body {
+  background-color: rgba(21,25,34,1);
+  color: white;
+}
