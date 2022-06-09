@@ -75,9 +75,9 @@ body {
 .pref-header {
   text-align: center;
   font-weight: bold;
-  color: var(--dark-text);
+  color: black;
   margin-bottom: 10px;
-  background-color: #0000ff;
+  background-color: rgb(255, 198, 0);
   padding: 10px 0;
 
 }
