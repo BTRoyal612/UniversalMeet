@@ -488,6 +488,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 .setting_btn {
+  min-height: 50px;
   height: 6vh;
   width: 15vw;
   padding: 0 10px;
@@ -509,6 +510,7 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
 }
 
 .logout_btn {
+  min-height: 50px;
   height: 6vh;
   width: 15vw;
   padding: 0 10px;
@@ -692,22 +694,22 @@ background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
   border-radius: 7px;
   cursor: pointer;
   font-size: 1.3rem;
-  background-color: white;
-  border: 2px solid #ee1505;
-  color: #ee1505;
+  background-color: transparent;
+  border: 2px solid #FFC600;
+  color: #FFC600;
   transition: 0.3s;
 }
 
 .modal-btn-custom:hover {
-  background-color: #ee1505;
-  border: 2px solid white;
-  color: white;
+  background-color: #FFC600;
+  border: 2px solid black;
+  color: black;
   transform: scale(1.05);
 }
 
 .close-modal-btn-custom {
-  background-color: #ee1505 !important;
-  color: white !important;
+  background-color: #FFC600 !important;
+  color: black !important;
 }
 
 #event-id {
