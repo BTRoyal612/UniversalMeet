@@ -647,3 +647,8 @@ body {
 .hidden-input {
   display: none;
 }
+
+.modal_body {
+  background-color: rgba(21,25,34,1);
+  color: white;
+}
