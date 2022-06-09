@@ -63,13 +63,41 @@ var vueinst = new Vue({
             button.classList.remove('host-btn');
             button.classList.add('host-btn');
             button.innerText = 'Show Availablities';
-            form.action = '/users/host-event'
+            form.action = '/users/host-event';
+            event_name.classList.remove('attendee_input')
+            event_name.classList.add('host_input')
+            event_date.classList.remove('attendee_input')
+            event_date.classList.add('host_input')
+            event_duration.classList.remove('attendee_input')
+            event_duration.classList.add('host_input')
+            event_timezone.classList.remove('attendee_input')
+            event_timezone.classList.add('host_input')
+            event_status.classList.remove('attendee_input')
+            event_status.classList.add('host_input')
+            event_link.classList.remove('attendee_input')
+            event_link.classList.add('host_input')
+            event_duedate.classList.remove('attendee_input')
+            event_duedate.classList.add('host_input')
           }
           else {
             button.classList.remove('host-btn');
             button.classList.add('attandee-btn');
             button.innerText = 'Select Your Availablity';
             form.action = '/users/invite-response';
+            event_name.classList.remove('host_input')
+            event_name.classList.add('attendee_input')
+            event_date.classList.remove('host_input')
+            event_date.classList.add('attendee_input')
+            event_duration.classList.remove('host_input')
+            event_duration.classList.add('attendee_input')
+            event_timezone.classList.remove('host_input')
+            event_timezone.classList.add('attendee_input')
+            event_status.classList.remove('host_input')
+            event_status.classList.add('attendee_input')
+            event_link.classList.remove('host_input')
+            event_link.classList.add('attendee_input')
+            event_duedate.classList.remove('host_input')
+            event_duedate.classList.add('attendee_input')
           }
         }
       }
