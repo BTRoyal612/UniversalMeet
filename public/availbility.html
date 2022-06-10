@@ -7,21 +7,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link href="./stylesheets/event.css" rel="stylesheet">
+  <link href="/stylesheets/event.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a2d20e5bcc.js" crossorigin="anonymous"></script>
+  <script src="/javascripts/availbility.js"></script>
   <title>Availablity</title>
 </head>
 
 <body>
-  <div class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></div>
-  <div class="arrow next"><i class="fa-solid fa-check" onclick="addAvailabilityHandler()"></i></div>
+  <form action="/users/profile" method="get" class="home-ctn">
+    <button class="home"><i class="fa-solid fa-house"></i></button>
+  </form>
+  <form action="/users/invitation" method="post">
+    <button class="arrow next" onclick="addAvailabilityHandler()"><i class="fa-solid fa-check"></i></button>
+  </form>
   <div class="avail-ctn-box">
     <h1 class="avail-header">Your Availability</h1>
     <div class="avail-ctn">
     </div>
     <div class="avail-add" onclick="addTimeFrame()">Add Time Frame</div>
   </div>
-  <script src="./javascripts/availbility.js"></script>
+  <script>
+    curTF = 1;
+    const addTimeFrame = () => {
+      var tf_ctn = document.getElementsByClassName('avail-ctn')[0];
+      var tf = document.createElement('div');
+      tf.id = curTF;
+      curTF += 1;
+      tf.classList.add("avail-time-frame");
+      tf.innerHTML = '<label>From</label><input type="time" name="event-name" class="avail-time-frame-input"><i class="xmark-time-frame fa-solid fa-xmark" onclick="deleteTimeFrame(' + tf.id + ')"></i>'
+      tf_ctn.appendChild(tf)
+    }
+
+    const deleteTimeFrame = (id) => {
+      var tf = document.getElementById(id);
+      tf.outerHTML = "";
+    }
+
+    const addAvailabilityHandler = () => {
+      var childDivs = document.getElementsByClassName('avail-time-frame-input');
+      for (let i = 0; i < childDivs.length; i++) {
+        tf = childDivs[i].value + ":00";
+        addAvailability(tf);
+      }
+    }
+
+    function addAvailability(time_frame) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      }
+
+      xhttp.open("POST", "/users/addAvailability", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ time_frame: time_frame }));
+    }
+  </script>
 </body>
 
 </html>
