@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="/stylesheets/event.css" rel="stylesheet">
+
+  <script src="https://kit.fontawesome.com/a2d20e5bcc.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
+
+  <title>Availablities</title>
+</head>
+
+<body>
+  <form action="/users/pending-events" method="get">
+    <button class="arrow prev"><i class="arrow-icon fa-solid fa-angle-left"></i></button>
+  </form>
+  <div class="reponse_ctn">
+    <div class="event-info event-info-response">
+      <h1 class="event-info-header">Event Information</h1>
+      <label>Event Name</label>
+      <div id="event-name" class="event-input host-info-input">Web Meeting</div>
+      <label>Date</label>
+      <div id="event-date" class="event-input host-info-input"></div>
+      <label>Duration (in minute)</label>
+      <div id="event-duration" class="event-input host-info-input">150</div>
+      <label>Time Zones</label>
+      <div id="event-timezone" class="event-input host-info-input">(GMT-12:00) International Date Line West</div>
+      <label>Online/Offline</label>
+      <div id="event-status" class="event-input host-info-input">Online</div>
+      <label>Due Date</label>
+      <div id="event-duedate" class="event-input host-info-input"></div>
+      <label id="link">Link/Location</label>
+      <div id="event-link" class="event-input host-info-input">Link</div>
+      <button class="delete_event_btn" id="delete_event" onclick="deleteEvent();">Delete</button><button class="delete_event_btn" id="finalize_event" onclick="finalizeEvent();">Finalize</button>
+    </div>
+    <div class="avail-ctn-box event-info-response">
+      <h1 class="avail-header">Number of Availablities</h1>
+      <div class="avail-ctn response-avail-ctn">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var event_id = 7;
+    var duration;
+    var cur_avails = [];
+    var creator_id;
+    var name;
+    var date;
+
+    var user_emails_cancel  = [];
+    var user_emails_finalize = [];
+
+    $(document).ready(function () {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let cur_event = JSON.parse(this.responseText)[0];
+          let event_name = document.getElementById("event-name");
+          event_name.innerText = cur_event["event_name"]
+          let event_date = document.getElementById("event-date")
+          event_date.innerText = cur_event["date"].substring(0, 10)
+          let event_duration = document.getElementById("event-duration");
+          event_duration.innerText = cur_event["duration"]
+          duration = cur_event["duration"]
+          let event_timezone = document.getElementById("event-timezone");
+          event_timezone.innerText = cur_event["time_zone"]
+          let event_status = document.getElementById("event-status");
+          let event_link = document.getElementById("event-link");
+          if (cur_event["isOnline"] == 0)
+          {
+            event_status.innerText = "Offline"
+            event_link.innerText = cur_event["hold_location"]
+          }
+          else {
+            event_status.innerText = "Online"
+            event_link.innerText = cur_event["share_link"]
+          }
+          let event_duedate = document.getElementById("event-duedate");
+          event_duedate.innerText = cur_event["due_date"].substring(0,10) + " (" + cur_event["due_date"].substring(12,19) + ")";
+
+          document.getElementById("finalize_event").hidden = cur_event["isFinalised"];
+
+          name = cur_event["event_name"];
+          date = cur_event["date"].substring(0,10);
+          creator_id = cur_event["creator_id"];
+        }
+      }
+
+      xhttp.open("POST", "/users/getEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+
+      // get Availablity
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let avails = JSON.parse(this.responseText);
+          cur_avails = [...avails]
+          var ctn = document.getElementsByClassName('response-avail-ctn')[0];
+          for (let i in avails) {
+            var tfDIV = document.createElement('div');
+            var from = document.createElement('div');
+            var count = document.createElement('div');
+            count.classList.add('host-tf-count')
+            count.id = avails[i]['avail_time'];
+            getCount(avails[i]['avail_time']);
+
+            tfDIV.classList.add('event-input');
+            tfDIV.classList.add('host-info-input');
+            tfDIV.classList.add('host-tf-input');
+            tfDIV.id = i
+            from.innerText = 'From ' + avails[i]['avail_time'].substring(0,5);
+
+            tfDIV.appendChild(from);
+            tfDIV.appendChild(count);
+            ctn.appendChild(tfDIV);
+          }
+        }
+      }
+
+      xhttp.open("POST", "/users/showAvailability", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+
+      // get user emails participate in event
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let users_list = JSON.parse(this.responseText);
+          for (let i in users_list) {
+            getFCPreference(users_list[i]['user_id']);
+          }
+        }
+      }
+
+      xhttp.open("POST", "/users/getUsersInEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+    });
+
+    function getCount(chosen_time) {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let count = JSON.parse(this.responseText);
+          let chosen;
+          if (count.length == 0) chosen = 0;
+          else chosen = count[0]['count'];
+          document.getElementById(chosen_time).innerHTML = chosen;
+        }
+      }
+
+      xhttp.open("POST", "/users/countChosenTime", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
+    };
+
+    function getFCPreference(user_id) {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let preference = JSON.parse(this.responseText)[0];
+          let email = preference['email'];
+          if (preference['event_finalize']) user_emails_finalize.push(email);
+          if (preference['event_cancel']) user_emails_cancel.push(email);
+        }
+      }
+
+      xhttp.open("POST", "/users/getFCPreference", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ user_id:user_id }));
+    };
+
+    function deleteEvent() {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let subject = "An event on UniversalMeet is CANCELLED!!!";
+          let body = name + " that will happen on the " + date + " is cancelled. You can make other plans now ^^!"
+          sendEmails(subject, body, user_emails_cancel);
+          window.location = "/users/pending-events";
+        }
+      }
+
+      xhttp.open("POST", "/users/deleteEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+    };
+
+    function finalizeEvent() {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let subject = "An event on UniversalMeet is FINALIZED!!!";
+          let body = name + " that will happen on the " + date + " is finalized. Don't bamboozle others and be there on time ^^!"
+          sendEmails(subject, body, user_emails_finalize);
+
+          window.location = "/users/pending-events";
+        }
+      }
+
+      xhttp.open("POST", "/users/finalizeEvent", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+    };
+
+    function sendEmails(subject, body, recipients) {
+      for (let email of recipients) {
+        sendEmail(subject, body, email);
+      }
+    };
+
+    function sendEmail(subject, body, user) {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+      }
+
+      xhttp.open("POST", "/sendEmail", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
+    };
+  </script>
+</body>
+
+</html>

@@ -6,22 +6,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link href="./stylesheets/main.css" rel="stylesheet">
+  <link href="/stylesheets/main.css" rel="stylesheet">
 </head>
 
 <body>
   <div class="home-page">
-    <h1 class="app-name">UNIVERSAL MEET</h1>
+    <h1 class="app-name"><span class="name_1">UNIVERSAL</span><span class="name_2">MEET</span></h1>
     <div class="home-btn-ctn">
-      <button class="home-btn home-login-btn">Log In</button>
-      <div class="meeting-btn-ctn home-btn">
-        <div class="meeting-input-ctn" onclick="meetingBtnClick()">
-          <input class="meeting-input" type="text" placeholder="Enter Meeting ID">
-          <button class="go-meeting-btn">Go</button>
-        </div>
-        <button class="meeting-btn">Enter Meeting ID</button>
-      </div>
+        <form action="/login" method="get">
+            <button class="custom-btn btn-7 btn-7-extra"><span>LOGIN</span></button>
+        </form>
+        <form action="/signup" method="get">
+            <button class="custom-btn btn-8 btn-8-extra"><span>SIGN UP</span></button>
+        </form>
     </div>
   </div>
-  <script src="./javascripts/main.js"></script>  
+  <script src="/javascripts/main.js"></script>
+</body>
+
 </html>
