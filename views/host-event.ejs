@@ -98,6 +98,7 @@
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id }));
 
+
       // get Availablity
       var xhttp = new XMLHttpRequest();
 
@@ -124,12 +125,14 @@
             tfDIV.appendChild(count);
             ctn.appendChild(tfDIV);
           }
+
         }
       }
 
       xhttp.open("POST", "/users/showAvailability", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ event_id: event_id }));
+
 
       // get user emails participate in event
       var xhttp = new XMLHttpRequest();
@@ -236,7 +239,6 @@
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
     };
+
   </script>
 </body>
-
-</html>
