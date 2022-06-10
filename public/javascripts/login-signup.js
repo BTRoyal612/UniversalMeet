@@ -3,29 +3,28 @@ function getUser() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
         }
-    }
+    };
 
     xhttp.open("GET", "/users", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
-};
+}
 
 function getAdmin() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
         }
-    }
+    };
 
     xhttp.open("GET", "/admin", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
-};
+}
 
 function login() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
-    console.log("login function");
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -37,7 +36,7 @@ function login() {
             window.location = '/admin/admin-user';
           } else {
             getUser();
-            window.location = '/users/profile'
+            window.location = '/users/profile';
           }
         }else if(this.readyState == 4 && this.status >= 400){
           alert("Login Failed! Username or Email incorrect.");
