@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="/stylesheets/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
@@ -184,10 +185,8 @@
         if (this.readyState == 4 && this.status == 200) {
           let lists = JSON.parse(this.responseText)[0]
           let count = lists.length;
-          console.log(count);
           for (let event of lists) {
             getEventCalendar(event['event_id']);
-            console.log(calendar_list);
           }
         }
       }
@@ -206,20 +205,13 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           if (JSON.parse(this.responseText)[0].length === 0) return;
-          console.log(JSON.parse(this.responseText)[0])
           calendar_event = JSON.parse(this.responseText)[0][0];
-
-          console.log(calendar_event["date"]);
-
           let day = calendar_event["date"].substring(5,7) + "/" + calendar_event["date"].substring(8,10);
-          console.log(day)
           if (calendar_list[day]) {
             calendar_list[day].push({name: calendar_event["event_name"], from: calendar_event["chosen_time"], duration: calendar_event["duration"]});
           } else {
             calendar_list[day] = [{name: calendar_event["event_name"], from: calendar_event["chosen_time"], duration: calendar_event["duration"]}];
           }
-
-
         }
       }
 
@@ -230,11 +222,9 @@
 
 
     function buildCalendar () {
-      console.log("build");
       var calendar_div = document.getElementsByClassName("profile_schedule")[0];
       calendar_div.innerHTML = "";
       for (let day in calendar_list) {
-        console.log("day");
         let day_div = document.createElement('div');
         day_div.classList.add("day");
         let day_title = document.createElement('div');
@@ -275,77 +265,6 @@
         calendar_div.appendChild(day_div);
       }
     }
-
-
-    // POST get user finalized events for calender
-    // function getEventCalendar (event_id) {
-    //   var xhttp = new XMLHttpRequest();
-
-    //   xhttp.onreadystatechange = function () {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       console.log(JSON.parse(this.responseText)[0])
-    //       calendar_events = JSON.parse(this.responseText)[0];
-    //       var calendar_div = document.getElementsByClassName("profile_schedule")[0];
-    //       calendar_list = {}
-    //       for (let calendar of calendar_events) {
-    //         let day = calendar["date"].substring(5,7) + "/" + calendar["date"].substring(8,10);
-    //         console.log(day)
-    //         if (day in calendar) {
-    //           calendar_list[day].push(calendar["event_name"]);
-    //         }
-    //         else {
-    //           calendar_list[day] = [{name: calendar["event_name"], from: '10:00', duration: calendar["duration"]}];
-    //         }
-    //       }
-
-    //       for (let day in calendar_list) {
-    //         let day_div = document.createElement('div');
-    //         day_div.classList.add("day");
-    //         let day_title = document.createElement('div');
-    //         day_title.classList.add("day_title");
-    //         day_title.innerText = day;
-    //         day_div.appendChild(day_title);
-    //         let day_event_all = document.createElement('div');
-    //         day_event_all.classList.add("day_event_all");
-    //         for (let i = 0; i < calendar_list[day].length; i++) {
-    //           let day_event = document.createElement('div');
-    //           day_event.classList.add("day_event");
-    //           let day_event_name = document.createElement('div');
-    //           day_event_name.classList.add("day_event_name");
-    //           day_event_name.innerText = calendar_list[day][i]["name"];
-    //           let hour = Math.floor(calendar_list[day][i]["duration"]/60);
-    //           let minute = calendar_list[day][i]["duration"]%60;
-    //           let hour_from_time = parseInt(calendar_list[day][i]["from"].substring(0,2));
-    //           let minute_from_time = parseInt(calendar_list[day][i]["from"].substring(3,5));
-    //           let end_hour = hour+hour_from_time;
-    //           let end_minute = minute+minute_from_time;
-    //           if (end_minute>60) {
-    //             end_hour+=1
-    //             end_minute-=60
-    //           }
-    //           end_hour = end_hour.toString();
-    //           end_minute = end_minute.toString();
-    //           if (end_minute.length < 2) {
-    //             end_minute = "0"+end_minute;
-    //           }
-    //           let day_event_time = document.createElement('div');
-    //           day_event_time.classList.add("day_event_time");
-    //           day_event_time.innerText = calendar_list[day][i]["from"] + "-" + end_hour+":"+end_minute;
-    //           day_event.appendChild(day_event_name);
-    //           day_event.appendChild(day_event_time);
-    //           day_event_all.appendChild(day_event);
-    //         }
-    //         day_div.appendChild(day_event_all);
-    //         calendar_div.appendChild(day_div);
-    //       }
-
-    //     }
-    //   }
-
-    //   xhttp.open("POST", "/users/getEventCalender", true);
-    //   xhttp.setRequestHeader("Content-type", "application/json");
-    //   xhttp.send(JSON.stringify({ event_id: event_id }));
-    // }
   </script>
 </body>
 

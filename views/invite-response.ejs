@@ -54,7 +54,6 @@
       var name;
       var date;
       $(document).ready(function () {
-        console.log(event_id);
         var xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function () {
@@ -83,6 +82,7 @@
             }
 
             creator_id = cur_event["creator_id"];
+            getUJPreference(creator_id);
             getURPreference(creator_id);
             name = cur_event["event_name"];
             date = cur_event["date"].substring(0,10);
@@ -100,8 +100,7 @@
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
             let avails = JSON.parse(this.responseText);
-            cur_avails = [...avails]
-            console.log(avails)
+            cur_avails = [...avails];
             var ctn = document.getElementsByClassName('response-avail-ctn')[0];
             for (let i in avails) {
               var tfDIV = document.createElement('div');
@@ -128,7 +127,6 @@
         for (tf of chosenTF) {
           tfArr.push(cur_avails[tf.id])
         }
-        console.log(tfArr)
 
         // delete chosen time
         var xhttp = new XMLHttpRequest();
@@ -149,7 +147,7 @@
         }
 
         // send email based on host reference
-        if (creator_email) sendEmail(creator_email);
+        if (creator_email) sendEmailUR(creator_email);
       }
 
       function addChosenTime(chosen_time) {
@@ -163,6 +161,23 @@
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify({ event_id: event_id, chosen_time: chosen_time }));
       }
+
+      // get email based on host preference on user join
+      function getUJPreference(user_id) {
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            let preference = JSON.parse(this.responseText)[0];
+            if (preference['user_join']) sendEmailUJ(preference['email']);
+
+          }
+        }
+
+        xhttp.open("POST", "/users/getUJPreference", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ user_id: user_id }));
+      };
 
       // get email based on host preference on user respond
       function getURPreference(user_id) {
@@ -181,7 +196,26 @@
       }
 
       // send email
-      function sendEmail(user) {
+      function sendEmailUJ(user) {
+        let subject = "Someone just JOIN YOUR EVENT!!!";
+        let body = "A new user join your event: " + name + " on " + date + ". Remember to be a good host!!!";
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+          }
+        }
+
+        xhttp.open("POST", "/sendEmail", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
+      };
+
+
+
+      // send email
+      function sendEmailUR(user) {
         let subject = "A user respond to YOUR EVENT!!!";
         let body = "A user just update their chosen time for your event: " + name + " on " + date + ". Remember to be a good host!!!";
 
