@@ -9,12 +9,12 @@ function getUser(id) {
         if (this.readyState == 4 && this.status == 200) {
           joinEvent(id);
         }
-    }
+    };
 
     xhttp.open("GET", "/users", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
-};
+}
 
 function getAdmin() {
     var xhttp = new XMLHttpRequest();
@@ -22,12 +22,12 @@ function getAdmin() {
         if (this.readyState == 4 && this.status == 200) {
           window.location = '/admin/admin-user';
         }
-    }
+    };
 
     xhttp.open("GET", "/admin", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
-};
+}
 
 function serialize(id) {
     let res = "";
@@ -40,7 +40,7 @@ function serialize(id) {
       res = res + 'a';
     }
     return res.split("").reverse().join("");
-};
+}
 
 function pending_login(id) {
     let email = document.getElementById('email').value;
@@ -60,12 +60,12 @@ function pending_login(id) {
           alert("Login Failed! Username or Email incorrect.");
         }
 
-    }
+    };
 
     xhttp.open("POST", "/login", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify({ email:email , password:password }));
-};
+}
 
 function pending_signup(id) {
   let notice = document.getElementById('notice');
@@ -110,12 +110,12 @@ function pending_signup(id) {
             getUser(id);
           }
       }
-  }
+  };
 
   xhttp.open("POST", "/signup", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ username:username , password:password , email:email}));
-};
+}
 
 
 function onSignIn(googleUser) {
@@ -129,13 +129,10 @@ function onSignIn(googleUser) {
             let user = JSON.parse(this.responseText)[0];
             if (user.isAdmin) {
               getAdmin();
-              window.location = '/admin/admin-user'
+              window.location = '/admin/admin-user';
             } else {
               getUser(event_id);
             }
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-            });
         }
     };
 
@@ -153,7 +150,7 @@ function joinEvent(id) {
     if (this.readyState == 4 && this.status == 200) {
       window.location = '/users/invite-response/'+serialize(id);
     }
-  }
+  };
 
   xhttp.open("POST", "/users/joinEvent", true);
   xhttp.setRequestHeader("Content-type", "application/json");

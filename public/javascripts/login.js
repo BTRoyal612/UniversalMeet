@@ -1,12 +1,6 @@
 function onSignIn(googleUser) {
-    console.log('openID test');  //It show up means this function successfully be called
-
     //So guys extract anything you need from 'profile', just like what I shown below
     var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to backend directly. Use ID token
-    console.log('Name: ' + profile.getName()); //It's not definitely English
-    console.log('Image URL: ' + profile.getImageUrl()); //Probably we dont need that
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present
 
     let xhttp = new XMLHttpRequest();
 
