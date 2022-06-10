@@ -62,12 +62,14 @@ $ npm start
 	- Buttons have different hover properties to easily identify.
 	- Use JavaScript to make sure users have to enter required inputs.
 	- All pages have home button to come back to profile.
+	- A calendar in the profile page that displays finalized
 
 * Back-end
 	- Use NodeJS to structure the code. 
 	- Use router and AJAX functions to interact with the database. 
 	- Use router and view engines (EJS) to smoothly render and pass variables around pages.
-	- Integrated openID to use google sign in.
+	- Integrated [openID](https://openid.net/) to use google sign in.
+	- Integrated [nodemailer](https://nodemailer.com/about/) to send email notification
 
 * Database
 	- Table and Virtual Table are used. Also, to work better with the router, 26 Procedures have been added. Depending on the requirements, some derived data will be updated automatically when the base data changes, or through Procedures when needed.
