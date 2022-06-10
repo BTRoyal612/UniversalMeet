@@ -5,10 +5,10 @@ USE universal_meet;
 CREATE TABLE User(
     user_id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL DEFAULT "empty@so.rename",
     password BINARY(32) NOT NULL,
     isAdmin BOOLEAN NOT NULL DEFAULT false,
-    isRegistered BOOLEAN NOT NULL,
+    isRegistered BOOLEAN NOT NULL DEFAULT true,
 
     PRIMARY KEY (user_id),
     CONSTRAINT email_not_unique UNIQUE (email)
