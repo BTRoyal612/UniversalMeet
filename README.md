@@ -31,7 +31,7 @@ Register as our user (or use your Google Account). Even if you are not a registe
 
 ## How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) and [MySQL](https://www.mysql.com/) installed on your computer. An alternative for people from COMP SCI 2207 course, you can run this in codespace, using setting up commands from the courses. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) and [MySQL](https://www.mysql.com/) installed on your computer. An alternative for people from COMP SCI 2207 course, you can run this in codespace, using set up commands from the courses. From your command line:
 
 ```bash
 # Clone this repository
