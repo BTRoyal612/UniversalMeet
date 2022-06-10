@@ -41,13 +41,12 @@ function login() {
         }else if(this.readyState == 4 && this.status >= 400){
           alert("Login Failed! Username or Email incorrect.");
         }
-
-    }
+    };
 
     xhttp.open("POST", "/login", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify({ email:email , password:password }));
-};
+}
 
 function signup() {
   let notice = document.getElementById('notice');
@@ -88,13 +87,13 @@ function signup() {
           let user = JSON.parse(this.responseText)[0];
           if (user.isAdmin) {
             getAdmin();
-            window.location = '/admin/admin-user'
+            window.location = '/admin/admin-user';
           } else {
             getUser();
-            window.location = '/users/profile'
+            window.location = '/users/profile';
           }
       }
-  }
+  };
 
   xhttp.open("POST", "/signup", true);
   xhttp.setRequestHeader("Content-type", "application/json");
@@ -102,14 +101,9 @@ function signup() {
 };
 
 function onSignIn(googleUser) {
-    console.log('openID test');  //It show up means this function successfully be called
 
     //So guys extract anything you need from 'profile', just like what I shown below
     var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to backend directly. Use ID token
-    console.log('Name: ' + profile.getName()); //It's not definitely English
-    console.log('Image URL: ' + profile.getImageUrl()); //Probably we dont need that
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present
 
     let xhttp = new XMLHttpRequest();
 
@@ -119,14 +113,13 @@ function onSignIn(googleUser) {
             let user = JSON.parse(this.responseText)[0];
             if (user.isAdmin) {
               getAdmin();
-              window.location = '/admin/admin-user'
+              window.location = '/admin/admin-user';
             } else {
               getUser();
-              window.location = '/users/profile'
+              window.location = '/users/profile';
             }
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
-              console.log('Google User disconnect.');
             });
         }// else if(this.readyState == 4 && this.status >= 400){
         //   alert("Login Failed! Google login incorrect.");
@@ -147,14 +140,9 @@ function onSignIn(googleUser) {
 }
 
 function onSignIn(googleUser) {
-  console.log('openID test');  //It show up means this function successfully be called
 
   //So guys extract anything you need from 'profile', just like what I shown below
   var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to backend directly. Use ID token
-  console.log('Name: ' + profile.getName()); //It's not definitely English
-  console.log('Image URL: ' + profile.getImageUrl()); //Probably we dont need that
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present
 
   let xhttp = new XMLHttpRequest();
 
@@ -171,7 +159,6 @@ function onSignIn(googleUser) {
           }
           var auth2 = gapi.auth2.getAuthInstance();
           auth2.signOut().then(function () {
-            console.log('Google User disconnect.');
           });
       }// else if(this.readyState == 4 && this.status >= 400){
       //   alert("Login Failed! Google login incorrect.");
