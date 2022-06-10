@@ -38,7 +38,7 @@ router.post('/updateSession', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST update password. */
 router.post('/updatePassword', function(req, res, next) {
@@ -58,7 +58,7 @@ router.post('/updatePassword', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST join event. */
 router.post('/joinEvent', function(req, res, next) {
@@ -78,7 +78,7 @@ router.post('/joinEvent', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST get user event list. */
 router.post('/getEventList', function(req, res, next) {
@@ -98,7 +98,7 @@ router.post('/getEventList', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get user event pending list. */
 router.post('/getEvents', function(req, res, next) {
@@ -118,7 +118,7 @@ router.post('/getEvents', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get user finalized event for calender. */
 router.post('/getEventCalender', function(req, res, next) {
@@ -138,7 +138,7 @@ router.post('/getEventCalender', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get event. */
 router.post('/getEvent', function(req, res, next) {
@@ -159,7 +159,7 @@ router.post('/getEvent', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get event creator. */
 router.post('/getEventCreator', function(req, res, next) {
@@ -179,7 +179,7 @@ router.post('/getEventCreator', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get users email in event. */
 router.post('/getUsersInEvent', function(req, res, next) {
@@ -199,7 +199,7 @@ router.post('/getUsersInEvent', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST add event. */
 router.post('/addEvent', function(req, res, next) {
@@ -220,7 +220,7 @@ router.post('/addEvent', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST delete event. */
 router.post('/deleteEvent', function(req, res, next) {
@@ -241,7 +241,7 @@ router.post('/deleteEvent', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST update event. */
 router.post('/updateEvent', function(req, res, next) {
@@ -262,7 +262,7 @@ router.post('/updateEvent', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST add chosen time */
 router.post('/addChosenTime', function(req, res, next) {
@@ -285,7 +285,7 @@ router.post('/addChosenTime', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST delete chosen time */
 router.post('/deleteChosenTime', function(req, res, next) {
@@ -308,7 +308,7 @@ router.post('/deleteChosenTime', function(req, res, next) {
       res.send(); //send response
       });
   });
-})
+});
 
 /* POST get count how many user choose a time */
 router.post('/countChosenTime', function(req, res, next) {
@@ -331,7 +331,7 @@ router.post('/countChosenTime', function(req, res, next) {
       res.send(rows);
     });
   });
-})
+});
 
 /* POST event creator add availability */
 router.post('/addAvailability', function(req, res, next) {
@@ -354,8 +354,7 @@ router.post('/addAvailability', function(req, res, next) {
       res.send(); //send response
     });
   });
-
-})
+});
 
 /* POST show all Availability */
 router.post('/showAvailability', function(req, res, next) {
@@ -376,12 +375,12 @@ router.post('/showAvailability', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* GET get email. */
 router.get('/getEmail', function(req, res, next) {
   res.send(user.email); //send response
-})
+});
 
 /* POST update email. */
 router.post('/updateEmail', function(req, res, next) {
@@ -423,7 +422,7 @@ router.post('/getUJPreference', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get preference about user respond. */
 router.post('/getURPreference', function(req, res, next) {
@@ -444,7 +443,7 @@ router.post('/getURPreference', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get preference about event cancel and event finalize. */
 router.post('/getFCPreference', function(req, res, next) {
@@ -465,7 +464,7 @@ router.post('/getFCPreference', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get email preference. */
 router.post('/getEmailPreference', function(req, res, next) {
@@ -486,7 +485,7 @@ router.post('/getEmailPreference', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST update email preference. */
 router.post('/updateEmailPreference', function(req, res, next) {
@@ -507,7 +506,7 @@ router.post('/updateEmailPreference', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST finalize event. */
 router.post('/finalizeEvent', function(req, res, next) {
@@ -528,64 +527,64 @@ router.post('/finalizeEvent', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 router.get('/profile', function(req, res, next) {
   res.render('profile');
-})
+});
 
 router.get('/noti_preferences', function(req, res, next) {
   res.render('noti_preferences');
-})
+});
 
 router.post('/calendar', function(req, res, next) {
   res.render('calendar');
-})
+});
 
 router.post('/event-info', function(req, res, next) {
   let date = req.body.eventDate;
   res.render('event-info', {date: date});
-})
+});
 
 router.post('/availability', function(req, res, next) {
   res.render('availability');
-})
+});
 
 router.post('/invitation', function(req, res, next) {
   res.render('invitation', {event_id: req.session.event[0].event_id, url:req.rawHeaders[23]});
-})
+});
 
 router.get('/pending-events', function(req, res, next) {
   res.render('pending-events');
-})
+});
 
 router.post('/invite-response', function(req, res, next) {
-  eventId = req.body.eventId;
+  var eventId = req.body.eventId;
   res.render('invite-response', {eventId: eventId});
-})
+});
 
 router.post('/host-event', function(req, res, next) {
-  eventId = req.body.eventId;
+  var eventId = req.body.eventId;
   res.render('host-event', {eventId: eventId});
-})
+});
 
 function deserialize(id) {
   res = 0;
   for (let i = 0; i < id.length; i++) {
-    res = res + (id.charCodeAt(i) - 97) * Math.pow(26, (id.length - 1 - i));;
+    res = res + (id.charCodeAt(i) - 97) * Math.pow(26, (id.length - 1 - i));
     // res = res + (id.charCodeAt(i) - 97) * (26 ** (id.length - 1 - i));
   }
   return res;
-}
+};
 
 router.get('/invitation-response/:id', function(req, res, next) {
   let id = deserialize(req.params.id);
   res.render('invitation-response', {event_id: id});
-})
+});
 
 router.get('/invite-response/:id', function(req, res, next) {
   let id = deserialize(req.params.id);
   res.render('invite-response', {eventId: id});
-})
+});
 module.exports = router;
 
