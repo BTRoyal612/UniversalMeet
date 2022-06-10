@@ -20,5 +20,4 @@ function sendEmail(subject, body, user) {
   });
 }
 
-// sendEmail("hi", "hello", "hoangnamtrinh15@gmail.com")
-exports.sendEmail = sendEmail
+exports.sendEmail = sendEmail;

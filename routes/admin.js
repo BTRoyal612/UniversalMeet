@@ -34,7 +34,7 @@ router.post('/addAdmin', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST get user list admin. */
 router.post('/getUserList', function(req, res, next) {
@@ -56,7 +56,7 @@ router.post('/getUserList', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST get user. */
 router.post('/getUser', function(req, res, next) {
@@ -76,7 +76,7 @@ router.post('/getUser', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST add user. */
 router.post('/addUser', function(req, res, next) {
@@ -96,7 +96,7 @@ router.post('/addUser', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST delete user admin. */
 router.post('/deleteUser', function(req, res, next) {
@@ -116,7 +116,7 @@ router.post('/deleteUser', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST get event list admin. */
 router.post('/getEventList', function(req, res, next) {
@@ -136,7 +136,7 @@ router.post('/getEventList', function(req, res, next) {
       res.json(rows); //send response
     });
   });
-})
+});
 
 /* POST add event. */
 router.post('/addEvent', function(req, res, next) {
@@ -176,7 +176,7 @@ router.post('/deleteEvent', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST update event. */
 router.post('/updateEvent', function(req, res, next) {
@@ -196,7 +196,7 @@ router.post('/updateEvent', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 /* POST update user email preference. */
 router.post('/updateEmailPreference', function(req, res, next) {
@@ -216,23 +216,23 @@ router.post('/updateEmailPreference', function(req, res, next) {
       res.send(); //send response
     });
   });
-})
+});
 
 router.post('/getAdminUser', function(req, res, next) {
   res.send('admin-user');
-})
+});
 
 router.post('/getAdminEvent', function(req, res, next) {
   res.send('admin-event');
-})
+});
 
 router.get('/admin-user', function(req, res, next) {
   res.render('admin-user');
-})
+});
 
 router.get('/admin-event', function(req, res, next) {
   res.render('admin-event');
-})
+});
 
 
 module.exports = router;
