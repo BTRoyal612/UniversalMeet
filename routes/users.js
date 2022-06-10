@@ -569,13 +569,13 @@ router.post('/host-event', function(req, res, next) {
 });
 
 function deserialize(id) {
-  res = 0;
+  var res = 0;
   for (let i = 0; i < id.length; i++) {
     res = res + (id.charCodeAt(i) - 97) * Math.pow(26, (id.length - 1 - i));
     // res = res + (id.charCodeAt(i) - 97) * (26 ** (id.length - 1 - i));
   }
   return res;
-};
+}
 
 router.get('/invitation-response/:id', function(req, res, next) {
   let id = deserialize(req.params.id);
@@ -587,4 +587,3 @@ router.get('/invite-response/:id', function(req, res, next) {
   res.render('invite-response', {eventId: id});
 });
 module.exports = router;
-
