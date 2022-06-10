@@ -92,7 +92,7 @@ Procedure Function List
     CALL change_password(user_id_, new_password_);
     CALL add_email(user_id_, email_);
     CALL change_email(user_id_, new_email_);
-    CALL change_notification(user_id_, user_respond_, avail_confirm_, event_finalize_, event_cancel_);
+    CALL change_notification(user_id_, user_respond_, user_join_, event_finalize_, event_cancel_);
 
     CALL create_event(creator_id_, event_name_, date_, duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
     CALL add_availability(event_id_, user_id_, avail_time_);
@@ -195,9 +195,7 @@ CREATE PROCEDURE change_notification(
     event_cancel_ BOOLEAN
 )
 BEGIN
-    IF NOT EXISTS (SELECT * FROM Email_preference WHERE user_id = user_id_) THEN
-        INSERT INTO Email_preference VALUES (user_id_, false, false, false, false);
-    END IF;
+    INSERT INTO Email_preference VALUES (user_id_, false, false, false, false);
     UPDATE Email_preference SET
     user_respond = user_respond_,
     user_join = user_join_,
@@ -313,7 +311,8 @@ CREATE PROCEDURE get_events_on_calendar(IN event_id_ INT)
 BEGIN
     SELECT Event.event_id, Event.event_name, Event.date, Pp_number.chosen_time, Event.duration, Pp_number.count FROM Event
     INNER JOIN Pp_number ON Event.event_id = Pp_number.event_id
-    WHERE Event.event_id = event_id_ AND (Event.isFinalised = true OR Event.due_date <= CURRENT_TIMESTAMP())
+    WHERE Event.event_id = event_id_
+    AND Event.isFinalised = true AND Event.date >= CURRENT_TIMESTAMP()
     AND Pp_number.chosen_time = (SELECT MIN(chosen_time) FROM Pp_number WHERE count = (SELECT MAX(count) FROM Pp_number WHERE event_id = event_id_))
     GROUP BY Event.event_id, Pp_number.chosen_time;
 
@@ -492,7 +491,7 @@ Procedure Function List
     CALL change_password(user_id_, new_password_);
     CALL add_email(user_id_, email_);
     CALL change_email(user_id_, new_email_);
-    CALL change_notification(user_id_, user_respond_, avail_confirm_, event_finalize_, event_cancel_);
+    CALL change_notification(user_id_, user_respond_, user_join_, event_finalize_, event_cancel_);
 
     CALL create_event(creator_id_, event_name_, date_, duration_, time_zone_, hold_location_, due_date_, note_, share_link_, isOnline_);
     CALL add_availability(event_id_, user_id_, avail_time_);
@@ -517,7 +516,7 @@ Procedure Function List
 
 /* Mock database */
 CALL sign_up('john', 'liu1021119271@gmail.com', 'zonghan180');
-CALL sign_up('nam', 'hoangnamtrinh15@student.adelaide.edu.au', 'nam1807');
+CALL sign_up('nam', 'hoangnamtrinh1511@gmail.com', 'nam1807');
 CALL sign_up('bao', 'gb.hoang02@gmail.com', 'baobill222');
 CALL sign_up('MarcusHoang', 'hoangnghia0403@gmail.com', '314marcusH');
 CALL sign_up('jason', 'a1806320@student.adelaide.edu.au', 'Jason180');
@@ -591,6 +590,8 @@ CALL join_event(4,8);
 CALL join_event(5,1);
 CALL join_event(5,5);
 CALL join_event(5,10);
+call join_event(2,2);
+call join_event(4,2);
 
 CALL choose_time(1, 3, '17:20:00');
 CALL choose_time(1, 3, '06:00:00');

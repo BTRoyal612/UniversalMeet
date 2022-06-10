@@ -49,20 +49,20 @@
         id = Math.floor(id / 26);
         res = res + String.fromCharCode(remainder + 97);
       }
-      console.log(res)
       while (res.length < 6) {
         res = res + 'a';
       }
       return res.split("").reverse().join("");
     }
+    
     var event_id = <%=event_id%>
-      var duration;
+    var duration;
     var cur_avails = [];
     $(document).ready(function () {
       let serial_input = document.getElementById("serial");
       serial_input.value = event_id;
       var xhttp = new XMLHttpRequest();
-      console.log(event_id)
+
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           let cur_event = JSON.parse(this.responseText)[0];
@@ -101,7 +101,6 @@
       for (tf of chosenTF) {
         tfArr.push(cur_avails[tf.id])
       }
-      console.log(tfArr)
 
       // delete chosen time
       var xhttp = new XMLHttpRequest();

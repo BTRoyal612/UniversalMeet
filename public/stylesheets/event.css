@@ -516,6 +516,18 @@ body {
   margin: 20px;
   width: 40%;
   height: 100vh;
+  overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.event-info-response::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.event-info-response {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .response-info-input {
@@ -651,4 +663,8 @@ body {
 .modal_body {
   background-color: rgba(21,25,34,1);
   color: white;
+}
+
+.hidden_input {
+  display: none;
 }
