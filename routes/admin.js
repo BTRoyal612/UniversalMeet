@@ -4,11 +4,9 @@ var router = express.Router();
 /* GET admin listing. */
 var admin;
 router.get('/', function(req, res, next) {
-  console.log(req.session);
   if (req.session.user[0].isAdmin) {
     admin = req.session.user;
   }
-  console.log(admin);
   res.send('respond with a resource');
 });
 
@@ -143,10 +141,8 @@ router.post('/getEventList', function(req, res, next) {
 /* POST add event. */
 router.post('/addEvent', function(req, res, next) {
   // Connect to the database
-  console.log(req.body);
   req.pool.getConnection(function(err, connection) {
     if (err) {
-      console.log(err)
       res.sendStatus(500);
       return;
     }
@@ -154,7 +150,6 @@ router.post('/addEvent', function(req, res, next) {
     connection.query(query, [req.body.creator_id, req.body.event_name, req.body.date, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err)
         res.sendStatus(500);
         return;
       }

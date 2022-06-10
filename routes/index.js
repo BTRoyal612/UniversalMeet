@@ -25,7 +25,6 @@ router.post('/login', function(req, res, next) {
     // Connect to the database
     req.pool.getConnection(function(err, connection) {
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
@@ -33,18 +32,14 @@ router.post('/login', function(req, res, next) {
       connection.query(query, [req.body.email, req.body.password], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
-          console.log(err);
           res.sendStatus(500);
           return;
         }
 
         if (rows[0].length > 0) {
           req.session.user = rows[0];
-          console.log('login success');
-          console.log(req.session.user);
           res.json(rows[0]); //send response
         } else {
-          console.log('login bad');
           res.sendStatus(401);
         }
       });
@@ -70,9 +65,6 @@ router.post('/googleLogin', function(req, res, next) {
       const userid = payload['sub'];
       username = payload['name'];
       email = payload['email'];
-      console.log(userid);
-      console.log(username);
-      console.log(email);
       // If request specified a G Suite domain: const domain = payload['hd'];
     }
     verify().then(function(){}).catch(function(){
@@ -82,7 +74,6 @@ router.post('/googleLogin', function(req, res, next) {
     // Connect to the database
     req.pool.getConnection(function(err, connection) {
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
@@ -90,39 +81,22 @@ router.post('/googleLogin', function(req, res, next) {
       connection.query(query, [username, email], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
-          console.log(err);
           res.sendStatus(501);
           return;
         }
 
         if (rows[0].length > 0) {
           req.session.user = rows[0];
-          console.log('login success');
-          console.log(req.session.user);
           res.json(rows[0]); //send response
         } else {
-          console.log('login bad! No corresponding account');
           res.sendStatus(401);
         }
       });
     });
   }else{
-    console.log('no id_token');
     res.sendStatus(400);
   }
-
-
-
-  //Codes below are from https://developers.google.com/identity/sign-in/web/backend-auth
-  // var xhr = new XMLHttpRequest();
-  // xhr.open('POST', 'https://yourbackend.example.com/tokensignin');
-  // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  // xhr.onload = function() {
-  //   console.log('Signed in as: ' + xhr.responseText);
-  // };
-  // xhr.send('idtoken=' + id_token);
-
-})
+});
 
 /* POST pending sign up. */
 router.post('/pending-signup', function(req, res, next) {
@@ -147,17 +121,13 @@ router.post('/signup', function(req, res, next) {
       connection.query(query, [req.body.username, req.body.email, req.body.password], function(err, rows, fields) {
         connection.release(); // release connection
         if (err) {
-          console.log(err);
           res.sendStatus(500);
           return;
         }
         if (rows[0].length > 0) {
           req.session.user = rows[0];
-          console.log('login success');
-          console.log(req.session.user);
           res.json(rows[0]); //send response
         } else {
-          console.log('login bad');
           res.sendStatus(401);
         }
       });
@@ -209,24 +179,4 @@ router.post('/sendEmail', function(req, res, next) {
   res.send('send email');
 });
 
-// var nodemailer = require("nodemailer");
-// let transporter = nodemailer.createTransport({
-//   host: "gmail",
-//   port: 587,
-//   secure: false, // true for 465, false for other ports
-//   auth: {
-//     user: "meet.universal@gmail.com", // generated ethereal user
-//     pass: "Finalproject1", // generated ethereal password
-//   },
-// });
-
-// // send mail with defined transport object
-// let info = await transporter.sendMail({
-//   from: '"Fred Foo 👻" <foo@example.com>', // sender address
-//   to: "bar@example.com, baz@example.com", // list of receivers
-//   subject: "Hello ✔", // Subject line
-//   text: "Hello world?", // plain text body
-//   html: "<b>Hello world?</b>", // html body
-// });
 module.exports = router;
-

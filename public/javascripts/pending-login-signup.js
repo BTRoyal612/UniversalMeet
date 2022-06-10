@@ -20,6 +20,7 @@ function getAdmin() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+          window.location = '/admin/admin-user';
         }
     }
 
@@ -42,23 +43,18 @@ function serialize(id) {
 };
 
 function pending_login(id) {
-    console.log(id)
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
-    console.log("login function");
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
 
         if (this.readyState == 4 && this.status == 200) {
-          console.log(id)
           let user = JSON.parse(this.responseText)[0];
           if (user.isAdmin) {
             getAdmin();
-            window.location = '/admin/admin-user';
           } else {
             getUser(id);
-            window.location = '/users/invite-response/'+serialize(id);
           }
         } else if (this.readyState == 4 && this.status >= 400){
           alert("Login Failed! Username or Email incorrect.");
@@ -110,10 +106,8 @@ function pending_signup(id) {
           let user = JSON.parse(this.responseText)[0];
           if (user.isAdmin) {
             getAdmin();
-            window.location = '/admin/admin-user';
           } else {
-            getUser();
-            window.location = '/users/invite-response/'+serialize(id);
+            getUser(id);
           }
       }
   }
@@ -125,19 +119,12 @@ function pending_signup(id) {
 
 
 function onSignIn(googleUser) {
-    console.log('openID test');  //It show up means this function successfully be called
-
     //So guys extract anything you need from 'profile', just like what I shown below
     var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to backend directly. Use ID token
-    console.log('Name: ' + profile.getName()); //It's not definitely English
-    console.log('Image URL: ' + profile.getImageUrl()); //Probably we dont need that
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present
 
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
-
         if(this.readyState == 4 && this.status == 200){
             let user = JSON.parse(this.responseText)[0];
             if (user.isAdmin) {
@@ -145,28 +132,18 @@ function onSignIn(googleUser) {
               window.location = '/admin/admin-user'
             } else {
               getUser(event_id);
-              window.location = '/users/invite-response/'+serialize(event_id);
             }
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
-              console.log('Google User disconnect.');
             });
-        }// else if(this.readyState == 4 && this.status >= 400){
-        //   alert("Login Failed! Google login incorrect.");
-        // }
+        }
     };
 
     var id_token = googleUser.getAuthResponse().id_token;  //Token from Google side
 
-    //I dont know if u guys want to do login like this. This is just a tmp mock one to show u guys how openID work
-
     xhttp.open("POST", "/googleLogin"); //An unique request for openID login
     xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify({
-      token: id_token
-    }));
-
-    //So generally it will get a id token from Google side and send it to our server in JSON format. Just adjust anything here as we need.
+    xhttp.send(JSON.stringify({ token: id_token }));
 }
 
 // Let user join event
@@ -174,7 +151,7 @@ function joinEvent(id) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      getEventCreator(id);
+      window.location = '/users/invite-response/'+serialize(id);
     }
   }
 
@@ -182,52 +159,3 @@ function joinEvent(id) {
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ event_id: id }));
 }
-
-// get event info for email
-function getEventCreator(event_id) {
-  var xhttp = new XMLHttpRequest();
-
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let event = JSON.parse(this.responseText)[0];
-      getUJPreference(event['creator_id'], event['event_name'], event['date'].substring(0, 10));
-    }
-  }
-
-  xhttp.open("POST", "/getEventCreator", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ event_id:event_id }));
-};
-
-// get email based on host preference on user join
-function getUJPreference(user_id, name, date) {
-  var xhttp = new XMLHttpRequest();
-
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let preference = JSON.parse(this.responseText)[0];
-      if (preference['user_join']) sendEmail(preference['email'], name, date);
-    }
-  }
-
-  xhttp.open("POST", "/users/getUJPreference", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ user_id: user_id }));
-}
-
-// send email
-function sendEmail(user, name, date) {
-  let subject = "Someone just JOIN YOUR EVENT!!!";
-  let body = "A new user join your event: " + name + " on " + date + ". Remember to be a good host!!!";
-
-  var xhttp = new XMLHttpRequest();
-
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-    }
-  }
-
-  xhttp.open("POST", "/sendEmail", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
-};

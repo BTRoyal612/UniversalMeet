@@ -48,7 +48,6 @@
 
   <script>
     var event_id = <%=eventId%>;
-    console.log(event_id);
     var duration;
     var cur_avails = [];
     var creator_id;
@@ -142,9 +141,7 @@
         if (this.readyState == 4 && this.status == 200) {
           let users_list = JSON.parse(this.responseText);
           for (let i in users_list) {
-            // if (users_list[i]['user_id'] != creator_id)
             getFCPreference(users_list[i]['user_id']);
-            console.log(users_list[i]['user_id']);
           }
         }
       }
@@ -181,8 +178,6 @@
           let email = preference['email'];
           if (preference['event_finalize']) user_emails_finalize.push(email);
           if (preference['event_cancel']) user_emails_cancel.push(email);
-          // console.log(user_emails_cancel);
-          // console.log(user_emails_finalize);
         }
       }
 
@@ -198,9 +193,7 @@
         if (this.readyState == 4 && this.status == 200) {
           let subject = "An event on UniversalMeet is CANCELLED!!!";
           let body = name + " that will happen on the " + date + " is cancelled. You can make other plans now ^^!"
-          // console.log(user_emails_cancel);
           sendEmails(subject, body, user_emails_cancel);
-
           window.location = "/users/pending-events";
         }
       }
@@ -217,7 +210,6 @@
         if (this.readyState == 4 && this.status == 200) {
           let subject = "An event on UniversalMeet is FINALIZED!!!";
           let body = name + " that will happen on the " + date + " is finalized. Don't bamboozle others and be there on time ^^!"
-          // console.log(user_emails_finalize);
           sendEmails(subject, body, user_emails_finalize);
 
           window.location = "/users/pending-events";

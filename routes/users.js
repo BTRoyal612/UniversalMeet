@@ -5,7 +5,6 @@ var router = express.Router();
 var user;
 router.get('/', function(req, res, next) {
   user = req.session.user[0];
-  console.log(user.user_id);
   res.send('respond with a resource');
 });
 
@@ -64,7 +63,6 @@ router.post('/updatePassword', function(req, res, next) {
 /* POST join event. */
 router.post('/joinEvent', function(req, res, next) {
   // Connect to the database
-  console.log(user);
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.sendStatus(500);
@@ -84,7 +82,6 @@ router.post('/joinEvent', function(req, res, next) {
 
 /* POST get user event list. */
 router.post('/getEventList', function(req, res, next) {
-  console.log(user);
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
@@ -95,7 +92,6 @@ router.post('/getEventList', function(req, res, next) {
     connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
@@ -106,7 +102,6 @@ router.post('/getEventList', function(req, res, next) {
 
 /* POST get user event pending list. */
 router.post('/getEvents', function(req, res, next) {
-  console.log(user);
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
@@ -117,7 +112,6 @@ router.post('/getEvents', function(req, res, next) {
     connection.query(query, [user.user_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
@@ -128,7 +122,6 @@ router.post('/getEvents', function(req, res, next) {
 
 /* POST get user finalized event for calender. */
 router.post('/getEventCalender', function(req, res, next) {
-  console.log(user);
   // Connect to the database
   req.pool.getConnection(function(err, connection) {
     if (err) {
@@ -139,7 +132,6 @@ router.post('/getEventCalender', function(req, res, next) {
     connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
@@ -184,7 +176,6 @@ router.post('/getEventCreator', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
-      console.log(rows[0]);
       res.json(rows); //send response
     });
   });
@@ -202,7 +193,6 @@ router.post('/getUsersInEvent', function(req, res, next) {
     connection.query(query, [req.body.event_id], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
@@ -223,12 +213,10 @@ router.post('/addEvent', function(req, res, next) {
     connection.query(query, [user.user_id, req.body.event_name, req.body.date, req.body.duration, req.body.time_zone, req.body.hold_location, req.body.due_date, req.body.note, req.body.share_link, req.body.isOnline], function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err)
         res.sendStatus(500);
         return;
       }
       req.session.event = rows[0];
-      console.log(req.session.event[0].event_id);
       res.json(rows); //send response
     });
   });
@@ -314,7 +302,6 @@ router.post('/deleteChosenTime', function(req, res, next) {
     connection.query(query, [req.body.event_id, user.user_id, req.body.chosen_time],function(err, rows, fields) {
       connection.release(); // release connection
       if (err) {
-        console.log(err)
         res.sendStatus(500);
         return;
       }
@@ -565,12 +552,10 @@ router.post('/availability', function(req, res, next) {
 })
 
 router.post('/invitation', function(req, res, next) {
-  // console.log(req.rawHeaders[23])
   res.render('invitation', {event_id: req.session.event[0].event_id, url:req.rawHeaders[23]});
 })
 
 router.get('/invitation', function(req, res, next) {
-  // console.log(req.rawHeaders[23])
   res.render('invitation', {event_id: 1, url:"http"});
 })
 
@@ -580,7 +565,6 @@ router.get('/pending-events', function(req, res, next) {
 
 router.post('/invite-response', function(req, res, next) {
   eventId = req.body.eventId;
-  console.log(eventId);
   res.render('invite-response', {eventId: eventId});
 })
 
@@ -598,18 +582,12 @@ function deserialize(id) {
 }
 
 router.get('/invitation-response/:id', function(req, res, next) {
-
-
   let id = deserialize(req.params.id);
-  console.log(id)
   res.render('invitation-response', {event_id: id});
 })
 
 router.get('/invite-response/:id', function(req, res, next) {
-
-
   let id = deserialize(req.params.id);
-  console.log(id)
   res.render('invite-response', {eventId: id});
 })
 module.exports = router;
