@@ -8,7 +8,7 @@ let event = {
   note: "",
   share_link: "",
   isOnline: ""
-}
+};
 const updateEvent = () => {
   event.event_name = document.getElementById("event-name").value;
   event.date = document.getElementById("event-date").value
