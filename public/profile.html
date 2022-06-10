@@ -10,11 +10,11 @@
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="./stylesheets/main.css">
+  <link rel="stylesheet" href="/stylesheets/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
@@ -25,32 +25,34 @@
     crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-
-  <script src="./javascripts/logout.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
+  <script src="/javascripts/logout.js"></script>
+  <script src="/javascripts/profile.js"></script>
 
   <title>Profile</title>
 </head>
 
-<body id="app" class="profile_body">
+<body class="profile_body">
   <div class="profile_header">
     <div class="welcome-line">
-      <i>Hello Marcus Hoang!</i>
+      <i>Hello <span id="username_profile"></span></i>
     </div>
     <div class="setting_btn_ctn">
-      <!-- <button class="setting_btn" data-toggle="modal" data-target="#exampleModalCenter">Settings</button> -->
       <button class="setting_btn" data-toggle="modal" data-target="#settings">
         Settings
       </button>
-      <button class="setting_btn" onclick="userLogout();">
-        Log out
-      </button>
+        <button class="logout_btn" onclick="userLogout();">
+          Log out
+        </button>
+
     </div>
   </div>
 
   <div class="profile_main">
     <div class="profile_schedule_ctn">
+      <center><h1 style="color: white;">Calendar</h1></center>
       <div class="profile_schedule">
-        <div class="day">
+        <!-- <div class="day">
           <div class="day_title">Today</div>
           <div class="day_event_all">
             <div class="day_event">
@@ -72,13 +74,17 @@
               <div class="day_event_time">17:00-19:00</div>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
     <div class="profile_btn_ctn">
-      <button class="custom-btn btn-7"><span>HOST YOUR EVENT</span></button>
-      <button class="custom-btn btn-7"><span>PENDING EVENTS</span></button>
+      <form action="/users/calendar" method="post">
+        <button class="custom-btn btn-7"><span>HOST YOUR EVENT</span></button>
+      </form>
+      <form action="/users/pending-events" method="get">
+        <button class="custom-btn btn-8"><span>PENDING EVENTS</span></button>
+      </form>
     </div>
   </div>
 
@@ -86,14 +92,17 @@
   <div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content modal_body">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Setting</h5>
         </div>
         <div class="modal-body modal-body-custom">
           <button class="modal-btn-custom" data-toggle="modal" data-target="#updateEmail" data-dismiss="modal" onclick="getEmail();">Update Email</button>
           <button class="modal-btn-custom" data-toggle="modal" data-target="#updatePassword" data-dismiss="modal">Update Password</button>
-          <button class="modal-btn-custom">Email Preferences</button>
+          <form action="/users/noti_preferences" method="get">
+            <button class="modal-btn-custom"><span>Email Preferences</span></button>
+          </form>
+
         </div>
         <div class="modal-footer modal-footer-custom">
           <button type="button" class="btn close-modal-btn-custom" data-dismiss="modal">Close</button>
@@ -105,9 +114,9 @@
   <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content modal_body">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Update Password</h5>
+          <h5 class="modal-title" >Update Password</h5>
         </div>
         <div class="modal-body modal-body-custom">
           <form id="inputs" class="needs-validation" novalidate="">
@@ -128,12 +137,12 @@
   <div class="modal fade" id="updateEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content modal_body">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Update Email</h5>
+          <h5 class="modal-title">Update Email</h5>
         </div>
         <div class="modal-body modal-body-custom">
-          <form id="inputs" class="needs-validation" novalidate="">
+          <form class="needs-validation" novalidate="">
             <div class="form-group mx-2 mb-3">
               <label for="newEmail">Current email</label>
               <input type="text" class="form-control" id="currentEmail" readonly>
@@ -151,8 +160,112 @@
       </div>
     </div>
   </div>
+  <script src="/javascripts/profile.js"></script>
+  <script>
+    var calender_events;
+    var eventID_list = [];
+    var calendar_list = {};
+    $(document).ready(function (){
+      // GET username
+      var xhttp = new XMLHttpRequest();
 
-  <script src="./javascripts/profile.js"></script>
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("username_profile").innerHTML = this.responseText;
+        }
+      }
+
+      xhttp.open("GET", "/users/getUsername", true);
+      xhttp.send();
+
+      // GET pending events id list
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let lists = JSON.parse(this.responseText)[0]
+          let count = lists.length;
+          for (let event of lists) {
+            getEventCalendar(event['event_id']);
+          }
+        }
+      }
+
+      xhttp.open("POST", "/users/getEvents", true);
+      xhttp.send();
+
+      window.setInterval('buildCalendar()', 100);
+    });
+
+
+    // POST get user finalized events for calender
+    function getEventCalendar (event_id) {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          if (JSON.parse(this.responseText)[0].length === 0) return;
+          calendar_event = JSON.parse(this.responseText)[0][0];
+          let day = calendar_event["date"].substring(5,7) + "/" + calendar_event["date"].substring(8,10);
+          if (calendar_list[day]) {
+            calendar_list[day].push({name: calendar_event["event_name"], from: calendar_event["chosen_time"], duration: calendar_event["duration"]});
+          } else {
+            calendar_list[day] = [{name: calendar_event["event_name"], from: calendar_event["chosen_time"], duration: calendar_event["duration"]}];
+          }
+        }
+      }
+
+      xhttp.open("POST", "/users/getEventCalender", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({ event_id: event_id }));
+    }
+
+
+    function buildCalendar () {
+      var calendar_div = document.getElementsByClassName("profile_schedule")[0];
+      calendar_div.innerHTML = "";
+      for (let day in calendar_list) {
+        let day_div = document.createElement('div');
+        day_div.classList.add("day");
+        let day_title = document.createElement('div');
+        day_title.classList.add("day_title");
+        day_title.innerText = day;
+        day_div.appendChild(day_title);
+        let day_event_all = document.createElement('div');
+        day_event_all.classList.add("day_event_all");
+        for (let i = 0; i < calendar_list[day].length; i++) {
+          let day_event = document.createElement('div');
+          day_event.classList.add("day_event");
+          let day_event_name = document.createElement('div');
+          day_event_name.classList.add("day_event_name");
+          day_event_name.innerText = calendar_list[day][i]["name"];
+          let hour = Math.floor(calendar_list[day][i]["duration"]/60);
+          let minute = calendar_list[day][i]["duration"]%60;
+          let hour_from_time = parseInt(calendar_list[day][i]["from"].substring(0,2));
+          let minute_from_time = parseInt(calendar_list[day][i]["from"].substring(3,5));
+          let end_hour = hour+hour_from_time;
+          let end_minute = minute+minute_from_time;
+          if (end_minute>60) {
+            end_hour+=1
+            end_minute-=60
+          }
+          end_hour = end_hour.toString();
+          end_minute = end_minute.toString();
+          if (end_minute.length < 2) {
+            end_minute = "0"+end_minute;
+          }
+          let day_event_time = document.createElement('div');
+          day_event_time.classList.add("day_event_time");
+          day_event_time.innerText = calendar_list[day][i]["from"].substring(0,5) + "-" + end_hour+":"+end_minute;
+          day_event.appendChild(day_event_name);
+          day_event.appendChild(day_event_time);
+          day_event_all.appendChild(day_event);
+        }
+        day_div.appendChild(day_event_all);
+        calendar_div.appendChild(day_div);
+      }
+    }
+  </script>
 </body>
 
 </html>
