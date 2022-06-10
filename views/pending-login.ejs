@@ -24,19 +24,20 @@
 </head>
 
 <body>
-    <%=serial%>
-    <form action="/login" method="POST" class="authCard">
-        <h1 class="authTitle">LOG IN</h1>
-        <label>Email</label>
-        <input type="text" placeholder="&#xf0e0;   Email" id="email" class="authInput">
-        <label>Password</label>
-        <input type="password" placeholder="&#xf084;   Password" id="password" class="authInput">
-        <a href="./signup">Create account</a>
-        <div class="authBtn">
-            <button onclick="pendingLoginHandler();">Log In</button>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        </div>
-    </form>
+    <body class="login-page">
+        <form action="/login" method="POST" class="authCard">
+            <h1 class="authTitle">LOG IN</h1>
+            <label>Email</label>
+            <input type="text" placeholder="&#xf0e0;   Email" id="email" class="authInput">
+            <label>Password</label>
+            <input type="password" placeholder="&#xf084;   Password" id="password" class="authInput">
+            <a href="./signup">Create account</a>
+            <div class="authBtn">
+                <button onclick="pendingLoginHandler();">Log In</button>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+        </form>
+    </body>
     <script>
         let serial = <%=serial%>;
         $(document).ready(function () {

@@ -184,6 +184,7 @@ router.post('/getEventCreator', function(req, res, next) {
         res.sendStatus(500);
         return;
       }
+      console.log(rows[0]);
       res.json(rows); //send response
     });
   });
@@ -415,6 +416,27 @@ router.post('/updateEmail', function(req, res, next) {
     });
   });
 });
+
+/* POST get preference about user join. */
+router.post('/getUJPreference', function(req, res, next) {
+  // Connect to the database
+  req.pool.getConnection(function(err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    var query = "SELECT user_join, email FROM Email_preference INNER JOIN User ON User.user_id = Email_preference.user_id WHERE Email_preference.user_id = ?";
+    connection.query(query, [req.body.user_id], function(err, rows, fields) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
+})
 
 /* POST get preference about user respond. */
 router.post('/getURPreference', function(req, res, next) {

@@ -3,10 +3,11 @@ function getSerial(serial) {
     event_id = serial;
 }
 
-function getUser() {
+function getUser(id) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+          joinEvent(id);
         }
     }
 
@@ -56,8 +57,7 @@ function pending_login(id) {
             getAdmin();
             window.location = '/admin/admin-user';
           } else {
-            getUser();
-            joinEvent(id);
+            getUser(id);
             window.location = '/users/invite-response/'+serialize(id);
           }
         } else if (this.readyState == 4 && this.status >= 400){
@@ -113,7 +113,6 @@ function pending_signup(id) {
             window.location = '/admin/admin-user';
           } else {
             getUser();
-            joinEvent(id);
             window.location = '/users/invite-response/'+serialize(id);
           }
       }
@@ -145,8 +144,7 @@ function onSignIn(googleUser) {
               getAdmin();
               window.location = '/admin/admin-user'
             } else {
-              getUser();
-              joinEvent(event_id);
+              getUser(event_id);
               window.location = '/users/invite-response/'+serialize(event_id);
             }
             var auth2 = gapi.auth2.getAuthInstance();
@@ -171,10 +169,12 @@ function onSignIn(googleUser) {
     //So generally it will get a id token from Google side and send it to our server in JSON format. Just adjust anything here as we need.
 }
 
+// Let user join event
 function joinEvent(id) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+      getEventCreator(id);
     }
   }
 
@@ -182,3 +182,52 @@ function joinEvent(id) {
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ event_id: id }));
 }
+
+// get event info for email
+function getEventCreator(event_id) {
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let event = JSON.parse(this.responseText)[0];
+      getUJPreference(event['creator_id'], event['event_name'], event['date'].substring(0, 10));
+    }
+  }
+
+  xhttp.open("POST", "/getEventCreator", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ event_id:event_id }));
+};
+
+// get email based on host preference on user join
+function getUJPreference(user_id, name, date) {
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let preference = JSON.parse(this.responseText)[0];
+      if (preference['user_join']) sendEmail(preference['email'], name, date);
+    }
+  }
+
+  xhttp.open("POST", "/users/getUJPreference", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ user_id: user_id }));
+}
+
+// send email
+function sendEmail(user, name, date) {
+  let subject = "Someone just JOIN YOUR EVENT!!!";
+  let body = "A new user join your event: " + name + " on " + date + ". Remember to be a good host!!!";
+
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  }
+
+  xhttp.open("POST", "/sendEmail", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ subject:subject , body:body , user:user }));
+};
