@@ -58,11 +58,11 @@ $ npm start
 
 * Front-end
 	- Use consistent color group for all pages: black, purple, and yellow.
-	- All forms and cards are in the middle and have 7px border radius to pop up from the background
+	- All forms and cards are in the middle and have 7px border radius to pop up from the background.
 	- Buttons have different hover properties to easily identify.
 	- Use JavaScript to make sure users have to enter required inputs.
 	- All pages have home button to come back to profile.
-	- A calendar in the profile page that displays finalized
+	- A calendar in the profile page that displays upcoming finalized events.
 
 * Back-end
 	- Use NodeJS to structure the code. 
