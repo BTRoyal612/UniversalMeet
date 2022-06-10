@@ -6,7 +6,7 @@ function updatePassword() {
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
       }
-  }
+  };
 
   xhttp.open("POST", "/users/updatePassword", true);
   xhttp.setRequestHeader("Content-type", "application/json");
@@ -18,10 +18,9 @@ function getEmail() {
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         let current_password = this.responseText;
-        console.log(current_password);
         document.getElementById("currentEmail").value = current_password;
       }
-  }
+  };
 
   xhttp.open("GET", "/users/getEmail", true);
   xhttp.send();
@@ -35,7 +34,7 @@ function updateEmail() {
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
       }
-  }
+  };
 
   xhttp.open("POST", "/users/updateEmail", true);
   xhttp.setRequestHeader("Content-type", "application/json");

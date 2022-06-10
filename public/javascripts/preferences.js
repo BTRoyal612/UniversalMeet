@@ -9,7 +9,7 @@ $(document).ready(function () {
       document.getElementById("event_finalize").checked = preference['event_finalize'];
       document.getElementById("event_cancel").checked = preference['event_cancel'];
     }
-  }
+  };
 
   xhttp.open("POST", "/users/getEmailPreference", true);
   xhttp.setRequestHeader("Content-type", "application/json");
@@ -17,7 +17,6 @@ $(document).ready(function () {
 });
 
 function updateEmailPreference() {
-  console.log("button press");
   let user_respond = document.getElementById("user_respond").checked;
   let user_join = document.getElementById("user_join").checked;
   let event_finalize = document.getElementById("event_finalize").checked;
@@ -26,11 +25,11 @@ function updateEmailPreference() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        alert("Notification preference has been updated!!!")
+        alert("Notification preference has been updated!!!");
       }
-  }
+  };
 
   xhttp.open("POST", "/users/updateEmailPreference", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ user_respond:user_respond, user_join:user_join, event_finalize:event_finalize, event_cancel:event_cancel}));
-};
+}

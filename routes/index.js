@@ -45,7 +45,7 @@ router.post('/login', function(req, res, next) {
       });
     });
   }
-})
+});
 
 
 router.post('/googleLogin', function(req, res, next) {
@@ -133,7 +133,7 @@ router.post('/signup', function(req, res, next) {
       });
     });
   }
-})
+});
 
 /* GET logout. */
 router.get('/logout', function(req, res, next) {
@@ -141,16 +141,10 @@ router.get('/logout', function(req, res, next) {
     delete req.session.user;
   }
   res.end();
-})
+});
 
 router.get('/home', function(req, res) {
-  res.render('home')
-})
-
-// GET invitation link
-router.get('/invitation/:id', function(req, res, next) {
-  let deserializedID = deserialize(req.params.id);
-  res.redirect('/invitation/' + deserializedID);
+  res.render('home');
 });
 
 /* POST send email. */
